@@ -1,0 +1,46 @@
+{
+  "name": "nordicnrf52",
+  "title": "Nordic nRF52",
+  "description": "The nRF52 Series are built for speed to carry out increasingly complex tasks in the shortest possible time and return to sleep, conserving precious battery power. They have a Cortex-M4F processor and are the most capable Bluetooth Smart SoCs on the market. ",
+  "url": "https://www.nordicsemi.com/Products/nRF52-Series-SoC",
+  "homepage": "http://platformio.org/platforms/nordicnrf52",
+  "license": "Apache-2.0",
+  "engines": {
+    "platformio": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platformio/platform-nordicnrf52.git"
+  },
+  "version": "1.0.0",
+  "packageRepositories": [
+    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
+    "https://sourceforge.net/projects/platformio-storage/files/packages/manifest.json/download",
+    "http://dl.platformio.org/packages/manifest.json"
+  ],
+  "frameworks": {
+    "mbed": {
+      "package": "framework-mbed",
+      "script": "builder/frameworks/mbed/mbed.py"
+    }
+  },
+  "packages": {
+    "toolchain-gccarmnoneeabi": {
+      "type": "toolchain",
+      "version": ">=1.40803.0,<1.40805.0"
+    },
+    "framework-mbed": {
+      "type": "framework",
+      "optional": true,
+      "version": "~3.142.0"
+    },
+    "tool-sreccat": {
+      "version": "~1.164.0"
+    },
+    "tool-openocd": {
+      "type": "debugger",
+      "optional": true,
+      "version": "~1.1000.0"
+    }
+  }
+}

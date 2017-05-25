@@ -1,0 +1,26 @@
+language: python
+python:
+  - "2.7"
+
+env:
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+
+install:
+  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - platformio platform install file://.
+
+script:
+  - platformio run -d $PLATFORMIO_PROJECT_DIR
+
+notifications:
+  email: false
+
+  slack:
+    rooms:
+      secure: mnq1v22e4YsxIGBy8SMWsElAPgusglw+rt+E4xX+Y/9C1gv14ZzPVM2KTq07Knuazpq/PLFG8Ag0bbToFNOgT8j5b8RoAYr5RGkSZLnQOp4OHh474szAjfp9eWsqBlhaAanWmIDgWlpOVKaB6VaLkGb8QtmW7fA8LkHIuzWRz/8ujUxcw4QQ1l29cFR8dAATl1gW14UFAzXCO0vqgA/ePqQrV9HyqkBT5zGsdcangivLm3Q9asGGnmjLRyCJDCKmrbMOhaV9GwkP/BPXN4yj+ZwHPn4VyNS4Tb/RDHjSocij2/GnaWtqhH4FN5CrE2A/FNiN4mPiMcKbNsjAsww2IglzBhZ/Z1UqC1ekkw6fLO5pkcvmk9+DEAM+pMR8KTdKxrlY6l4xW9pq2Agiu0PPsN5hWc6ijm+x5GrbRvZ4FpR74Ps8z5ziPpyx/d4lMGnIzgluCqqjIEd+OJfiazCrzH1xQycNHfpYA8IQ9fnTQhQyK337cO/yILLryDMu/xw6CibuLRXeOJWbYlBT0r1Ab1Oso8jph9aSFwxuV0zHfnQPr+9lCMNkcIxNRtbeI0R2ftXIKtuOyEOSt+b366rCHXf8ZDtqsifGNTncA259mVgkRQHsH5QosE+4skAjdWizdHaSmezUzQLn3w/OMzl+QRAq3eENypN4KtJFwA7ALcY=
+    on_failure: always
+    on_success: change

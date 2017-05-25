@@ -1,0 +1,3 @@
+[submodule "builder/frameworks/mbed"]
+	path = builder/frameworks/mbed
+	url = https://github.com/platformio/builder-framework-mbed
