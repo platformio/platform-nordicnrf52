@@ -27,12 +27,12 @@
   "packages": {
     "toolchain-gccarmnoneeabi": {
       "type": "toolchain",
-      "version": ">=1.40803.0,<1.40805.0"
+      "version": ">=1.60301.0"
     },
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~3.142.0"
+      "version": "~4.146.0"
     },
     "tool-sreccat": {
       "version": "~1.164.0"
