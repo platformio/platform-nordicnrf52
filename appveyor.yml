@@ -2,6 +2,7 @@ build: off
 environment:
 
   matrix:
+    - PLATFORMIO_PROJECT_DIR: "examples/mbed-ble-thermometer"
     - PLATFORMIO_PROJECT_DIR: "examples/mbed-blink"
     - PLATFORMIO_PROJECT_DIR: "examples/mbed-dsp"
     - PLATFORMIO_PROJECT_DIR: "examples/mbed-events"

@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-nordicnrf52.git"
   },
-  "version": "1.0.1",
+  "version": "1.1.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "https://sourceforge.net/projects/platformio-storage/files/packages/manifest.json/download",
@@ -27,12 +27,12 @@
   "packages": {
     "toolchain-gccarmnoneeabi": {
       "type": "toolchain",
-      "version": ">=1.40803.0,<1.40805.0"
+      "version": ">=1.60301.0"
     },
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~3.142.0"
+      "version": "~4.146.0"
     },
     "tool-sreccat": {
       "version": "~1.164.0"
