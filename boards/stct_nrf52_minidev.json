@@ -8,6 +8,9 @@
     "ldscript": "nrf52_xxaa.ld",
     "variant": "Taida_Century_nRF52_minidev"
   },
+  "connectivity": [
+    "bluetooth"
+  ],
   "debug": {
     "tools": {
       "jlink": {
