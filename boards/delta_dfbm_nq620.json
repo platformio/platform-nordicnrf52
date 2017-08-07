@@ -1,9 +1,16 @@
 {
   "build": {
+    "core": "nRF5",
     "cpu": "cortex-m4",
+    "extra_flags": "-DARDUINO_GENERIC",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832"
+    "mcu": "nrf52832",
+    "ldscript": "nrf52_xxaa.ld",
+    "variant": "Generic"
   },
+  "connectivity": [
+    "bluetooth"
+  ],
   "debug": {
     "tools": {
       "cmsis-dap": {
@@ -20,12 +27,14 @@
     }
   },
   "frameworks": [
+    "arduino",
     "mbed"
   ],
   "name": "Delta DFBM-NQ620",
   "upload": {
     "maximum_ram_size": 65536,
-    "maximum_size": 524288
+    "maximum_size": 524288,
+    "upload_protocol": "cmsis-dap"
   },
   "url": "https://developer.mbed.org/platforms/Delta-DFBM-NQ620/",
   "vendor": "Delta"

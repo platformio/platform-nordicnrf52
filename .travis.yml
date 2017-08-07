@@ -3,6 +3,8 @@ python:
   - "2.7"
 
 env:
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-ble-led
   - PLATFORMIO_PROJECT_DIR=examples/mbed-ble-thermometer
   - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
   - PLATFORMIO_PROJECT_DIR=examples/mbed-dsp
