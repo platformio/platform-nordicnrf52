@@ -4,7 +4,7 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52_DK",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832",
+    "mcu": "nrf52840",
     "ldscript": "nrf52_xxaa.ld",
     "variant": "nRF52DK"
   },
@@ -31,12 +31,12 @@
     "arduino",
     "mbed"
   ],
-  "name": "Nordic nRF52-DK",
+  "name": "Nordic nRF52840-DK",
   "upload": {
-    "maximum_ram_size": 65536,
-    "maximum_size": 524288,
+    "maximum_ram_size": 262144,
+    "maximum_size": 1048576,
     "protocol": "jlink"
   },
-  "url": "https://developer.mbed.org/platforms/Nordic-nRF52-DK/",
+  "url": "https://os.mbed.com/platforms/Nordic-nRF52840-DK/",
   "vendor": "Nordic"
 }
