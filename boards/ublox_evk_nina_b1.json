@@ -1,0 +1,43 @@
+{
+  "build": {
+    "core": "nRF5",
+    "cpu": "cortex-m4",
+    "extra_flags": "-DARDUINO_GENERIC",
+    "f_cpu": "64000000L",
+    "mcu": "nrf52832",
+    "ldscript": "nrf52_xxaa.ld",
+    "variant": "Generic"
+  },
+  "connectivity": [
+    "bluetooth",
+    "nfc"
+  ],
+  "debug": {
+    "tools": {
+      "jlink": {
+        "server": {
+          "package": "tool-openocd",
+          "executable": "bin/openocd",
+          "arguments": [
+            "-f", "scripts/interface/jlink.cfg",
+            "-c", "transport select swd",
+            "-f", "scripts/target/nrf52.cfg"
+          ]
+        },
+        "onboard": true
+      }
+    }
+  },
+  "frameworks": [
+    "arduino",
+    "mbed"
+  ],
+  "name": "u-blox EVK-NINA-B1",
+  "upload": {
+    "maximum_ram_size": 65536,
+    "maximum_size": 524288,
+    "protocol": "jlink"
+  },
+  "url": "https://os.mbed.com/platforms/u-blox-EVK-NINA-B1/",
+  "vendor": "u-blox"
+}
