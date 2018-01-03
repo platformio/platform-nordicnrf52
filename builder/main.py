@@ -59,9 +59,12 @@ env.Replace(
 
     SIZEPRINTCMD='$SIZETOOL -B -d $SOURCES',
 
-    PROGNAME="firmware",
     PROGSUFFIX=".elf"
 )
+
+# Allow user to override via pre:script
+if env.get("PROGNAME", "program") == "program":
+    env.Replace(PROGNAME="firmware")
 
 if "BOARD" in env:
     env.Append(
@@ -123,16 +126,16 @@ env.Append(
 
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
-    target_firm = join("$BUILD_DIR", "firmware.hex")
+    target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
-            join("$BUILD_DIR", "firmware"),
+            join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf)
         )
     else:
-        target_firm = env.ElfToHex(join("$BUILD_DIR", "firmware"), target_elf)
+        target_firm = env.ElfToHex(target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
