@@ -2,11 +2,11 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52_DK",
+    "extra_flags": "-DARDUINO_PRIMO_CORE",
     "f_cpu": "64000000L",
     "mcu": "nrf52832",
     "ldscript": "nrf52_xxaa.ld",
-    "variant": "nRF52DK"
+    "variant": "PrimoCore"
   },
   "connectivity": [
     "bluetooth"
@@ -15,12 +15,13 @@
     "tools": {
       "jlink": {
         "server": {
+          "test": "hello",
           "package": "tool-openocd",
           "executable": "bin/openocd",
           "arguments": [
             "-f", "scripts/interface/jlink.cfg",
             "-c", "transport select swd",
-            "-f", "scripts/target/nrf52.cfg"
+            "-f", "scripts/target/nrf52_arduino.cfg"
           ]
         },
         "onboard": true
@@ -31,12 +32,12 @@
     "arduino",
     "mbed"
   ],
-  "name": "Nordic nRF52-DK",
+  "name": "Arduino Promo Core",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
     "protocol": "jlink"
   },
-  "url": "https://developer.mbed.org/platforms/Nordic-nRF52-DK/",
-  "vendor": "Nordic"
+  "url": "https://store.arduino.cc/arduino-primo-core",
+  "vendor": "Arduino"
 }
