@@ -20,7 +20,7 @@
           "arguments": [
             "-f", "scripts/interface/jlink.cfg",
             "-c", "transport select swd",
-            "-f", "scripts/target/nrf52_arduino.cfg"
+            "-f", "scripts/target/nrf52.cfg"
           ]
         },
         "onboard": true
