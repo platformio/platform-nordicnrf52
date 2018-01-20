@@ -11,21 +11,6 @@
   "connectivity": [
     "bluetooth"
   ],
-  "debug": {
-    "tools": {
-      "jlink": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select jtag",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        }
-      }
-    }
-  },
   "frameworks": [
     "arduino"
   ],
@@ -35,6 +20,7 @@
     "maximum_size": 524288,
     "protocols": [
       "jlink",
+      "stlink",
       "blackmagic"
     ],
     "protocol": "jlink"

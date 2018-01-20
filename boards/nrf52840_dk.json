@@ -19,7 +19,6 @@
           "executable": "bin/openocd",
           "arguments": [
             "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
             "-f", "scripts/target/nrf52.cfg"
           ]
         },
@@ -49,6 +48,7 @@
     "maximum_size": 1048576,
     "protocols": [
       "jlink",
+      "stlink",
       "blackmagic",
       "cmsis-dap",
       "mbed"

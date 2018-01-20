@@ -24,17 +24,6 @@
         },
         "default": true,
         "onboard": true
-      },
-      "jlink": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        }
       }
     }
   },
@@ -47,6 +36,7 @@
     "maximum_size": 524288,
     "protocols": [
       "jlink",
+      "stlink",
       "blackmagic",
       "cmsis-dap",
       "mbed"

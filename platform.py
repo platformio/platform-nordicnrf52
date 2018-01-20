@@ -35,6 +35,33 @@ class Nordicnrf52Platform(PlatformBase):
         debug = board.manifest.get("debug", {})
         if "tools" not in debug:
             debug['tools'] = {}
+
+        # J-Link
+        if "jlink" not in debug['tools']:
+            debug['tools']['jlink'] = {
+                "server": {
+                    "package": "tool-openocd",
+                    "executable": "bin/openocd",
+                    "arguments": [
+                        "-f", "scripts/interface/jlink.cfg",
+                        "-f", "scripts/target/nrf52.cfg"
+                    ]
+                }
+            }
+
+        # ST-Link
+        if "stlink" not in debug['tools']:
+            debug['tools']['stlink'] = {
+                "server": {
+                    "package": "tool-openocd",
+                    "executable": "bin/openocd",
+                    "arguments": [
+                        "-f", "scripts/interface/stlink.cfg",
+                        "-f", "scripts/target/nrf52.cfg"
+                    ]
+                }
+            }
+
         # BlackMagic Probe
         if "blackmagic" not in debug['tools']:
             debug['tools']['blackmagic'] = {

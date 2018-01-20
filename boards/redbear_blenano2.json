@@ -13,17 +13,6 @@
   ],
   "debug": {
     "tools": {
-      "jlink": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        }
-      },
       "cmsis-dap": {
         "server": {
           "package": "tool-openocd",
@@ -46,6 +35,7 @@
     "maximum_size": 524288,
     "protocols": [
       "jlink",
+      "stlink",
       "blackmagic",
       "cmsis-dap"
     ],
