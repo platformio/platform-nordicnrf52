@@ -36,6 +36,11 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
+    "protocols": [
+      "jlink",
+      "blackmagic",
+      "mbed"
+    ],
     "protocol": "jlink"
   },
   "url": "https://os.mbed.com/platforms/u-blox-EVK-NINA-B1/",

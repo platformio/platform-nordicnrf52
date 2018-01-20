@@ -13,6 +13,17 @@
   ],
   "debug": {
     "tools": {
+      "jlink": {
+        "server": {
+          "package": "tool-openocd",
+          "executable": "bin/openocd",
+          "arguments": [
+            "-f", "scripts/interface/jlink.cfg",
+            "-c", "transport select swd",
+            "-f", "scripts/target/nrf52.cfg"
+          ]
+        }
+      },
       "cmsis-dap": {
         "server": {
           "package": "tool-openocd",
@@ -21,7 +32,8 @@
             "-f", "scripts/interface/cmsis-dap.cfg",
             "-f", "scripts/target/nrf52.cfg"
           ]
-        }
+        },
+        "default": true
       }
     }
   },
@@ -32,6 +44,11 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
+    "protocols": [
+      "jlink",
+      "blackmagic",
+      "cmsis-dap"
+    ],
     "protocol": "cmsis-dap"
   },
   "url": "https://redbear.cc/product/ble-nano-2-soldered.html",

@@ -46,6 +46,12 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
+    "protocols": [
+      "jlink",
+      "blackmagic",
+      "cmsis-dap",
+      "mbed"
+    ],
     "protocol": "cmsis-dap"
   },
   "url": "https://developer.mbed.org/platforms/Delta-DFBM-NQ620/",
