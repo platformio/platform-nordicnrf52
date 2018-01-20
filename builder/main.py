@@ -153,16 +153,53 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
-if env.subst("$PIOFRAMEWORK") == "arduino":
-    target_upload = env.Alias(
-        "upload", target_firm,
-        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE"))
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
+debug_tools = env.BoardConfig().get("debug.tools", {})
+upload_actions = []
+
+if upload_protocol.startswith("blackmagic"):
+    env.Replace(
+        UPLOADER="$GDB",
+        UPLOADERFLAGS=[
+            "-nx",
+            "--batch",
+            "-ex", "target extended-remote $UPLOAD_PORT",
+            "-ex", "monitor %s_scan" %
+            ("jtag" if upload_protocol == "blackmagic-jtag" else "swdp"),
+            "-ex", "attach 1",
+            "-ex", "load",
+            "-ex", "compare-sections",
+            "-ex", "kill",
+            "$SOURCE"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS"
+    )
+    upload_actions = [
+        env.VerboseAction(env.AutodetectUploadPort, "Looking for BlackMagic port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
+
+elif upload_protocol in debug_tools:
+    env.Replace(
+        UPLOADER="openocd",
+        UPLOADERFLAGS=["-s", platform.get_package_dir("tool-openocd") or ""] +
+        debug_tools.get(upload_protocol).get("server").get("arguments", []) +
+        ["-c", "program {{$SOURCE}} verify reset; shutdown;"],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+# custom upload tool
+elif "UPLOADCMD" in env:
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+# mbed
 else:
-    target_upload = env.Alias(
-        "upload", target_firm,
-        [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload disk..."),
-         env.VerboseAction(env.UploadToDisk, "Uploading $SOURCE")])
-AlwaysBuild(target_upload)
+    upload_actions = [
+        env.VerboseAction(env.AutodetectUploadPort, "Looking for upload disk..."),
+        env.VerboseAction(env.UploadToDisk, "Uploading $SOURCE")
+    ]
+
+AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
 
 #
 # Default targets

@@ -19,7 +19,7 @@
           "executable": "bin/openocd",
           "arguments": [
             "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
+            "-c", "transport select jtag",
             "-f", "scripts/target/nrf52.cfg"
           ]
         }

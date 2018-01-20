@@ -22,7 +22,19 @@
             "-f", "scripts/target/nrf52.cfg"
           ]
         },
+        "default": true,
         "onboard": true
+      },
+      "jlink": {
+        "server": {
+          "package": "tool-openocd",
+          "executable": "bin/openocd",
+          "arguments": [
+            "-f", "scripts/interface/jlink.cfg",
+            "-c", "transport select swd",
+            "-f", "scripts/target/nrf52.cfg"
+          ]
+        }
       }
     }
   },
