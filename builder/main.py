@@ -178,6 +178,17 @@ if upload_protocol.startswith("blackmagic"):
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
+elif upload_protocol.startswith("nrfjprog"):
+    env.Replace(
+        UPLOADER="nrfjprog",
+        UPLOADERFLAGS=[
+            "--chiperase",
+            "-r"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
+    )
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
 elif upload_protocol in debug_tools:
     env.Replace(
         UPLOADER="openocd",

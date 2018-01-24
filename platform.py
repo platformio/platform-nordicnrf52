@@ -20,6 +20,18 @@ class Nordicnrf52Platform(PlatformBase):
     def is_embedded(self):
         return True
 
+    def configure_default_packages(self, variables, targets):
+        if variables.get("board"):
+            upload_protocol = variables.get("upload_protocol",
+                                            self.board_config(
+                                                variables.get("board")).get(
+                                                    "upload.protocol", ""))
+            if upload_protocol != "nrfjprog":
+                del self.packages["tool-nrfjprog"]
+
+        return PlatformBase.configure_default_packages(self, variables,
+                                                       targets)
+
     def get_boards(self, id_=None):
         result = PlatformBase.get_boards(self, id_)
         if not result:
