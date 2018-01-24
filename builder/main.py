@@ -169,10 +169,9 @@ if upload_protocol.startswith("blackmagic"):
             "-ex", "attach 1",
             "-ex", "load",
             "-ex", "compare-sections",
-            "-ex", "kill",
-            "$SOURCE"
+            "-ex", "kill"
         ],
-        UPLOADCMD="$UPLOADER $UPLOADERFLAGS"
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS $SOURCE"
     )
     upload_actions = [
         env.VerboseAction(env.AutodetectUploadPort, "Looking for BlackMagic port..."),
