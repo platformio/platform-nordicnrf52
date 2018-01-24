@@ -33,41 +33,38 @@ class Nordicnrf52Platform(PlatformBase):
 
     def _add_default_debug_tools(self, board):
         debug = board.manifest.get("debug", {})
+        upload_protocols = board.manifest.get("upload", {}).get(
+            "protocols", [])
         if "tools" not in debug:
             debug['tools'] = {}
 
-        # J-Link
-        if "jlink" not in debug['tools']:
-            debug['tools']['jlink'] = {
-                "server": {
-                    "package": "tool-openocd",
-                    "executable": "bin/openocd",
-                    "arguments": [
-                        "-f", "scripts/interface/jlink.cfg",
-                        "-f", "scripts/target/nrf52.cfg"
-                    ]
+        # J-Link / ST-Link / BlackMagic Probe
+        for link in ("blackmagic", "jlink", "stlink"):
+            if link not in upload_protocols or link in debug['tools']:
+                continue
+            if link == "blackmagic":
+                debug['tools']['blackmagic'] = {
+                    "hwids": [["0x1d50", "0x6018"]],
+                    "require_debug_port": True
                 }
-            }
-
-        # ST-Link
-        if "stlink" not in debug['tools']:
-            debug['tools']['stlink'] = {
-                "server": {
-                    "package": "tool-openocd",
-                    "executable": "bin/openocd",
-                    "arguments": [
-                        "-f", "scripts/interface/stlink.cfg",
-                        "-f", "scripts/target/nrf52.cfg"
-                    ]
+            else:
+                server_args = ["-f", "scripts/interface/%s.cfg" % link]
+                if link == "jlink":
+                    server_args.extend(
+                        ["-c", "transport select swd; set WORKAREASIZE 0"])
+                if link == "stlink":
+                    server_args.extend([
+                        "-c",
+                        "transport select hla_swd; set WORKAREASIZE 0x4000"
+                    ])
+                server_args.extend(["-f", "scripts/target/nrf52.cfg"])
+                debug['tools'][link] = {
+                    "server": {
+                        "package": "tool-openocd",
+                        "executable": "bin/openocd",
+                        "arguments": server_args
+                    }
                 }
-            }
-
-        # BlackMagic Probe
-        if "blackmagic" not in debug['tools']:
-            debug['tools']['blackmagic'] = {
-                "hwids": [["0x1d50", "0x6018"]],
-                "require_debug_port": True
-            }
 
         board.manifest['debug'] = debug
         return board
