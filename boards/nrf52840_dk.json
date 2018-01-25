@@ -48,6 +48,7 @@
     "maximum_size": 1048576,
     "protocols": [
       "jlink",
+      "nrfjprog",
       "stlink",
       "blackmagic",
       "cmsis-dap",
