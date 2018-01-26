@@ -132,10 +132,10 @@ else:
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
-            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf)
-        )
+            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
     else:
-        target_firm = env.ElfToHex(target_elf)
+        target_firm = env.ElfToHex(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
