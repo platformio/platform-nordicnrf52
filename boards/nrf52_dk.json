@@ -1,61 +1,65 @@
 {
   "build": {
-    "core": "nRF5",
-    "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52_DK",
-    "f_cpu": "64000000L",
-    "mcu": "nrf52832",
-    "ldscript": "nrf52_xxaa.ld",
+    "core": "nRF5", 
+    "cpu": "cortex-m4", 
+    "extra_flags": "-DARDUINO_NRF52_DK", 
+    "f_cpu": "64000000L", 
+    "ldscript": "nrf52_xxaa.ld", 
+    "mcu": "nrf52832", 
     "variant": "nRF52DK"
-  },
+  }, 
   "connectivity": [
     "bluetooth"
-  ],
+  ], 
   "debug": {
     "tools": {
-      "jlink": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "default": true,
-        "onboard": true
-      },
       "cmsis-dap": {
+        "onboard": true, 
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/cmsis-dap.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "onboard": true
+            "-f", 
+            "scripts/interface/cmsis-dap.cfg", 
+            "-f", 
+            "scripts/target/nrf52.cfg"
+          ], 
+          "executable": "bin/openocd", 
+          "package": "tool-openocd"
+        }
+      }, 
+      "jlink": {
+        "default": true, 
+        "onboard": true, 
+        "server": {
+          "arguments": [
+            "-f", 
+            "scripts/interface/jlink.cfg", 
+            "-f", 
+            "scripts/target/nrf52.cfg"
+          ], 
+          "executable": "bin/openocd", 
+          "package": "tool-openocd"
+        }
       }
     }
-  },
+  }, 
   "frameworks": [
-    "arduino",
+    "arduino", 
     "mbed"
-  ],
-  "name": "Nordic nRF52-DK",
+  ], 
+  "name": "Nordic nRF52-DK", 
   "upload": {
-    "maximum_ram_size": 65536,
-    "maximum_size": 524288,
+    "maximum_ram_size": 65536, 
+    "maximum_size": 524288, 
+    "protocol": "jlink", 
     "protocols": [
-      "jlink",
-      "nrfjprog",
-      "stlink",
-      "blackmagic",
-      "cmsis-dap",
+      "jlink", 
+      "nrfjprog", 
+      "stlink", 
+      "blackmagic", 
+      "cmsis-dap", 
       "mbed"
-    ],
-    "protocol": "jlink"
-  },
-  "url": "https://developer.mbed.org/platforms/Nordic-nRF52-DK/",
+    ]
+  }, 
+  "url": "https://developer.mbed.org/platforms/Nordic-nRF52-DK/", 
   "vendor": "Nordic"
 }

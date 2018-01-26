@@ -1,47 +1,49 @@
 {
   "build": {
-    "core": "nRF5",
-    "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_RB_BLE_NANO_2",
-    "f_cpu": "64000000L",
-    "mcu": "nrf52832",
-    "ldscript": "nrf52_xxaa.ld",
+    "core": "nRF5", 
+    "cpu": "cortex-m4", 
+    "extra_flags": "-DARDUINO_RB_BLE_NANO_2", 
+    "f_cpu": "64000000L", 
+    "ldscript": "nrf52_xxaa.ld", 
+    "mcu": "nrf52832", 
     "variant": "RedBear_BLENano2"
-  },
+  }, 
   "connectivity": [
     "bluetooth"
-  ],
+  ], 
   "debug": {
     "tools": {
       "cmsis-dap": {
+        "default": true, 
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/cmsis-dap.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "default": true
+            "-f", 
+            "scripts/interface/cmsis-dap.cfg", 
+            "-f", 
+            "scripts/target/nrf52.cfg"
+          ], 
+          "executable": "bin/openocd", 
+          "package": "tool-openocd"
+        }
       }
     }
-  },
+  }, 
   "frameworks": [
     "arduino"
-  ],
-  "name": "RedBearLab BLE Nano 2",
+  ], 
+  "name": "RedBearLab BLE Nano 2", 
   "upload": {
-    "maximum_ram_size": 65536,
-    "maximum_size": 524288,
+    "maximum_ram_size": 65536, 
+    "maximum_size": 524288, 
+    "protocol": "cmsis-dap", 
     "protocols": [
-      "jlink",
-      "nrfjprog",
-      "stlink",
-      "blackmagic",
+      "jlink", 
+      "nrfjprog", 
+      "stlink", 
+      "blackmagic", 
       "cmsis-dap"
-    ],
-    "protocol": "cmsis-dap"
-  },
-  "url": "https://redbear.cc/product/ble-nano-2-soldered.html",
+    ]
+  }, 
+  "url": "https://redbear.cc/product/ble-nano-2-soldered.html", 
   "vendor": "RedBearLab"
 }

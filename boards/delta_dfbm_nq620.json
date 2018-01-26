@@ -1,50 +1,52 @@
 {
   "build": {
-    "core": "nRF5",
-    "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_GENERIC",
-    "f_cpu": "64000000L",
-    "mcu": "nrf52832",
-    "ldscript": "nrf52_xxaa.ld",
+    "core": "nRF5", 
+    "cpu": "cortex-m4", 
+    "extra_flags": "-DARDUINO_GENERIC", 
+    "f_cpu": "64000000L", 
+    "ldscript": "nrf52_xxaa.ld", 
+    "mcu": "nrf52832", 
     "variant": "Generic"
-  },
+  }, 
   "connectivity": [
     "bluetooth"
-  ],
+  ], 
   "debug": {
     "tools": {
       "cmsis-dap": {
+        "default": true, 
+        "onboard": true, 
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/cmsis-dap.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "default": true,
-        "onboard": true
+            "-f", 
+            "scripts/interface/cmsis-dap.cfg", 
+            "-f", 
+            "scripts/target/nrf52.cfg"
+          ], 
+          "executable": "bin/openocd", 
+          "package": "tool-openocd"
+        }
       }
     }
-  },
+  }, 
   "frameworks": [
-    "arduino",
+    "arduino", 
     "mbed"
-  ],
-  "name": "Delta DFBM-NQ620",
+  ], 
+  "name": "Delta DFBM-NQ620", 
   "upload": {
-    "maximum_ram_size": 65536,
-    "maximum_size": 524288,
+    "maximum_ram_size": 65536, 
+    "maximum_size": 524288, 
+    "protocol": "cmsis-dap", 
     "protocols": [
-      "jlink",
-      "nrfjprog",
-      "blackmagic",
-      "cmsis-dap",
-      "stlink",
+      "jlink", 
+      "nrfjprog", 
+      "blackmagic", 
+      "cmsis-dap", 
+      "stlink", 
       "mbed"
-    ],
-    "protocol": "cmsis-dap"
-  },
-  "url": "https://developer.mbed.org/platforms/Delta-DFBM-NQ620/",
+    ]
+  }, 
+  "url": "https://developer.mbed.org/platforms/Delta-DFBM-NQ620/", 
   "vendor": "Delta"
 }
