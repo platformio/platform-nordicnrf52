@@ -4,8 +4,8 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52_DK",
     "f_cpu": "64000000L",
-    "mcu": "nrf52840",
     "ldscript": "nrf52_xxaa.ld",
+    "mcu": "nrf52840",
     "variant": "nRF52DK"
   },
   "connectivity": [
@@ -13,17 +13,34 @@
   ],
   "debug": {
     "tools": {
-      "jlink": {
+      "cmsis-dap": {
+        "onboard": true,
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
-            "-f", "scripts/target/nrf52_arduino.cfg"
-          ]
-        },
-        "onboard": true
+            "-f",
+            "scripts/interface/cmsis-dap.cfg",
+            "-f",
+            "scripts/target/nrf52.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd"
+        }
+      },
+      "jlink": {
+        "default": true,
+        "onboard": true,
+        "server": {
+          "arguments": [
+            "-f",
+            "scripts/interface/jlink.cfg",
+            "-c",
+            "transport select swd; set WORKAREASIZE 0",
+            "-f",
+            "scripts/target/nrf52.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd"
+        }
       }
     }
   },
@@ -35,7 +52,15 @@
   "upload": {
     "maximum_ram_size": 262144,
     "maximum_size": 1048576,
-    "protocol": "jlink"
+    "protocol": "jlink",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "cmsis-dap",
+      "mbed"
+    ]
   },
   "url": "https://os.mbed.com/platforms/Nordic-nRF52840-DK/",
   "vendor": "Nordic"

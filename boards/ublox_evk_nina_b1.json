@@ -4,8 +4,8 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_GENERIC",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832",
     "ldscript": "nrf52_xxaa.ld",
+    "mcu": "nrf52832",
     "variant": "Generic"
   },
   "connectivity": [
@@ -15,16 +15,19 @@
   "debug": {
     "tools": {
       "jlink": {
+        "onboard": true,
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "onboard": true
+            "-f",
+            "scripts/interface/jlink.cfg",
+            "-c",
+            "transport select swd; set WORKAREASIZE 0",
+            "-f",
+            "scripts/target/nrf52.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd"
+        }
       }
     }
   },
@@ -36,7 +39,14 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
-    "protocol": "jlink"
+    "protocol": "jlink",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "mbed"
+    ]
   },
   "url": "https://os.mbed.com/platforms/u-blox-EVK-NINA-B1/",
   "vendor": "u-blox"

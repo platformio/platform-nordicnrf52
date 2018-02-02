@@ -19,3 +19,65 @@ class Nordicnrf52Platform(PlatformBase):
 
     def is_embedded(self):
         return True
+
+    def configure_default_packages(self, variables, targets):
+        if variables.get("board"):
+            upload_protocol = variables.get("upload_protocol",
+                                            self.board_config(
+                                                variables.get("board")).get(
+                                                    "upload.protocol", ""))
+            if "tool-nrfjprog" in self.packages and \
+                    upload_protocol != "nrfjprog":
+                del self.packages["tool-nrfjprog"]
+
+        return PlatformBase.configure_default_packages(self, variables,
+                                                       targets)
+
+    def get_boards(self, id_=None):
+        result = PlatformBase.get_boards(self, id_)
+        if not result:
+            return result
+        if id_:
+            return self._add_default_debug_tools(result)
+        else:
+            for key, value in result.items():
+                result[key] = self._add_default_debug_tools(result[key])
+        return result
+
+    def _add_default_debug_tools(self, board):
+        debug = board.manifest.get("debug", {})
+        upload_protocols = board.manifest.get("upload", {}).get(
+            "protocols", [])
+        if "tools" not in debug:
+            debug['tools'] = {}
+
+        # J-Link / ST-Link / BlackMagic Probe
+        for link in ("blackmagic", "jlink", "stlink"):
+            if link not in upload_protocols or link in debug['tools']:
+                continue
+            if link == "blackmagic":
+                debug['tools']['blackmagic'] = {
+                    "hwids": [["0x1d50", "0x6018"]],
+                    "require_debug_port": True
+                }
+            else:
+                server_args = ["-f", "scripts/interface/%s.cfg" % link]
+                if link == "jlink":
+                    server_args.extend(
+                        ["-c", "transport select swd; set WORKAREASIZE 0"])
+                if link == "stlink":
+                    server_args.extend([
+                        "-c",
+                        "transport select hla_swd; set WORKAREASIZE 0x4000"
+                    ])
+                server_args.extend(["-f", "scripts/target/nrf52.cfg"])
+                debug['tools'][link] = {
+                    "server": {
+                        "package": "tool-openocd",
+                        "executable": "bin/openocd",
+                        "arguments": server_args
+                    }
+                }
+
+        board.manifest['debug'] = debug
+        return board

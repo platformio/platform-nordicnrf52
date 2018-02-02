@@ -4,8 +4,8 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_RB_BLE_NANO_2",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832",
     "ldscript": "nrf52_xxaa.ld",
+    "mcu": "nrf52832",
     "variant": "RedBear_BLENano2"
   },
   "connectivity": [
@@ -14,13 +14,16 @@
   "debug": {
     "tools": {
       "cmsis-dap": {
+        "default": true,
         "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
           "arguments": [
-            "-f", "scripts/interface/cmsis-dap.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
+            "-f",
+            "scripts/interface/cmsis-dap.cfg",
+            "-f",
+            "scripts/target/nrf52.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd"
         }
       }
     }
@@ -32,7 +35,14 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
-    "protocol": "cmsis-dap"
+    "protocol": "cmsis-dap",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "cmsis-dap"
+    ]
   },
   "url": "https://redbear.cc/product/ble-nano-2-soldered.html",
   "vendor": "RedBearLab"
