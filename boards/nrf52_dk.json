@@ -12,37 +12,13 @@
     "bluetooth"
   ],
   "debug": {
-    "tools": {
-      "cmsis-dap": {
-        "onboard": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "scripts/interface/cmsis-dap.cfg",
-            "-f",
-            "scripts/target/nrf52.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd"
-        }
-      },
-      "jlink": {
-        "default": true,
-        "onboard": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "scripts/interface/jlink.cfg",
-            "-c",
-            "transport select swd; set WORKAREASIZE 0",
-            "-f",
-            "scripts/target/nrf52.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd"
-        }
-      }
-    }
+    "onboard_tools": [
+      "cmsis-dap",
+      "jlink"
+    ],
+    "default_tools": [
+      "jlink"
+    ]
   },
   "frameworks": [
     "arduino",

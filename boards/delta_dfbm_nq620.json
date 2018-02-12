@@ -12,21 +12,9 @@
     "bluetooth"
   ],
   "debug": {
-    "tools": {
-      "cmsis-dap": {
-        "onboard": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "scripts/interface/cmsis-dap.cfg",
-            "-f",
-            "scripts/target/nrf52.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd"
-        }
-      }
-    }
+    "onboard_tools": [
+      "cmsis-dap"
+    ]
   },
   "frameworks": [
     "arduino",
