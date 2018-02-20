@@ -12,11 +12,11 @@
     "bluetooth"
   ],
   "debug": {
-    "onboard_tools": [
-      "cmsis-dap",
+    "default_tools": [
       "jlink"
     ],
-    "default_tools": [
+    "onboard_tools": [
+      "cmsis-dap",
       "jlink"
     ]
   },
