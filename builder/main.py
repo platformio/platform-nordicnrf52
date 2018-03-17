@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 from os.path import join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
@@ -35,7 +36,6 @@ env.Replace(
     ASFLAGS=["-x", "assembler-with-cpp"],
 
     CCFLAGS=[
-        "-g",   # include debugging info (so errors include line numbers)
         "-Os",  # optimize for size
         "-ffunction-sections",  # place each function in its own section
         "-fdata-sections",
@@ -132,10 +132,10 @@ else:
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
-            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf)
-        )
+            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
     else:
-        target_firm = env.ElfToHex(target_elf)
+        target_firm = env.ElfToHex(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -153,16 +153,65 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
-if env.subst("$PIOFRAMEWORK") == "arduino":
-    target_upload = env.Alias(
-        "upload", target_firm,
-        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE"))
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
+debug_tools = env.BoardConfig().get("debug.tools", {})
+upload_actions = []
+
+if upload_protocol == "mbed":
+    upload_actions = [
+        env.VerboseAction(env.AutodetectUploadPort, "Looking for upload disk..."),
+        env.VerboseAction(env.UploadToDisk, "Uploading $SOURCE")
+    ]
+
+elif upload_protocol.startswith("blackmagic"):
+    env.Replace(
+        UPLOADER="$GDB",
+        UPLOADERFLAGS=[
+            "-nx",
+            "--batch",
+            "-ex", "target extended-remote $UPLOAD_PORT",
+            "-ex", "monitor %s_scan" %
+            ("jtag" if upload_protocol == "blackmagic-jtag" else "swdp"),
+            "-ex", "attach 1",
+            "-ex", "load",
+            "-ex", "compare-sections",
+            "-ex", "kill"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS $BUILD_DIR/${PROGNAME}.elf"
+    )
+    upload_actions = [
+        env.VerboseAction(env.AutodetectUploadPort, "Looking for BlackMagic port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
+
+elif upload_protocol.startswith("nrfjprog"):
+    env.Replace(
+        UPLOADER="nrfjprog",
+        UPLOADERFLAGS=[
+            "--chiperase",
+            "-r"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
+    )
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+elif upload_protocol in debug_tools:
+    env.Replace(
+        UPLOADER="openocd",
+        UPLOADERFLAGS=["-s", platform.get_package_dir("tool-openocd") or ""] +
+        debug_tools.get(upload_protocol).get("server").get("arguments", []) +
+        ["-c", "program {{$SOURCE}} verify reset; shutdown;"],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+# custom upload tool
+elif "UPLOADCMD" in env:
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
 else:
-    target_upload = env.Alias(
-        "upload", target_firm,
-        [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload disk..."),
-         env.VerboseAction(env.UploadToDisk, "Uploading $SOURCE")])
-AlwaysBuild(target_upload)
+    sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
+
+AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
 
 #
 # Default targets

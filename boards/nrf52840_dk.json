@@ -4,28 +4,21 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52_DK",
     "f_cpu": "64000000L",
-    "mcu": "nrf52840",
     "ldscript": "nrf52_xxaa.ld",
+    "mcu": "nrf52840",
     "variant": "nRF52DK"
   },
   "connectivity": [
     "bluetooth"
   ],
   "debug": {
-    "tools": {
-      "jlink": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/jlink.cfg",
-            "-c", "transport select swd",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "onboard": true
-      }
-    }
+    "default_tools": [
+      "jlink"
+    ],
+    "onboard_tools": [
+      "cmsis-dap",
+      "jlink"
+    ]
   },
   "frameworks": [
     "arduino",
@@ -35,7 +28,15 @@
   "upload": {
     "maximum_ram_size": 262144,
     "maximum_size": 1048576,
-    "protocol": "jlink"
+    "protocol": "jlink",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "cmsis-dap",
+      "mbed"
+    ]
   },
   "url": "https://os.mbed.com/platforms/Nordic-nRF52840-DK/",
   "vendor": "Nordic"

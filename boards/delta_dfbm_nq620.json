@@ -4,27 +4,17 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_GENERIC",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832",
     "ldscript": "nrf52_xxaa.ld",
+    "mcu": "nrf52832",
     "variant": "Generic"
   },
   "connectivity": [
     "bluetooth"
   ],
   "debug": {
-    "tools": {
-      "cmsis-dap": {
-        "server": {
-          "package": "tool-openocd",
-          "executable": "bin/openocd",
-          "arguments": [
-            "-f", "scripts/interface/cmsis-dap.cfg",
-            "-f", "scripts/target/nrf52.cfg"
-          ]
-        },
-        "onboard": true
-      }
-    }
+    "onboard_tools": [
+      "cmsis-dap"
+    ]
   },
   "frameworks": [
     "arduino",
@@ -34,7 +24,15 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
-    "upload_protocol": "cmsis-dap"
+    "protocol": "cmsis-dap",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "blackmagic",
+      "cmsis-dap",
+      "stlink",
+      "mbed"
+    ]
   },
   "url": "https://developer.mbed.org/platforms/Delta-DFBM-NQ620/",
   "vendor": "Delta"
