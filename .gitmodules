@@ -3,4 +3,4 @@
 	url = https://github.com/platformio/builder-framework-mbed
 [submodule "builder/frameworks/arduino"]
 	path = builder/frameworks/arduino
-	url = https://github.com/platformio/builder-framework-arduino-nrf5.git
+	url = git@github.com:jeremypoulter/builder-framework-arduino-nrf5.git
