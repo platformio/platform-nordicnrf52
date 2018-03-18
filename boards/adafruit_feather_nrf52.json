@@ -4,8 +4,8 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_FEATHER52",
     "f_cpu": "64000000L",
+    "ldscript": "bluefruit52_s132_5.1.0.ld",
     "mcu": "nrf52832",
-    "ldscript": "nrf52_xxaa.ld",
     "variant": "feather52"
   },
   "connectivity": [
