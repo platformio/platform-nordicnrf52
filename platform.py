@@ -52,7 +52,7 @@ class Nordicnrf52Platform(PlatformBase):
             debug['tools'] = {}
 
         # J-Link / ST-Link / BlackMagic Probe
-        for link in ("blackmagic", "jlink", "stlink"):
+        for link in ("blackmagic", "jlink", "stlink", "cmsis-dap"):
             if link not in upload_protocols or link in debug['tools']:
                 continue
             if link == "blackmagic":
@@ -76,7 +76,9 @@ class Nordicnrf52Platform(PlatformBase):
                         "package": "tool-openocd",
                         "executable": "bin/openocd",
                         "arguments": server_args
-                    }
+                    },
+                    "onboard": link in debug.get("onboard_tools", []),
+                    "default": link in debug.get("default_tools", [])
                 }
 
         board.manifest['debug'] = debug

@@ -13,23 +13,9 @@
     "nfc"
   ],
   "debug": {
-    "tools": {
-      "jlink": {
-        "onboard": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "scripts/interface/jlink.cfg",
-            "-c",
-            "transport select swd; set WORKAREASIZE 0",
-            "-f",
-            "scripts/target/nrf52.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd"
-        }
-      }
-    }
+    "onboard_tools": [
+      "jlink"
+    ]
   },
   "frameworks": [
     "arduino",
