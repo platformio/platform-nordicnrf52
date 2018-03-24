@@ -186,12 +186,12 @@ elif upload_protocol.startswith("blackmagic"):
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
-elif upload_protocol.startswith("nrfjprog"):
+elif upload_protocol == "nrfjprog":
     env.Replace(
         UPLOADER="nrfjprog",
         UPLOADERFLAGS=[
             "--chiperase",
-            "-r"
+            "--reset"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
     )
