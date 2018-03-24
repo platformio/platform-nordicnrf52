@@ -13,6 +13,7 @@
     "nfc"
   ],
   "debug": {
+    "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
       "jlink"
     ]
