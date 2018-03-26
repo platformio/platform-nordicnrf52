@@ -31,7 +31,7 @@
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
       "optional": true,
-      "version": "git@github.com:jeremypoulter/Adafruit_nRF52_Arduino.git"
+      "version": "https://github.com/jeremypoulter/Adafruit_nRF52_Arduino.git"
     },
     "tool-sreccat": {
       "version": "~1.164.0"
