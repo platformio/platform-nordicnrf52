@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from platform import system
+
 from platformio.managers.platform import PlatformBase
 
 
@@ -55,16 +57,34 @@ class Nordicnrf52Platform(PlatformBase):
         for link in ("blackmagic", "jlink", "stlink", "cmsis-dap"):
             if link not in upload_protocols or link in debug['tools']:
                 continue
+
             if link == "blackmagic":
                 debug['tools']['blackmagic'] = {
                     "hwids": [["0x1d50", "0x6018"]],
                     "require_debug_port": True
                 }
+
+            elif link == "jlink":
+                assert debug.get("jlink_device"), (
+                    "Missed J-Link Device ID for %s" % board.id)
+                debug['tools'][link] = {
+                    "server": {
+                        "arguments": [
+                            "-singlerun",
+                            "-if", "SWD",
+                            "-select", "USB",
+                            "-device", debug.get("jlink_device"),
+                            "-port", "2331"
+                        ],
+                        "executable": ("JLinkGDBServerCL.exe"
+                                       if system() == "Windows" else
+                                       "JLinkGDBServer")
+                    },
+                    "onboard": link in debug.get("onboard_tools", [])
+                }
+
             else:
                 server_args = ["-f", "scripts/interface/%s.cfg" % link]
-                if link == "jlink":
-                    server_args.extend(
-                        ["-c", "transport select swd; set WORKAREASIZE 0"])
                 if link == "stlink":
                     server_args.extend([
                         "-c",
