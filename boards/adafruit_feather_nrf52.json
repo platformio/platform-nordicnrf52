@@ -25,13 +25,11 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
+    "require_upload_port": true,
+    "speed": 115200,
     "protocol": "nrfutil",
     "protocols": [
-      "jlink",
-      "nrfjprog",
-      "nrfutilx",
-      "stlink",
-      "blackmagic"
+      "nrfutil"
     ]
   },
   "url": "https://www.adafruit.com/product/3406",

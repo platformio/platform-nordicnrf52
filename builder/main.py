@@ -139,7 +139,6 @@ env.Append(
         )
     )
 )
-#dfu genpkg --dev-type 0x0052 --sd-req 0x00A5 --application .pioenvs/bluefruit_nrf52/firmware.hex .pioenvs/bluefruit_nrf52/firmware.zip
 
 #
 # Target: Build executable and linkable firmware
@@ -227,13 +226,14 @@ elif upload_protocol == "nrfutil":
             "dfu",
             "serial",
             "-p",
-            "/dev/ttyUSB0",
+            "$UPLOAD_PORT",
             "-b",
-            "115200"
+            "$UPLOAD_SPEED"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
     )
-    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+    upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
+                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 elif upload_protocol.startswith("jlink"):
 
