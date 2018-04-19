@@ -13,7 +13,9 @@
 # limitations under the License.
 
 import sys
-from os.path import join
+from platform import system
+from os import makedirs
+from os.path import isdir, join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
                           DefaultEnvironment)
@@ -184,14 +186,39 @@ elif upload_protocol.startswith("blackmagic"):
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
     ]
 
-elif upload_protocol.startswith("nrfjprog"):
+elif upload_protocol == "nrfjprog":
     env.Replace(
         UPLOADER="nrfjprog",
         UPLOADERFLAGS=[
             "--chiperase",
-            "-r"
+            "--reset"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
+    )
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+elif upload_protocol.startswith("jlink"):
+
+    def _jlink_cmd_script(env, source):
+        build_dir = env.subst("$BUILD_DIR")
+        if not isdir(build_dir):
+            makedirs(build_dir)
+        script_path = join(build_dir, "upload.jlink")
+        commands = ["h", "loadbin %s,0x0" % source, "r", "q"]
+        with open(script_path, "w") as fp:
+            fp.write("\n".join(commands))
+        return script_path
+
+    env.Replace(
+        __jlink_cmd_script=_jlink_cmd_script,
+        UPLOADER="JLink.exe" if system() == "Windows" else "JLinkExe",
+        UPLOADERFLAGS=[
+            "-device", env.BoardConfig().get("debug", {}).get("jlink_device"),
+            "-speed", "4000",
+            "-if", ("jtag" if upload_protocol == "jlink-jtag" else "swd"),
+            "-autoconnect", "1"
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS -CommanderScript ${__jlink_cmd_script(__env__, SOURCE)}"
     )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
