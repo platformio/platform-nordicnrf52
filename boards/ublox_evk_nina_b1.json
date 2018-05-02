@@ -16,7 +16,8 @@
     "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
       "jlink"
-    ]
+    ],
+    "svd_path": "nrf52.svd"
   },
   "frameworks": [
     "arduino",
