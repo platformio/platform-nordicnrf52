@@ -27,9 +27,10 @@
     "maximum_size": 524288,
     "require_upload_port": true,
     "speed": 115200,
-    "protocol": "nrfutil",
+    "protocol": "jlink",
     "protocols": [
-      "nrfutil"
+      "nrfutil",
+      "jlink"
     ]
   },
   "url": "https://www.adafruit.com/product/3406",

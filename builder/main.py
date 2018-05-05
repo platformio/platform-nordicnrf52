@@ -136,13 +136,25 @@ env.Append(
                 "$TARGET"
             ]), "Building $TARGET"),
             suffix=".zip"
-        )
+        ),
+        SignBin=Builder(
+            action=env.VerboseAction(" ".join([
+                "python",
+                join(platform.get_package_dir("framework-arduinoadafruitnrf52") or "",
+                     "tools", "pynrfbintool", "pynrfbintool.py"),
+                "--signature",
+                "$TARGET",
+                "$SOURCES"
+            ]), "Signing $SOURCES"),
+            suffix="_signature.bin"        )
     )
 )
 
 #
 # Target: Build executable and linkable firmware
 #
+
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
@@ -153,13 +165,14 @@ else:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "DFUBOOTHEX" in env:
+    elif "nrfutil" == upload_protocol:
         target_firm = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
     else:
-        target_firm = env.ElfToHex(
-            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        target_firm = env.SignBin(
+            join("$BUILD_DIR", "${PROGNAME}"),
+            env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -177,7 +190,6 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
-upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 debug_tools = env.BoardConfig().get("debug.tools", {})
 upload_actions = []
 
@@ -242,7 +254,14 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-        commands = ["h", "loadbin %s,0x0" % source, "r", "q"]
+
+        commands = [
+            "h", 
+            "loadbin %s,0x23000" % str(source).replace("_signature", ""), 
+            "loadbin %s,0x7F000" % source, 
+            "r", 
+            "q"
+        ]
         with open(script_path, "w") as fp:
             fp.write("\n".join(commands))
         return script_path
