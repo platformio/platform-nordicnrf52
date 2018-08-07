@@ -19,6 +19,7 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
+    "mbed",
     "arduino"
   ],
   "name": "RedBearLab BLE Nano 2",
