@@ -2,38 +2,34 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_RB_BLEND_2",
+    "extra_flags": "-DARDUINO_ELECTRONUT_BLUEY",
     "f_cpu": "64000000L",
     "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52832",
-    "variant": "RedBear_Blend2"
+    "variant": "bluey"
   },
   "connectivity": [
     "bluetooth"
   ],
   "debug": {
     "jlink_device": "nRF52832_xxAA",
-    "onboard_tools": [
-      "cmsis-dap"
-    ],
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
     "arduino"
   ],
-  "name": "RedBearLab Blend 2",
+  "name": "Bluey nRF52832 IoT",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
-    "protocol": "cmsis-dap",
+    "protocol": "jlink",
     "protocols": [
       "jlink",
       "nrfjprog",
       "stlink",
-      "blackmagic",
-      "cmsis-dap"
+      "blackmagic"
     ]
   },
-  "url": "https://redbear.cc/product/ble/blend-2.html",
-  "vendor": "RedBearLab"
+  "url": "https://electronut.in/portfolio/bluey/",
+  "vendor": "Electronut Labs"
 }
