@@ -31,8 +31,7 @@
       "nrfjprog",
       "stlink",
       "blackmagic",
-      "cmsis-dap",
-      "mbed"
+      "cmsis-dap"
     ]
   },
   "url": "https://redbear.cc/product/ble/blend-2.html",
