@@ -24,7 +24,7 @@
     },
     "mbed": {
       "package": "framework-mbed",
-      "script": "builder/frameworks/mbed/mbed.py"
+      "script": "builder/frameworks/mbed.py"
     }
   },
   "packages": {
@@ -35,7 +35,7 @@
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~5.51001.0"
+      "version": "~5.51001.1"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
