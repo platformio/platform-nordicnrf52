@@ -146,7 +146,8 @@ env.Append(
                 "$TARGET",
                 "$SOURCES"
             ]), "Signing $SOURCES"),
-            suffix="_signature.bin"        )
+            suffix="_signature.bin"
+        )
     )
 )
 
