@@ -22,6 +22,15 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
+board = env.BoardConfig()
+
+os_platform = sys.platform
+if os_platform == "win32":
+    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+elif os_platform == "macos":
+    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+else:
+    nrfutil_path = "adafruit-nrfutil"
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -85,6 +94,32 @@ env.Append(
                 "--line-length=44"
             ]), "Building $TARGET"),
             suffix=".hex"
+        ),
+        PackageDfu=Builder(
+            action=env.VerboseAction(" ".join([
+                nrfutil_path,
+                "dfu",
+                "genpkg",
+                "--dev-type",
+                "0x0052",
+                "-sd-req",
+                board.get("build.softdevice.sd_fwid"),
+                "--aplication",
+                "$SOURCES",
+                "$TARGET"
+            ]), "Building %TARGET"),
+            suffix=".zip"
+        ),
+        SignBin=Builder(
+            action=env.VerboseAction(" ".join([
+                "python",
+                join(platform.get_package_dir("framework-arduinoadafruitnrf5") or "", 
+                    "tools", "pynrfbintool", "pynrfbintool.py"),
+                "--signature",
+                "$TARGET",
+                "$SOURCES"
+            ]), "Signing $SOURCES"),
+            suffix="_signature.bin"
         )
     )
 )
@@ -96,20 +131,28 @@ if not env.get("PIOFRAMEWORK"):
 # Target: Build executable and linkable firmware
 #
 
+upload_protocol = env.subst("$UPLOAD_PROTOCOL") 
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
+    dfu_package = env.PackageDfu(
+        join("$BUILD_DIR", "${PROGNAME}"),
+        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
+    elif "nrfutil" == upload_protocol:
+        target_firm = dfu_package
     else:
-        target_firm = env.ElfToHex(
-            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        target_firm = env.SignBin(
+            join("$BUILD_DIR", "${PROGNAME}"), 
+            env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
+AlwaysBuild(env.Alias("dfu", dfu_package))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
 #
@@ -166,6 +209,20 @@ elif upload_protocol == "nrfjprog":
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
     )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+elif upload_protocol == "nrfutil":
+    env.Replace(
+        UPLOADER=nrfutil_path,
+        UPLOADERFLAGS=[
+            "dfu",
+            "serial",
+            "-p",
+            "$UPLOAD_PORT",
+            "-b",
+            "$UPLOAD_SPEED",
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
+    )
 
 elif upload_protocol.startswith("jlink"):
 

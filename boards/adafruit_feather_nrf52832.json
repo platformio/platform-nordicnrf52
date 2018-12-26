@@ -2,7 +2,7 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_FEATHER52 -DARDUINO_NRF52_ADAFRUIT -DNRF52_SERIES",
+    "extra_flags": "-DARDUINO_FEATHER52 -DARDUINO_NRF52_ADAFRUIT -DNRF52_SERIES -DNRF52832_XXAA -DNRF52",
     "f_cpu": "64000000L",
     "ldscript": "nrf52832_s132_v6.ld",
     "mcu": "nrf52832",
