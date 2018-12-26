@@ -26,9 +26,9 @@ board = env.BoardConfig()
 
 os_platform = sys.platform
 if os_platform == "win32":
-    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe"))
 elif os_platform == "macos":
-    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5", "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil"))
 else:
     nrfutil_path = "adafruit-nrfutil"
 
