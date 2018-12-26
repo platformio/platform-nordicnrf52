@@ -19,7 +19,7 @@
   ],
   "frameworks": {
     "arduino-adafruit": {
-      "package": "framework-arduinonordicnrf5",
+      "package": "framework-arduinoadafruitnordicnrf5",
       "script": "builder/frameworks/arduino/arduino.py"
     },
     "arduino": {
