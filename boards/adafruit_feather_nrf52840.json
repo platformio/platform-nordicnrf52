@@ -29,7 +29,7 @@
     "mbed",
     "arduino-adafruit"
   ],
-  "name": "Adafruit Bluefruit nRF52832 Feather",
+  "name": "Adafruit Bluefruit nRF52840 Feather Express",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
