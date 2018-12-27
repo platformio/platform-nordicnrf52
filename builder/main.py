@@ -23,12 +23,13 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
+FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
 
 os_platform = sys.platform
 if os_platform == "win32":
-    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5"), "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
 elif os_platform == "macos":
-    nrfutil_path = join(platform.get_package_dir("framework-arduinoadafruitnrf5"), "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
 else:
     nrfutil_path = "adafruit-nrfutil"
 
@@ -65,7 +66,7 @@ env.Append(
                 "binary",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building $TARGET"),
+            ]), "Building binary $TARGET"),
             suffix=".bin"
         ),
         ElfToHex=Builder(
@@ -77,7 +78,7 @@ env.Append(
                 ".eeprom",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building $TARGET"),
+            ]), "Building hex $TARGET"),
             suffix=".hex"
         ),
         MergeHex=Builder(
@@ -102,18 +103,18 @@ env.Append(
                 "genpkg",
                 "--dev-type",
                 "0x0052",
-                "-sd-req",
+                "--sd-req",
                 board.get("build.softdevice.sd_fwid"),
-                "--aplication",
+                "--application",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building %TARGET"),
+            ]), "Building $TARGET"),
             suffix=".zip"
         ),
         SignBin=Builder(
             action=env.VerboseAction(" ".join([
                 "python",
-                join(platform.get_package_dir("framework-arduinoadafruitnrf5") or "", 
+                join(FRAMEWORK_DIR or "", 
                     "tools", "pynrfbintool", "pynrfbintool.py"),
                 "--signature",
                 "$TARGET",
@@ -131,7 +132,7 @@ if not env.get("PIOFRAMEWORK"):
 # Target: Build executable and linkable firmware
 #
 
-upload_protocol = env.subst("$UPLOAD_PROTOCOL") 
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
@@ -140,15 +141,15 @@ else:
     dfu_package = env.PackageDfu(
         join("$BUILD_DIR", "${PROGNAME}"),
         env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
-    if "SOFTDEVICEHEX" in env:
-        target_firm = env.MergeHex(
-            join("$BUILD_DIR", "${PROGNAME}"),
-            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "nrfutil" == upload_protocol:
+    #if "SOFTDEVICEHEX" in env:
+    #    target_firm = env.MergeHex(
+    #        join("$BUILD_DIR", "${PROGNAME}"),
+    #        env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
+    if "nrfutil" == upload_protocol:
         target_firm = dfu_package
     else:
         target_firm = env.SignBin(
-            join("$BUILD_DIR", "${PROGNAME}"), 
+            join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
@@ -168,7 +169,6 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
-upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 debug_tools = env.BoardConfig().get("debug.tools", {})
 upload_actions = []
 
@@ -185,7 +185,7 @@ elif upload_protocol.startswith("blackmagic"):
             "-nx",
             "--batch",
             "-ex", "target extended-remote $UPLOAD_PORT",
-            "-ex", "monitor %s_scan" %
+            "-ex", "monitor %s_scanscan" %
             ("jtag" if upload_protocol == "blackmagic-jtag" else "swdp"),
             "-ex", "attach 1",
             "-ex", "load",
@@ -219,11 +219,13 @@ elif upload_protocol == "nrfutil":
             "-p",
             "$UPLOAD_PORT",
             "-b",
-            "115200"
+            "115200",
             "--singlebank",
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
     )
+    upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
+                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")] 
 
 elif upload_protocol.startswith("jlink"):
 
