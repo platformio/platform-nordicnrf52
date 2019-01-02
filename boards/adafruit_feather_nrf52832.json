@@ -2,11 +2,11 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_FEATHER52",
+    "extra_flags": "-DARDUINO_FEATHER52832 -DNRF52832_XXAA",
     "f_cpu": "64000000L",
-    "ldscript": "bluefruit52_s132_5.1.0.ld",
+    "ldscript": "nrf52832_s132_v6.ld",
     "mcu": "nrf52832",
-    "variant": "feather52"
+    "variant": "feather_nrf52832"
   },
   "connectivity": [
     "bluetooth",
@@ -21,7 +21,7 @@
   "frameworks": [
     "arduino"
   ],
-  "name": "Adafruit Bluefruit nRF52 Feather",
+  "name": "Adafruit Bluefruit nRF52832 Feather",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
