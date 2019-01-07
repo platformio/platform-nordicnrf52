@@ -141,11 +141,11 @@ else:
     dfu_package = env.PackageDfu(
         join("$BUILD_DIR", "${PROGNAME}"),
         env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
-    #if "SOFTDEVICEHEX" in env:
-    #    target_firm = env.MergeHex(
-    #        join("$BUILD_DIR", "${PROGNAME}"),
-    #        env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    if "nrfutil" == upload_protocol:
+    if "SOFTDEVICEHEX" in env:
+        target_firm = env.MergeHex(
+            join("$BUILD_DIR", "${PROGNAME}"),
+            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
+    elif "nrfutil" == upload_protocol:
         target_firm = dfu_package
     else:
         target_firm = env.SignBin(
@@ -185,7 +185,7 @@ elif upload_protocol.startswith("blackmagic"):
             "-nx",
             "--batch",
             "-ex", "target extended-remote $UPLOAD_PORT",
-            "-ex", "monitor %s_scanscan" %
+            "-ex", "monitor %s_scan" %
             ("jtag" if upload_protocol == "blackmagic-jtag" else "swdp"),
             "-ex", "attach 1",
             "-ex", "load",
@@ -219,7 +219,7 @@ elif upload_protocol == "nrfutil":
             "-p",
             "$UPLOAD_PORT",
             "-b",
-            "115200",
+            "$UPLOAD_SPEED",
             "--singlebank",
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
@@ -234,7 +234,14 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-        commands = ["h", "loadbin %s,0x0" % source, "r", "q"]
+
+        commands = [
+            "h", 
+            "loadbin %s,0x23000" % str(source).replace("_signature", ""), 
+            "loadbin %s,0x7F000" % source, 
+            "r", 
+            "q"
+        ] if "DFUBOOTHEX" in env else ["h", "loadbin %s,0x0" % source, "r", "q"]
         with open(script_path, "w") as fp:
             fp.write("\n".join(commands))
         return script_path
