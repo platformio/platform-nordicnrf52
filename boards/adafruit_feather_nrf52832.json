@@ -8,7 +8,6 @@
     "mcu": "nrf52832",
     "variant": "feather_nrf52832",
     "softdevice": {
-      "version": "0.2.6",
       "sd_flags": "-DS132",
       "sd_name": "s132",
       "sd_version": "6.1.1",
@@ -21,7 +20,7 @@
   "debug": {
     "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
-      "cmsis-dap"
+      "jlink"
     ],
     "svd_path": "nrf52.svd"
   },
@@ -33,6 +32,8 @@
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
+    "require_upload_port": true,
+    "speed": 115200,
     "protocol": "nrfutil",
     "protocols": [
       "jlink",
