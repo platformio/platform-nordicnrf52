@@ -1,6 +1,7 @@
 language: python
 python:
   - "2.7"
+  - "3.5"
 
 env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
@@ -9,6 +10,7 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
   - PLATFORMIO_PROJECT_DIR=examples/mbed-dsp
   - PLATFORMIO_PROJECT_DIR=examples/mbed-events
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-nfc
   - PLATFORMIO_PROJECT_DIR=examples/mbed-rtos
   - PLATFORMIO_PROJECT_DIR=examples/mbed-serial
 

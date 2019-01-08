@@ -15,7 +15,8 @@
     "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
       "cmsis-dap"
-    ]
+    ],
+    "svd_path": "nrf52.svd"
   },
   "frameworks": [
     "arduino"
@@ -30,8 +31,7 @@
       "nrfjprog",
       "stlink",
       "blackmagic",
-      "cmsis-dap",
-      "mbed"
+      "cmsis-dap"
     ]
   },
   "url": "https://redbear.cc/product/ble/blend-2.html",
