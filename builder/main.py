@@ -95,35 +95,42 @@ env.Append(
                 "--line-length=44"
             ]), "Building $TARGET"),
             suffix=".hex"
-        ),
-        PackageDfu=Builder(
-            action=env.VerboseAction(" ".join([
-                nrfutil_path,
-                "dfu",
-                "genpkg",
-                "--dev-type",
-                "0x0052",
-                "--sd-req",
-                board.get("build.softdevice.sd_fwid"),
-                "--application",
-                "$SOURCES",
-                "$TARGET"
-            ]), "Building $TARGET"),
-            suffix=".zip"
-        ),
-        SignBin=Builder(
-            action=env.VerboseAction(" ".join([
-                "python",
-                join(FRAMEWORK_DIR or "", 
-                    "tools", "pynrfbintool", "pynrfbintool.py"),
-                "--signature",
-                "$TARGET",
-                "$SOURCES"
-            ]), "Signing $SOURCES"),
-            suffix="_signature.bin"
         )
     )
 )
+
+if board.get("build.softdevice", False):
+    env.Append(
+        BUILDERS=dict(
+            PackageDfu=Builder(
+                action=env.VerboseAction(" ".join([
+                    nrfutil_path,
+                    "dfu",
+                    "genpkg",
+                    "--dev-type",
+                    "0x0052",
+                    "--sd-req",
+                    board.get("build.softdevice.sd_fwid"),
+                    "--application",
+                    "$SOURCES",
+                    "$TARGET"
+                ]), "Building $TARGET"),
+                suffix=".zip"
+            ),
+            SignBin=Builder(
+                action=env.VerboseAction(" ".join([
+                    "python",
+                    join(FRAMEWORK_DIR or "", 
+                        "tools", "pynrfbintool", "pynrfbintool.py"),
+                    "--signature",
+                    "$TARGET",
+                    "$SOURCES"
+                ]), "Signing $SOURCES"),
+                suffix="_signature.bin"
+            )
+        )
+    )
+
 
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py")
@@ -138,24 +145,31 @@ if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
-    dfu_package = env.PackageDfu(
-        join("$BUILD_DIR", "${PROGNAME}"),
-        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "nrfutil" == upload_protocol:
-        target_firm = dfu_package
+    elif "DFUBOOTHEX" in env:
+        if "nrfutil" == upload_protocol:
+            target_firm = env.PackageDfu(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        else:
+            target_firm = env.SignBin(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
     else:
-        target_firm = env.SignBin(
-            join("$BUILD_DIR", "${PROGNAME}"),
-            env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        target_firm = env.ElfToHex(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
-AlwaysBuild(env.Alias("dfu", dfu_package))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
+if "DFUBOOTHEX" in env:
+    AlwaysBuild(env.Alias("dfu", env.PackageDfu(
+        join("$BUILD_DIR", "${PROGNAME}"),
+        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))))
 #
 # Target: Print binary size
 #
