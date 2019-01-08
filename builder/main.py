@@ -139,6 +139,39 @@ env.Append(
     BUILDERS=builders
 )
 
+if board.get("build.softdevice", False):
+    env.Append(
+        BUILDERS=dict(
+            PackageDfu=Builder(
+                action=env.VerboseAction(" ".join([
+                    nrfutil_path,
+                    "dfu",
+                    "genpkg",
+                    "--dev-type",
+                    "0x0052",
+                    "--sd-req",
+                    board.get("build.softdevice.sd_fwid"),
+                    "--application",
+                    "$SOURCES",
+                    "$TARGET"
+                ]), "Building $TARGET"),
+                suffix=".zip"
+            ),
+            SignBin=Builder(
+                action=env.VerboseAction(" ".join([
+                    "python",
+                    join(FRAMEWORK_DIR or "", 
+                        "tools", "pynrfbintool", "pynrfbintool.py"),
+                    "--signature",
+                    "$TARGET",
+                    "$SOURCES"
+                ]), "Signing $SOURCES"),
+                suffix="_signature.bin"
+            )
+        )
+    )
+
+
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py")
 
