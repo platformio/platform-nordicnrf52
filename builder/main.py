@@ -170,6 +170,10 @@ if "DFUBOOTHEX" in env:
     AlwaysBuild(env.Alias("dfu", env.PackageDfu(
         join("$BUILD_DIR", "${PROGNAME}"),
         env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))))
+
+    AlwaysBuild(env.Alias("bootloader", None, 
+        env.VerboseAction("nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase --reset", "Uploading $DFUBOOTHEX")))
+
 #
 # Target: Print binary size
 #
