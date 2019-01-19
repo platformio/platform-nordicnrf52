@@ -18,12 +18,11 @@
     "http://dl.platformio.org/packages/manifest.json"
   ],
   "frameworks": {
-    "arduino-adafruit": {
-      "package": "framework-arduinoadafruitnordicnrf5",
-      "script": "builder/frameworks/arduino/arduino-adafruit.py"
-    },
     "arduino": {
-      "package": "framework-arduinonordicnrf5",
+      "packages": [
+        "framework-arduinonordicnrf5",
+        "framework-arduinoadafruitnordicnrf5"
+      ],
       "script": "builder/frameworks/arduino/arduino.py"
     },
     "mbed": {
