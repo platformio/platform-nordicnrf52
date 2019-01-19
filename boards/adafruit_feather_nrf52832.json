@@ -27,7 +27,7 @@
   },
   "frameworks": [
     "mbed",
-    "arduino-adafruit"
+    "arduino"
   ],
   "name": "Adafruit Bluefruit nRF52832 Feather",
   "upload": {
