@@ -19,10 +19,7 @@
   ],
   "frameworks": {
     "arduino": {
-      "packages": [
-        "framework-arduinonordicnrf5",
-        "framework-arduinoadafruitnordicnrf5"
-      ],
+      "packages": "framework-arduinonordicnrf5",
       "script": "builder/frameworks/arduino/arduino.py"
     },
     "mbed": {
@@ -42,7 +39,6 @@
     },
     "framework-arduinoadafruitnordicnrf5": {
       "type": "framework",
-      "optional": true,
       "version": "https://github.com/adafruit/Adafruit_nRF52_Arduino.git"
     },
     "framework-arduinonordicnrf5": {

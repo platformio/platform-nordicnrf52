@@ -23,15 +23,18 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
-FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
+variant = board.get("build.variant")
 
-os_platform = sys.platform
-if os_platform == "win32":
-    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
-elif os_platform == "macos":
-    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
-else:
-    nrfutil_path = "adafruit-nrfutil"
+if (variant.startswith("feather_nrf")):
+    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
+
+    os_platform = sys.platform
+    if os_platform == "win32":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+    elif os_platform == "macos":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+    else:
+        nrfutil_path = "adafruit-nrfutil"
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -66,7 +69,7 @@ env.Append(
                 "binary",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building binary $TARGET"),
+            ]), "Building $TARGET"),
             suffix=".bin"
         ),
         ElfToHex=Builder(
@@ -78,7 +81,7 @@ env.Append(
                 ".eeprom",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building hex $TARGET"),
+            ]), "Building $TARGET"),
             suffix=".hex"
         ),
         MergeHex=Builder(
@@ -137,23 +140,28 @@ target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
-    target_elf = env.BuildProgram()
-    dfu_package = env.PackageDfu(
-        join("$BUILD_DIR", "${PROGNAME}"),
-        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
-    #if "SOFTDEVICEHEX" in env:
-    #    target_firm = env.MergeHex(
-    #        join("$BUILD_DIR", "${PROGNAME}"),
-    #        env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    if "nrfutil" == upload_protocol:
-        target_firm = dfu_package
-    else:
-        target_firm = env.SignBin(
+    if variant.startswith("feather_nrf"):
+        target_elf = env.BuildProgram()
+        dfu_package = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
-            env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+            env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        if "nrfutil" == upload_protocol:
+          target_firm = dfu_package
+        else:
+            target_firm = env.SignBin(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+    elif "SOFTDEVICEHEX" in env:
+        target_firm = env.MergeHex(
+            join("$BUILD_DIR", "${PROGNAME}"),
+            env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
+    else:
+        target_firm = env.ElfToHex(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)     
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
-AlwaysBuild(env.Alias("dfu", dfu_package))
+if variant.startswith("feather_nrf"):
+    AlwaysBuild(env.Alias("dfu", dfu_package))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
 #
@@ -185,7 +193,7 @@ elif upload_protocol.startswith("blackmagic"):
             "-nx",
             "--batch",
             "-ex", "target extended-remote $UPLOAD_PORT",
-            "-ex", "monitor %s_scanscan" %
+            "-ex", "monitor %s_scan" %
             ("jtag" if upload_protocol == "blackmagic-jtag" else "swdp"),
             "-ex", "attach 1",
             "-ex", "load",
