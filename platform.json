@@ -43,7 +43,6 @@
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
-      "optional": true,
       "version": "~1.501.0"
     },
     "tool-sreccat": {
