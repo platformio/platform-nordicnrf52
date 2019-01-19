@@ -25,7 +25,7 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant")
 
-if (variant.startswith("feather_nrf")):
+if variant.startswith("feather_nrf"):
     FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
 
     os_platform = sys.platform
@@ -35,6 +35,9 @@ if (variant.startswith("feather_nrf")):
         nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
     else:
         nrfutil_path = "adafruit-nrfutil"
+else:
+    # set it to empty since we won't need it
+    nrfutil_path = ""
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -60,72 +63,76 @@ env.Replace(
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
-env.Append(
-    BUILDERS=dict(
-        ElfToBin=Builder(
-            action=env.VerboseAction(" ".join([
-                "$OBJCOPY",
-                "-O",
-                "binary",
-                "$SOURCES",
-                "$TARGET"
-            ]), "Building $TARGET"),
-            suffix=".bin"
-        ),
-        ElfToHex=Builder(
-            action=env.VerboseAction(" ".join([
-                "$OBJCOPY",
-                "-O",
-                "ihex",
-                "-R",
-                ".eeprom",
-                "$SOURCES",
-                "$TARGET"
-            ]), "Building $TARGET"),
-            suffix=".hex"
-        ),
-        MergeHex=Builder(
-            action=env.VerboseAction(" ".join([
-                join(platform.get_package_dir("tool-sreccat") or "",
-                     "srec_cat"),
-                "$SOFTDEVICEHEX",
-                "-intel",
-                "$SOURCES",
-                "-intel",
-                "-o",
-                "$TARGET",
-                "-intel",
-                "--line-length=44"
-            ]), "Building $TARGET"),
-            suffix=".hex"
-        ),
-        PackageDfu=Builder(
-            action=env.VerboseAction(" ".join([
-                nrfutil_path,
-                "dfu",
-                "genpkg",
-                "--dev-type",
-                "0x0052",
-                "--sd-req",
-                board.get("build.softdevice.sd_fwid"),
-                "--application",
-                "$SOURCES",
-                "$TARGET"
-            ]), "Building $TARGET"),
-            suffix=".zip"
-        ),
-        SignBin=Builder(
-            action=env.VerboseAction(" ".join([
-                "python",
-                join(FRAMEWORK_DIR or "", 
-                    "tools", "pynrfbintool", "pynrfbintool.py"),
-                "--signature",
-                "$TARGET",
-                "$SOURCES"
-            ]), "Signing $SOURCES"),
-            suffix="_signature.bin"
-        )
+builders=dict(
+    ElfToBin=Builder(
+        action=env.VerboseAction(" ".join([
+            "$OBJCOPY",
+            "-O",
+            "binary",
+            "$SOURCES",
+            "$TARGET"
+        ]), "Building $TARGET"),
+        suffix=".bin"
+    ),
+    ElfToHex=Builder(
+        action=env.VerboseAction(" ".join([
+            "$OBJCOPY",
+            "-O",
+            "ihex",
+            "-R",
+            ".eeprom",
+            "$SOURCES",
+            "$TARGET"
+        ]), "Building $TARGET"),
+        suffix=".hex"
+    ),
+    MergeHex=Builder(
+        action=env.VerboseAction(" ".join([
+            join(platform.get_package_dir("tool-sreccat") or "",
+                    "srec_cat"),
+            "$SOFTDEVICEHEX",
+            "-intel",
+            "$SOURCES",
+            "-intel",
+            "-o",
+            "$TARGET",
+            "-intel",
+            "--line-length=44"
+        ]), "Building $TARGET"),
+        suffix=".hex"
     )
+)
+
+if variant.startswith("feather_nrf"):
+    builders["PackageDfu"] = Builder(
+        action=env.VerboseAction(" ".join([
+            nrfutil_path,
+            "dfu",
+            "genpkg",
+            "--dev-type",
+            "0x0052",
+            "--sd-req",
+            board.get("build.softdevice.sd_fwid"),
+            "--application",
+            "$SOURCES",
+            "$TARGET"
+        ]), "Building $TARGET"),
+        suffix=".zip"
+    )
+    builders["SignBin"] = Builder(
+        action=env.VerboseAction(" ".join([
+            "python",
+            join(FRAMEWORK_DIR or "", 
+                "tools", "pynrfbintool", "pynrfbintool.py"),
+            "--signature",
+            "$TARGET",
+            "$SOURCES"
+        ]), "Signing $SOURCES"),
+        suffix="_signature.bin"
+    )
+
+env.Append(
+    BUILDERS=builders
 )
 
 if not env.get("PIOFRAMEWORK"):
@@ -140,8 +147,8 @@ target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
+    target_elf = env.BuildProgram()
     if variant.startswith("feather_nrf"):
-        target_elf = env.BuildProgram()
         dfu_package = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
