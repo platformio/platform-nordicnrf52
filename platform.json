@@ -19,7 +19,7 @@
   ],
   "frameworks": {
     "arduino": {
-      "packages": "framework-arduinonordicnrf5",
+      "package": "framework-arduinonordicnrf5",
       "script": "builder/frameworks/arduino/arduino.py"
     },
     "mbed": {
@@ -43,6 +43,7 @@
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
+      "optional": true,
       "version": "~1.501.0"
     },
     "tool-sreccat": {
