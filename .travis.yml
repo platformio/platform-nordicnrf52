@@ -24,7 +24,7 @@ env:
 install:
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - platformio platform install file://.
-  - pip3 install --user adafruit-nrfutil
+  - pip3 install -U adafruit-nrfutil
 
 script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
