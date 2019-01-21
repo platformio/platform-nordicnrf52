@@ -25,7 +25,11 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant")
 
-if variant.startswith("feather_nrf"):
+build_flags = ' '.join(env.Flatten(env.get("BUILD_FLAGS", [])))
+use_adafruit = False
+
+if "BSP=ADAFRUIT" in build_flags or (variant.startswith("feather_nrf") and not "BSP=SANDEEP" in build_flags):
+    use_adafruit = True
     FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
 
     os_platform = sys.platform
@@ -103,7 +107,7 @@ builders=dict(
     )
 )
 
-if variant.startswith("feather_nrf"):
+if use_adafruit:
     builders["PackageDfu"] = Builder(
         action=env.VerboseAction(" ".join([
             nrfutil_path,
@@ -148,7 +152,7 @@ if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
-    if variant.startswith("feather_nrf"):
+    if use_adafruit:
         dfu_package = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
@@ -167,7 +171,7 @@ else:
             join("$BUILD_DIR", "${PROGNAME}"), target_elf)     
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
-if variant.startswith("feather_nrf"):
+if use_adafruit:
     AlwaysBuild(env.Alias("dfu", dfu_package))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
