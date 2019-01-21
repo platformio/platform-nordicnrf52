@@ -3,6 +3,13 @@ python:
   - "2.7"
   - "3.5"
 
+# Need python 3 for nrfutil
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
+
 env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
   - PLATFORMIO_PROJECT_DIR=examples/arduino-ble-led
