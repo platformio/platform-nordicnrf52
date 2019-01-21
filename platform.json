@@ -67,7 +67,7 @@
     "tool-nrfutil": {
       "type": "uploader",
       "optional": true,
-      "version": "https://github.com/adafruit/Adafruit_nRF52_Arduino"
+      "version": "https://github.com/adafruit/Adafruit_nRF52_nrfutil"
     }
   }
 }
