@@ -3,6 +3,8 @@ python:
   - "2.7"
   - "3.5"
 
+dist: trusty
+
 # Need python 3 for nrfutil
 addons:
   apt:
@@ -24,7 +26,7 @@ env:
 install:
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - platformio platform install file://.
-  - pip3 install -U adafruit-nrfutil
+  - sudo pip3 install -U adafruit-nrfutil
 
 script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
