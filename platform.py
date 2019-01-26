@@ -29,8 +29,12 @@ class Nordicnrf52Platform(PlatformBase):
                                                 variables.get("board")).get(
                                                     "upload.protocol", ""))
             if "tool-nrfjprog" in self.packages and \
-                    upload_protocol != "nrfjprog":
+                    upload_protocol != "nrfjprog" and \
+                    "bootloader" not in targets:
                 del self.packages["tool-nrfjprog"]
+        
+        if "tool-nrfjprog" in self.packages and "bootloader" in targets:
+            self.packages["tool-nrfjprog"]["optional"] = False
 
         # configure J-LINK tool
         jlink_conds = [
