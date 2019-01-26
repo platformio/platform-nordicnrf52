@@ -6,7 +6,7 @@
   "homepage": "http://platformio.org/platforms/nordicnrf52",
   "license": "Apache-2.0",
   "engines": {
-    "platformio": "^3.0.0"
+    "platformio": "<5"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,6 @@
     "http://dl.platformio.org/packages/manifest.json"
   ],
   "frameworks": {
-    "arduino-adafruit": {
-      "package": "framework-arduinoadafruitnordicnrf5",
-      "script": "builder/frameworks/arduino/arduino-adafruit.py"
-    },
     "arduino": {
       "package": "framework-arduinonordicnrf5",
       "script": "builder/frameworks/arduino/arduino.py"
@@ -39,11 +35,10 @@
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~5.51100.181227"
+      "version": "~5.51001.1"
     },
     "framework-arduinoadafruitnordicnrf5": {
       "type": "framework",
-      "optional": true,
       "version": "https://github.com/adafruit/Adafruit_nRF52_Arduino.git"
     },
     "framework-arduinonordicnrf5": {

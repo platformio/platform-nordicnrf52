@@ -23,15 +23,25 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
-FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
+variant = board.get("build.variant")
 
-os_platform = sys.platform
-if os_platform == "win32":
-    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
-elif os_platform == "macos":
-    nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+build_flags = ' '.join(env.Flatten(env.get("BUILD_FLAGS", [])))
+use_adafruit = False
+
+if "BSP=ADAFRUIT" in build_flags or (variant.startswith("feather_nrf") and not "BSP=SANDEEP" in build_flags):
+    use_adafruit = True
+    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
+
+    os_platform = sys.platform
+    if os_platform == "win32":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+    elif os_platform == "macos":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil")
+    else:
+        nrfutil_path = "adafruit-nrfutil"
 else:
-    nrfutil_path = "adafruit-nrfutil"
+    # set it to empty since we won't need it
+    nrfutil_path = ""
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -84,7 +94,7 @@ env.Append(
         MergeHex=Builder(
             action=env.VerboseAction(" ".join([
                 join(platform.get_package_dir("tool-sreccat") or "",
-                     "srec_cat"),
+                        "srec_cat"),
                 "$SOFTDEVICEHEX",
                 "-intel",
                 "$SOURCES",
@@ -99,7 +109,7 @@ env.Append(
     )
 )
 
-if board.get("build.softdevice", False):
+if use_adafruit:
     env.Append(
         BUILDERS=dict(
             PackageDfu=Builder(
