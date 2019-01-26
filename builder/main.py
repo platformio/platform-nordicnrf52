@@ -165,6 +165,9 @@ else:
             target_firm = env.PackageDfu(
                 join("$BUILD_DIR", "${PROGNAME}"),
                 env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        elif "nrfjprog" == upload_protocol:
+            target_firm = env.ElfToHex(
+                join("$BUILD_DIR", "${PROGNAME}"), target_elf)
         else:
             target_firm = env.SignBin(
                 join("$BUILD_DIR", "${PROGNAME}"),
@@ -177,12 +180,22 @@ AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 
 if "DFUBOOTHEX" in env:
+    env.Append(
+        # Check the linker script for the correct location
+        FIRMWARE_ADDR=board.get("build.bootloader.firmware_addr", "0x26000"),
+        BOOT_SETTING_ADDR=board.get("build.bootloader.settings_addr", "0x7F000")
+    )
+
     AlwaysBuild(env.Alias("dfu", env.PackageDfu(
         join("$BUILD_DIR", "${PROGNAME}"),
         env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))))
 
-    AlwaysBuild(env.Alias("bootloader", None, 
-        env.VerboseAction("nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase --reset", "Uploading $DFUBOOTHEX")))
+    AlwaysBuild(env.Alias("bootloader", None, [
+        env.VerboseAction("nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase", "Uploading $DFUBOOTHEX"),
+        env.VerboseAction("nrfjprog --erasepage $BOOT_SETTING_ADDR -f nrf52", "Erasing bootloader config"),
+        env.VerboseAction("nrfjprog --memwr $BOOT_SETTING_ADDR --val 0x00000001 -f nrf52", "Disable CRC check"),
+        env.VerboseAction("nrfjprog --reset -f nrf52", "Reset nRF52")
+    ]))
 
 #
 # Target: Print binary size
@@ -231,7 +244,7 @@ elif upload_protocol == "nrfjprog":
     env.Replace(
         UPLOADER="nrfjprog",
         UPLOADERFLAGS=[
-            "--chiperase",
+            "--sectorerase" if "DFUBOOTHEX" in env else "--chiperase",
             "--reset"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
@@ -265,8 +278,8 @@ elif upload_protocol.startswith("jlink"):
 
         commands = [
             "h", 
-            "loadbin %s,0x23000" % str(source).replace("_signature", ""), 
-            "loadbin %s,0x7F000" % source, 
+            "loadbin %s,%s" % (str(source).replace("_signature", ""), env.get("FIRMWARE_ADDR")), 
+            "loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")), 
             "r", 
             "q"
         ] if "DFUBOOTHEX" in env else ["h", "loadbin %s,0x0" % source, "r", "q"]
