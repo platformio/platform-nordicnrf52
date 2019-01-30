@@ -34,7 +34,7 @@ class Nordicnrf52Platform(PlatformBase):
                     "bootloader" not in targets:
                 del self.packages["tool-nrfjprog"]
 
-            if self.board_config(board).get("build.name.bsp", "nrf5") == "adafruit":
+            if self.board_config(board).get("build.bsp.name", "nrf5") == "adafruit":
                 self.frameworks['arduino']['package'] = "framework-arduinoadafruitnordicnrf5"
 
         if "tool-nrfjprog" in self.packages and "bootloader" in targets:
