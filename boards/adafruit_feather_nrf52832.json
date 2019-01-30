@@ -7,6 +7,9 @@
     "ldscript": "nrf52832_s132_v6.ld",
     "mcu": "nrf52832",
     "variant": "feather_nrf52832",
+    "bsp": {
+      "name": "adafruit"
+    },
     "softdevice": {
       "sd_flags": "-DS132",
       "sd_name": "s132",

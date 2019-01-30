@@ -14,7 +14,7 @@
 
 import sys
 from platform import system
-from os import makedirs
+from os import makedirs,listdir
 from os.path import isdir, join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
@@ -25,11 +25,8 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant")
 
-build_flags = ' '.join(env.Flatten(env.get("BUILD_FLAGS", [])))
-use_adafruit = False
-
-if "BSP=ADAFRUIT" in build_flags or (variant.startswith("feather_nrf") and not "BSP=SANDEEP" in build_flags):
-    use_adafruit = True
+use_adafruit = board.get("build.bsp.name", "nrf5") == "adafruit"
+if use_adafruit:
     FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
 
     os_platform = sys.platform
