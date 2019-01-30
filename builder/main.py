@@ -14,7 +14,7 @@
 
 import sys
 from platform import system
-from os import makedirs,listdir
+from os import makedirs
 from os.path import isdir, join
 
 from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
@@ -73,7 +73,7 @@ env.Append(
                 "binary",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building binary $TARGET"),
+            ]), "Building $TARGET"),
             suffix=".bin"
         ),
         ElfToHex=Builder(
@@ -85,13 +85,13 @@ env.Append(
                 ".eeprom",
                 "$SOURCES",
                 "$TARGET"
-            ]), "Building hex $TARGET"),
+            ]), "Building $TARGET"),
             suffix=".hex"
         ),
         MergeHex=Builder(
             action=env.VerboseAction(" ".join([
                 join(platform.get_package_dir("tool-sreccat") or "",
-                        "srec_cat"),
+                     "srec_cat"),
                 "$SOFTDEVICEHEX",
                 "-intel",
                 "$SOURCES",
