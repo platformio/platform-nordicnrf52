@@ -272,7 +272,6 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-
         commands = [
             "h", 
             "loadbin %s,%s" % (str(source).replace("_signature", ""), env.get("FIRMWARE_ADDR")), 
@@ -301,8 +300,11 @@ elif upload_protocol in debug_tools:
     env.Replace(
         UPLOADER="openocd",
         UPLOADERFLAGS=["-s", platform.get_package_dir("tool-openocd") or ""] +
-        debug_tools.get(upload_protocol).get("server").get("arguments", []) +
-        ["-c", "program {{$SOURCE}} verify reset; shutdown;"],
+        debug_tools.get(upload_protocol).get("server").get("arguments", []) + [
+            "-c",
+            "program {{$SOURCE}} verify reset %s; shutdown;" %
+            env.BoardConfig().get("upload.offset_address", "")
+        ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
