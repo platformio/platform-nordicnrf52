@@ -126,7 +126,7 @@ if use_adafruit:
             ),
             SignBin=Builder(
                 action=env.VerboseAction(" ".join([
-                    "python",
+                    "$PYTHONEXE",
                     join(FRAMEWORK_DIR or "", 
                         "tools", "pynrfbintool", "pynrfbintool.py"),
                     "--signature",
