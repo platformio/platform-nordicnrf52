@@ -64,11 +64,6 @@
       "type": "uploader",
       "optional": true,
       "version": "^1.63208.0"
-    },
-    "tool-nrfutil": {
-      "type": "uploader",
-      "optional": true,
-      "version": "https://github.com/adafruit/Adafruit_nRF52_nrfutil"
     }
   }
 }
