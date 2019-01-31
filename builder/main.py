@@ -179,7 +179,6 @@ target_buildprog = env.Alias("buildprog", target_firm, target_firm)
 if "DFUBOOTHEX" in env:
     env.Append(
         # Check the linker script for the correct location
-        FIRMWARE_ADDR=board.get("build.bootloader.firmware_addr", "0x26000"),
         BOOT_SETTING_ADDR=board.get("build.bootloader.settings_addr", "0x7F000")
     )
 
@@ -272,13 +271,18 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-        commands = [
-            "h", 
-            "loadbin %s,%s" % (str(source).replace("_signature", ""), env.get("FIRMWARE_ADDR")), 
-            "loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")), 
-            "r", 
-            "q"
-        ] if "DFUBOOTHEX" in env else ["h", "loadbin %s,0x0" % source, "r", "q"]
+        commands = [ "h" ]
+        if "DFUBOOTHEX" in env:
+            commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""), 
+                env.BoardConfig().get("upload.offset_address", "0x26000")))
+            commands.append("loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")))
+        else:
+            commands.append("loadbin %s,%s" % (source, env.BoardConfig().get(
+                "upload.offset_address", "0x0")))
+        
+        commands.append("r")
+        commands.append("q")
+
         with open(script_path, "w") as fp:
             fp.write("\n".join(commands))
         return script_path
