@@ -37,7 +37,7 @@
       "optional": true,
       "version": "~5.51103.190202"
     },
-    "framework-arduinoadafruitnordicnrf5": {
+    "framework-arduinoadafruitnrf52": {
       "type": "framework",
       "optional": true,
       "version": "~1.903.0"

@@ -26,16 +26,18 @@ class Nordicnrf52Platform(PlatformBase):
         board = variables.get("board")
 
         if board:
-            upload_protocol = variables.get("upload_protocol",
-                                            self.board_config(board).get(
-                                                    "upload.protocol", ""))
-            if "tool-nrfjprog" in self.packages and \
-                    upload_protocol != "nrfjprog" and \
-                    "bootloader" not in targets:
+            upload_protocol = variables.get(
+                "upload_protocol",
+                self.board_config(board).get("upload.protocol", ""))
+            if ("tool-nrfjprog" in self.packages
+                    and upload_protocol != "nrfjprog"
+                    and "bootloader" not in targets):
                 del self.packages["tool-nrfjprog"]
 
-            if self.board_config(board).get("build.bsp.name", "nrf5") == "adafruit":
-                self.frameworks['arduino']['package'] = "framework-arduinoadafruitnordicnrf5"
+            if self.board_config(board).get("build.bsp.name",
+                                            "nrf5") == "adafruit":
+                self.frameworks['arduino'][
+                    'package'] = "framework-arduinoadafruitnrf52"
 
         if "tool-nrfjprog" in self.packages and "bootloader" in targets:
             self.packages["tool-nrfjprog"]["optional"] = False
