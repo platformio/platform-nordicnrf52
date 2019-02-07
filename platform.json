@@ -36,14 +36,11 @@
       "type": "framework",
       "optional": true,
       "version": "~5.51103.190202"
-<<<<<<< HEAD
     },
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
       "optional": true,
       "version": "~1.903.0"
-=======
->>>>>>> before-adafruit-nrf52
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
