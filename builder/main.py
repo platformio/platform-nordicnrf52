@@ -27,7 +27,7 @@ variant = board.get("build.variant")
 
 use_adafruit = board.get("build.bsp.name", "nrf5") == "adafruit"
 if use_adafruit:
-    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnordicnrf5")
+    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnrf52")
 
     os_platform = sys.platform
     if os_platform == "win32":
@@ -127,7 +127,7 @@ if use_adafruit:
             SignBin=Builder(
                 action=env.VerboseAction(" ".join([
                     "$PYTHONEXE",
-                    join(FRAMEWORK_DIR or "", 
+                    join(FRAMEWORK_DIR or "",
                         "tools", "pynrfbintool", "pynrfbintool.py"),
                     "--signature",
                     "$TARGET",
@@ -262,7 +262,7 @@ elif upload_protocol == "nrfutil":
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
     )
     upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")] 
+                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 elif upload_protocol.startswith("jlink"):
 
@@ -273,13 +273,13 @@ elif upload_protocol.startswith("jlink"):
         script_path = join(build_dir, "upload.jlink")
         commands = [ "h" ]
         if "DFUBOOTHEX" in env:
-            commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""), 
+            commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""),
                 env.BoardConfig().get("upload.offset_address", "0x26000")))
             commands.append("loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")))
         else:
             commands.append("loadbin %s,%s" % (source, env.BoardConfig().get(
                 "upload.offset_address", "0x0")))
-        
+
         commands.append("r")
         commands.append("q")
 
