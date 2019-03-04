@@ -22,6 +22,23 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
+board = env.BoardConfig()
+variant = board.get("build.variant")
+
+use_adafruit = board.get("build.bsp.name", "nrf5") == "adafruit"
+if use_adafruit:
+    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnrf52")
+
+    os_platform = sys.platform
+    if os_platform == "win32":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+    elif os_platform == "darwin":
+        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", "macos", "adafruit-nrfutil")
+    else:
+        nrfutil_path = "adafruit-nrfutil"
+else:
+    # set it to empty since we won't need it
+    nrfutil_path = ""
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -89,6 +106,39 @@ env.Append(
     )
 )
 
+if use_adafruit:
+    env.Append(
+        BUILDERS=dict(
+            PackageDfu=Builder(
+                action=env.VerboseAction(" ".join([
+                    nrfutil_path,
+                    "dfu",
+                    "genpkg",
+                    "--dev-type",
+                    "0x0052",
+                    "--sd-req",
+                    board.get("build.softdevice.sd_fwid"),
+                    "--application",
+                    "$SOURCES",
+                    "$TARGET"
+                ]), "Building $TARGET"),
+                suffix=".zip"
+            ),
+            SignBin=Builder(
+                action=env.VerboseAction(" ".join([
+                    "$PYTHONEXE",
+                    join(FRAMEWORK_DIR or "",
+                        "tools", "pynrfbintool", "pynrfbintool.py"),
+                    "--signature",
+                    "$TARGET",
+                    "$SOURCES"
+                ]), "Signing $SOURCES"),
+                suffix="_signature.bin"
+            )
+        )
+    )
+
+
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py")
 
@@ -96,21 +146,52 @@ if not env.get("PIOFRAMEWORK"):
 # Target: Build executable and linkable firmware
 #
 
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
+
     if "SOFTDEVICEHEX" in env:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
+    elif "DFUBOOTHEX" in env:
+        if "nrfutil" == upload_protocol:
+            target_firm = env.PackageDfu(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        elif "nrfjprog" == upload_protocol:
+            target_firm = env.ElfToHex(
+                join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        else:
+            target_firm = env.SignBin(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
     else:
         target_firm = env.ElfToHex(
             join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
+
+if "DFUBOOTHEX" in env:
+    env.Append(
+        # Check the linker script for the correct location
+        BOOT_SETTING_ADDR=board.get("build.bootloader.settings_addr", "0x7F000")
+    )
+
+    AlwaysBuild(env.Alias("dfu", env.PackageDfu(
+        join("$BUILD_DIR", "${PROGNAME}"),
+        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))))
+
+    AlwaysBuild(env.Alias("bootloader", None, [
+        env.VerboseAction("nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase", "Uploading $DFUBOOTHEX"),
+        env.VerboseAction("nrfjprog --erasepage $BOOT_SETTING_ADDR -f nrf52", "Erasing bootloader config"),
+        env.VerboseAction("nrfjprog --memwr $BOOT_SETTING_ADDR --val 0x00000001 -f nrf52", "Disable CRC check"),
+        env.VerboseAction("nrfjprog --reset -f nrf52", "Reset nRF52")
+    ]))
 
 #
 # Target: Print binary size
@@ -125,7 +206,6 @@ AlwaysBuild(target_size)
 # Target: Upload by default .bin file
 #
 
-upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 debug_tools = env.BoardConfig().get("debug.tools", {})
 upload_actions = []
 
@@ -160,12 +240,29 @@ elif upload_protocol == "nrfjprog":
     env.Replace(
         UPLOADER="nrfjprog",
         UPLOADERFLAGS=[
-            "--chiperase",
+            "--sectorerase" if "DFUBOOTHEX" in env else "--chiperase",
             "--reset"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
     )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+elif upload_protocol == "nrfutil":
+    env.Replace(
+        UPLOADER=nrfutil_path,
+        UPLOADERFLAGS=[
+            "dfu",
+            "serial",
+            "-p",
+            "$UPLOAD_PORT",
+            "-b",
+            "$UPLOAD_SPEED",
+            "--singlebank",
+        ],
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
+    )
+    upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
+                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 elif upload_protocol.startswith("jlink"):
 
@@ -174,13 +271,18 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-        commands = [
-            "h",
-            "loadbin %s, %s" % (source, env.BoardConfig().get(
-                "upload.offset_address", "0x0")),
-            "r",
-            "q"
-        ]
+        commands = [ "h" ]
+        if "DFUBOOTHEX" in env:
+            commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""),
+                env.BoardConfig().get("upload.offset_address", "0x26000")))
+            commands.append("loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")))
+        else:
+            commands.append("loadbin %s,%s" % (source, env.BoardConfig().get(
+                "upload.offset_address", "0x0")))
+
+        commands.append("r")
+        commands.append("q")
+
         with open(script_path, "w") as fp:
             fp.write("\n".join(commands))
         return script_path

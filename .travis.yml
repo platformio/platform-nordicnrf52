@@ -3,9 +3,19 @@ python:
   - "2.7"
   - "3.6"
 
+dist: trusty
+
+# Need python 3 for nrfutil
+addons:
+  apt:
+    packages:
+      - "python3"
+      - "python3-pip"
+
 env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
   - PLATFORMIO_PROJECT_DIR=examples/arduino-ble-led
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-bluefruit-bleuart
   - PLATFORMIO_PROJECT_DIR=examples/mbed-ble-thermometer
   - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
   - PLATFORMIO_PROJECT_DIR=examples/mbed-dsp
@@ -17,6 +27,7 @@ env:
 install:
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - platformio platform install file://.
+  - sudo pip3 install -U adafruit-nrfutil
 
 script:
   - platformio run -d $PLATFORMIO_PROJECT_DIR
