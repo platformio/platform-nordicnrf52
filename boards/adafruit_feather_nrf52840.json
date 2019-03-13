@@ -31,7 +31,6 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "mbed",
     "arduino"
   ],
   "name": "Adafruit Feather nRF52840 Express",
