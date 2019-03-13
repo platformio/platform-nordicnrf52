@@ -28,7 +28,6 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "mbed",
     "arduino"
   ],
   "name": "Adafruit Bluefruit nRF52832 Feather",

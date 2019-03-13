@@ -31,7 +31,6 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "mbed",
     "arduino"
   ],
   "name": "Nordic nRF52840-DK (Adafruit BSP)",
