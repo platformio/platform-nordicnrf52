@@ -35,7 +35,7 @@
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~5.51105.190304"
+      "version": "~5.51200.190327"
     },
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
