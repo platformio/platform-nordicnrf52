@@ -14,6 +14,7 @@
 #include <bluefruit.h>
 
 // BLE Service
+BLEDfu  bledfu;  // OTA DFU service
 BLEDis  bledis;  // device information
 BLEUart bleuart; // uart over ble
 BLEBas  blebas;  // battery
@@ -41,12 +42,14 @@ void setup()
   Bluefruit.configPrphBandwidth(BANDWIDTH_MAX);
 
   Bluefruit.begin();
-  // Set max power. Accepted values are: -40, -30, -20, -16, -12, -8, -4, 0, 4
-  Bluefruit.setTxPower(4);
+  Bluefruit.setTxPower(4);    // Check bluefruit.h for supported values
   Bluefruit.setName("Bluefruit52");
   //Bluefruit.setName(getMcuUniqueID()); // useful testing with multiple central connections
-  Bluefruit.setConnectCallback(connect_callback);
-  Bluefruit.setDisconnectCallback(disconnect_callback);
+  Bluefruit.Periph.setConnectCallback(connect_callback);
+  Bluefruit.Periph.setDisconnectCallback(disconnect_callback);
+
+  // To be consistent OTA DFU should be added first if it exists
+  bledfu.begin();
 
   // Configure and Start Device Information Service
   bledis.setManufacturer("Adafruit Industries");
@@ -67,7 +70,7 @@ void setup()
   Serial.println("Once connected, enter character(s) that you wish to send");
 }
 
-static void startAdv(void)
+void startAdv(void)
 {
   // Advertising packet
   Bluefruit.Advertising.addFlags(BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE);
@@ -115,16 +118,16 @@ void loop()
     ch = (uint8_t) bleuart.read();
     Serial.write(ch);
   }
-
-  // Request CPU to enter low-power mode until an event/interrupt occurs
-  waitForEvent();
 }
 
 // callback invoked when central connects
-static void connect_callback(uint16_t conn_handle)
+void connect_callback(uint16_t conn_handle)
 {
+  // Get the reference to current connection
+  BLEConnection* connection = Bluefruit.Connection(conn_handle);
+
   char central_name[32] = { 0 };
-  Bluefruit.Gap.getPeerName(conn_handle, central_name, sizeof(central_name));
+  connection->getPeerName(central_name, sizeof(central_name));
 
   Serial.print("Connected to ");
   Serial.println(central_name);
@@ -134,9 +137,8 @@ static void connect_callback(uint16_t conn_handle)
  * Callback invoked when a connection is dropped
  * @param conn_handle connection where this event happens
  * @param reason is a BLE_HCI_STATUS_CODE which can be found in ble_hci.h
- * https://github.com/adafruit/Adafruit_nRF52_Arduino/blob/master/cores/nRF5/nordic/softdevice/s140_nrf52_6.1.1_API/include/ble_hci.h
  */
-static void disconnect_callback(uint16_t conn_handle, uint8_t reason)
+void disconnect_callback(uint16_t conn_handle, uint8_t reason)
 {
   (void) conn_handle;
   (void) reason;
