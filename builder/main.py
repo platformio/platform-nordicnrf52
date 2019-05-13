@@ -23,7 +23,7 @@ from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
 env = DefaultEnvironment()
 platform = env.PioPlatform()
 board = env.BoardConfig()
-variant = board.get("build.variant")
+variant = board.get("build.variant", "")
 
 use_adafruit = board.get("build.bsp.name", "nrf5") == "adafruit"
 if use_adafruit:
