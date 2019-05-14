@@ -23,9 +23,13 @@ class Nordicnrf52Platform(PlatformBase):
         return True
 
     def configure_default_packages(self, variables, targets):
+        upload_protocol = ""
         board = variables.get("board")
-
         if board:
+            upload_protocol = variables.get(
+                "upload_protocol",
+                self.board_config(board).get("upload.protocol", ""))
+
             if self.board_config(board).get("build.bsp.name",
                                             "nrf5") == "adafruit":
                 self.frameworks['arduino'][
@@ -33,6 +37,9 @@ class Nordicnrf52Platform(PlatformBase):
 
         if set(["bootloader", "erase"]) & set(targets):
             self.packages["tool-nrfjprog"]["optional"] = False
+        elif (upload_protocol and upload_protocol != "nrfjprog"
+              and "tool-nrfjprog" in self.packages):
+            del self.packages["tool-nrfjprog"]
 
         # configure J-LINK tool
         jlink_conds = [
