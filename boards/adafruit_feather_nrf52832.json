@@ -4,6 +4,25 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DNRF52832_XXAA -DNRF52",
     "f_cpu": "64000000L",
+    "hwids": [
+      [
+        "0x239A",
+        "0x8029"
+      ],
+      [
+        "0x239A",
+        "0x0029"
+      ],
+      [
+        "0x239A",
+        "0x002A"
+      ],
+      [
+        "0x239A",
+        "0x802A"
+      ]
+    ],
+    "usb_product": "Feather nRF52832 Express",
     "ldscript": "nrf52832_s132_v6.ld",
     "mcu": "nrf52832",
     "variant": "feather_nrf52832",

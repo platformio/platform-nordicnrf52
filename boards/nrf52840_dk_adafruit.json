@@ -4,6 +4,13 @@
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52840_PCA10056 -DNRF52840_XXAA",
     "f_cpu": "64000000L",
+    "hwids": [
+      [
+        "0x239A",
+        "0x8029"
+      ]
+    ],
+    "usb_product": "NRF52 DK",
     "ldscript": "nrf52840_s140_v6.ld",
     "mcu": "nrf52840",
     "variant": "pca10056",

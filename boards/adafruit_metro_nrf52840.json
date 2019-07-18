@@ -2,30 +2,30 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52840_FEATHER -DNRF52840_XXAA",
+    "extra_flags": "-DARDUINO_NRF52840_FEATHER -DARDUINO_NRF52840_METRO -DNRF52840_XXAA",
     "f_cpu": "64000000L",
     "hwids": [
       [
         "0x239A",
-        "0x8029"
+        "0x803F"
       ],
       [
         "0x239A",
-        "0x0029"
+        "0x003F"
       ],
       [
         "0x239A",
-        "0x002A"
+        "0x0040"
       ],
       [
         "0x239A",
-        "0x802A"
+        "0x8040"
       ]
     ],
-    "usb_product": "Feather nRF52840 Express",
+    "usb_product": "Metro nRF52840 Express",
     "ldscript": "nrf52840_s140_v6.ld",
     "mcu": "nrf52840",
-    "variant": "feather_nrf52840_express",
+    "variant": "metro_nrf52840_express",
     "bsp": {
       "name": "adafruit"
     },
@@ -52,7 +52,7 @@
   "frameworks": [
     "arduino"
   ],
-  "name": "Adafruit Feather nRF52840 Express",
+  "name": "Metro nRF52840 Express",
   "upload": {
     "maximum_ram_size": 248832,
     "maximum_size": 815104,
