@@ -31,7 +31,8 @@ if use_adafruit:
 
     os_platform = sys.platform
     if os_platform == "win32":
-        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
+        # Surround path with quotes to resolve issues when the path has spaces.
+        nrfutil_path = "".join(["\"",join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe"), "\""])
     elif os_platform == "darwin":
         nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", "macos", "adafruit-nrfutil")
     else:
@@ -114,7 +115,7 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    "".join(["\"",nrfutil_path, "\""]), # Surround path with quotes to resolve issues when the path has spaces.
+                    nrfutil_path,
                     "dfu",
                     "genpkg",
                     "--dev-type",
