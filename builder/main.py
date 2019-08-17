@@ -114,7 +114,7 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    nrfutil_path,
+                    "".join(["\"",nrfutil_path, "\""]), # Surround path with quotes to resolve issues when the path has spaces.
                     "dfu",
                     "genpkg",
                     "--dev-type",
