@@ -17,8 +17,8 @@ from platform import system
 from os import makedirs
 from os.path import isdir, join
 
-from SCons.Script import (COMMAND_LINE_TARGETS, AlwaysBuild, Builder, Default,
-                          DefaultEnvironment)
+from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
+                          Builder, Default, DefaultEnvironment)
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -114,7 +114,7 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    nrfutil_path,
+                    '"%s"' % nrfutil_path,
                     "dfu",
                     "genpkg",
                     "--dev-type",
@@ -152,6 +152,7 @@ if not env.get("PIOFRAMEWORK"):
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
+    target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
     target_firm = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
@@ -262,7 +263,7 @@ elif upload_protocol == "nrfutil":
             "$UPLOAD_SPEED",
             "--singlebank",
         ],
-        UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
+        UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
     upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
                       env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
@@ -304,14 +305,23 @@ elif upload_protocol.startswith("jlink"):
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 elif upload_protocol in debug_tools:
+    openocd_args = [
+        "-d%d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1)
+    ]
+    openocd_args.extend(
+        debug_tools.get(upload_protocol).get("server").get("arguments", []))
+    openocd_args.extend([
+        "-c", "program {$SOURCE} %s verify reset; shutdown;" %
+        board.get("upload.offset_address", "")
+    ])
+    openocd_args = [
+        f.replace("$PACKAGE_DIR",
+                  platform.get_package_dir("tool-openocd") or "")
+        for f in openocd_args
+    ]
     env.Replace(
         UPLOADER="openocd",
-        UPLOADERFLAGS=["-s", platform.get_package_dir("tool-openocd") or ""] +
-        debug_tools.get(upload_protocol).get("server").get("arguments", []) + [
-            "-c",
-            "program {$SOURCE} verify reset %s; shutdown;" %
-            env.BoardConfig().get("upload.offset_address", "")
-        ],
+        UPLOADERFLAGS=openocd_args,
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
