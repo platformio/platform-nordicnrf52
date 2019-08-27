@@ -114,7 +114,7 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    nrfutil_path,
+                    '"%s"' % nrfutil_path,
                     "dfu",
                     "genpkg",
                     "--dev-type",
@@ -263,7 +263,7 @@ elif upload_protocol == "nrfutil":
             "$UPLOAD_SPEED",
             "--singlebank",
         ],
-        UPLOADCMD="$UPLOADER $UPLOADERFLAGS -pkg $SOURCE"
+        UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
     upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
                       env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
