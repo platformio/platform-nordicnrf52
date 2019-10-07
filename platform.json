@@ -40,7 +40,7 @@
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
       "optional": true,
-      "version": "~1.1300.0"
+      "version": "~1.1400.0"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
