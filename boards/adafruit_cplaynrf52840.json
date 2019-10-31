@@ -2,7 +2,7 @@
   "build": {
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52840_CIRCUITPLAY -DNRF52840_XXAA -DCIRCUITPLAY_NRF52840",
+    "extra_flags": "-DARDUINO_NRF52840_CIRCUITPLAY -DNRF52840_XXAA -DNRF52840_CIRCUITPLAY",
     "f_cpu": "64000000L",
     "hwids": [
       [

@@ -18,6 +18,7 @@ install:
   - cmd: SET PATH=%PATH%;C:\Python36\Scripts
   - cmd: pip3 install -U https://github.com/platformio/platformio/archive/develop.zip
   - cmd: platformio platform install file://.
+  - cmd: SET PLATFORMIO_PACKAGES_DIR=C:\PIOTMP
 
 test_script:
   - cmd: platformio run -d %PLATFORMIO_PROJECT_DIR%
