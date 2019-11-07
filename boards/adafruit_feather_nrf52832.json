@@ -56,7 +56,8 @@
     "protocols": [
       "jlink",
       "nrfjprog",
-      "nrfutil"
+      "nrfutil",
+      "stlink"
     ]
   },
   "url": "https://www.adafruit.com/product/3406",

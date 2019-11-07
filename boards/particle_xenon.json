@@ -47,7 +47,8 @@
     "protocols": [
       "jlink",
       "nrfjprog",
-      "nrfutil"
+      "nrfutil",
+      "stlink"
     ]
   },
   "url": "https://docs.particle.io/xenon",
