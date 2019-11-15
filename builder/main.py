@@ -149,6 +149,13 @@ if not env.get("PIOFRAMEWORK"):
 # Target: Build executable and linkable firmware
 #
 
+if "zephyr" in env.get("PIOFRAMEWORK", []):
+    env.SConscript(
+        join(platform.get_package_dir(
+            "framework-zephyr"), "scripts", "platformio", "platformio-build-pre.py"),
+        exports={"env": env}
+    )
+
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:

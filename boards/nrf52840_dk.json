@@ -6,7 +6,10 @@
     "f_cpu": "64000000L",
     "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52840",
-    "variant": "nRF52DK"
+    "variant": "nRF52DK",
+    "zephyr": {
+       "variant": "nrf52840_pca10056"
+    }
   },
   "connectivity": [
     "bluetooth"
@@ -24,7 +27,8 @@
   },
   "frameworks": [
     "arduino",
-    "mbed"
+    "mbed",
+    "zephyr"
   ],
   "name": "Nordic nRF52840-DK",
   "upload": {

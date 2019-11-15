@@ -35,7 +35,8 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "arduino"
+    "arduino",
+    "zephyr"
   ],
   "name": "Xenon",
   "upload": {

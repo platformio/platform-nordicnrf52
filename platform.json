@@ -25,6 +25,10 @@
     "mbed": {
       "package": "framework-mbed",
       "script": "builder/frameworks/mbed.py"
+    },
+    "zephyr": {
+      "package": "framework-zephyr",
+      "script": "builder/frameworks/zephyr.py"
     }
   },
   "packages": {
@@ -47,6 +51,15 @@
       "optional": true,
       "version": "~1.600.0"
     },
+    "framework-zephyr": {
+      "type": "framework",
+      "optional": true,
+      "version": "~1.20000.0"
+    },
+    "framework-zephyr-hal-nordicnrf52": {
+      "optional": true,
+      "version": "~0.0.191028"
+    },
     "tool-sreccat": {
       "version": "~1.164.0"
     },
@@ -64,6 +77,22 @@
       "type": "uploader",
       "optional": true,
       "version": "^1.63208.0"
+    },
+    "tool-cmake": {
+      "optional": true,
+      "version": "~3.15.0"
+    },
+    "tool-dtc": {
+      "optional": true,
+      "version": "~1.4.7"
+    },
+    "tool-ninja": {
+      "optional": true,
+      "version": "^1.7.0"
+    },
+    "tool-gperf": {
+      "optional": true,
+      "version": "^3.0.0"
     }
   }
 }
