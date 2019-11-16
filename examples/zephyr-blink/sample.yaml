@@ -1,8 +1,0 @@
-sample:
-  name: Blinky Sample
-tests:
-  sample.blinky:
-    tags: LED gpio
-    filter: DT_GPIO_LEDS_LED0_GPIOS_CONTROLLER
-    depends_on: gpio
-    harness: led
