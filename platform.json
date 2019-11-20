@@ -56,7 +56,7 @@
       "optional": true,
       "version": "~1.20000.0"
     },
-    "framework-zephyr-hal-nordicnrf52": {
+    "framework-zephyr-hal-nordic": {
       "optional": true,
       "version": "~0.0.191028"
     },
