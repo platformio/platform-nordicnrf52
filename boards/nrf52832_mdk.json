@@ -1,20 +1,16 @@
 {
   "build": {
-    "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_RB_BLE_NANO_2",
     "f_cpu": "64000000L",
-    "ldscript": "nrf52_xxaa.ld",
-    "mcu": "nrf52832",
-    "variant": "RedBear_BLENano2",
-    "zephyr": {
-       "variant": "nrf52_blenano2"
-    }
+    "mcu": "nrf52832"
   },
   "connectivity": [
     "bluetooth"
   ],
   "debug": {
+    "default_tools": [
+      "cmsis-dap"
+    ],
     "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
       "cmsis-dap"
@@ -22,11 +18,9 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "arduino",
-    "mbed",
     "zephyr"
   ],
-  "name": "RedBearLab BLE Nano 2",
+  "name": "Makerdiary nRF52832-MDK",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
@@ -36,9 +30,10 @@
       "nrfjprog",
       "stlink",
       "blackmagic",
-      "cmsis-dap"
+      "cmsis-dap",
+      "mbed"
     ]
   },
-  "url": "https://redbear.cc/product/ble-nano-2-soldered.html",
-  "vendor": "RedBearLab"
+  "url": "https://wiki.makerdiary.com/nrf52832-mdk/",
+  "vendor": "Makerdiary"
 }

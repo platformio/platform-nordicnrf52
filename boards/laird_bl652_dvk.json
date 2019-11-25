@@ -1,44 +1,43 @@
 {
   "build": {
-    "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_RB_BLE_NANO_2",
     "f_cpu": "64000000L",
-    "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52832",
-    "variant": "RedBear_BLENano2",
     "zephyr": {
-       "variant": "nrf52_blenano2"
+       "variant": "bl652_dvk"
     }
   },
   "connectivity": [
     "bluetooth"
   ],
   "debug": {
+    "default_tools": [
+      "jlink"
+    ],
     "jlink_device": "nRF52832_xxAA",
     "onboard_tools": [
-      "cmsis-dap"
+      "cmsis-dap",
+      "jlink"
     ],
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "arduino",
-    "mbed",
     "zephyr"
   ],
-  "name": "RedBearLab BLE Nano 2",
+  "name": "BL652 Development Kit",
   "upload": {
     "maximum_ram_size": 65536,
     "maximum_size": 524288,
-    "protocol": "cmsis-dap",
+    "protocol": "jlink",
     "protocols": [
       "jlink",
       "nrfjprog",
       "stlink",
       "blackmagic",
-      "cmsis-dap"
+      "cmsis-dap",
+      "mbed"
     ]
   },
-  "url": "https://redbear.cc/product/ble-nano-2-soldered.html",
-  "vendor": "RedBearLab"
+  "url": "https://www.lairdconnect.com/wireless-modules/bluetooth-modules/bluetooth-5-modules/bl652-series-bluetooth-v5-nfc",
+  "vendor": "Laird Connectivity"
 }
