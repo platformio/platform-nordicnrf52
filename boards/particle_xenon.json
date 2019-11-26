@@ -38,7 +38,7 @@
     "arduino",
     "zephyr"
   ],
-  "name": "Xenon",
+  "name": "Particle Xenon",
   "upload": {
     "maximum_ram_size": 248832,
     "maximum_size": 815104,
