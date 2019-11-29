@@ -270,6 +270,8 @@ elif upload_protocol == "nrfutil":
             "-b",
             "$UPLOAD_SPEED",
             "--singlebank",
+            "--touch",
+            "1200"
         ],
         UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
