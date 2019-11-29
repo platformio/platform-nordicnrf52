@@ -17,6 +17,7 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/arduino-ble-led
   - PLATFORMIO_PROJECT_DIR=examples/arduino-bluefruit-bleuart
   - PLATFORMIO_PROJECT_DIR=examples/arduino-nina-b1-generic-example PLATFORMIO_BUILD_FLAGS="-DNRF52_S132"
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-serial-plotter
   - PLATFORMIO_PROJECT_DIR=examples/mbed-ble-thermometer
   - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
   - PLATFORMIO_PROJECT_DIR=examples/mbed-dsp

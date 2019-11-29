@@ -43,6 +43,11 @@ class Nordicnrf52Platform(PlatformBase):
                 if "windows" not in get_systype():
                     self.packages['tool-gperf']['optional'] = False
 
+            if board == "nano33ble":
+                self.packages['toolchain-gccarmnoneeabi']['version'] = "~1.80201.0"
+                self.frameworks['arduino']['package'] = "framework-arduino-nrf52-mbedos"
+                self.frameworks['arduino']['script'] = "builder/frameworks/arduino/nrf52-mbedos.py"
+
         if set(["bootloader", "erase"]) & set(targets):
             self.packages["tool-nrfjprog"]["optional"] = False
         elif (upload_protocol and upload_protocol != "nrfjprog"

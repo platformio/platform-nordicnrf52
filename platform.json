@@ -51,6 +51,11 @@
       "optional": true,
       "version": "~1.600.0"
     },
+    "framework-arduino-nrf52-mbedos": {
+      "type": "framework",
+      "optional": true,
+      "version": "~1.1.3"
+    },
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
@@ -77,6 +82,11 @@
       "type": "uploader",
       "optional": true,
       "version": "^1.63208.0"
+    },
+    "tool-bossac-nordicnrf52": {
+      "type": "uploader",
+      "optional": true,
+      "version": "~1.10866.0"
     },
     "tool-cmake": {
       "optional": true,
