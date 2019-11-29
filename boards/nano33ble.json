@@ -33,6 +33,7 @@
   "upload": {
     "maximum_ram_size": 262144,
     "maximum_size": 983040,
+    "use_1200bps_touch": true,
     "require_upload_port": true,
     "protocol": "sam-ba",
     "protocols": [

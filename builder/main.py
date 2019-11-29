@@ -15,7 +15,7 @@
 import sys
 from platform import system
 from os import makedirs
-from os.path import isdir, join
+from os.path import isdir, join, basename
 
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
@@ -309,7 +309,7 @@ elif upload_protocol == "sam-ba":
     env.Replace(
         UPLOADER="bossac",
         UPLOADERFLAGS=[
-            "--port", '"$UPLOAD_PORT"', "--write", "--reset", "-U", "--reset"
+            "--port", '"$UPLOAD_PORT"', "--write", "--erase", "-U", "--reset"
         ],
         UPLOADCMD="$UPLOADER $UPLOADERFLAGS $SOURCES"
     )
