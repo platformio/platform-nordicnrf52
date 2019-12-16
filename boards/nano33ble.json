@@ -33,8 +33,6 @@
   "upload": {
     "maximum_ram_size": 262144,
     "maximum_size": 983040,
-    "use_1200bps_touch": true,
-    "require_upload_port": true,
     "protocol": "sam-ba",
     "protocols": [
       "jlink",
@@ -42,7 +40,10 @@
       "nrfutil",
       "cmsis-dap",
       "sam-ba"
-    ]
+    ],
+    "use_1200bps_touch": true,
+    "require_upload_port": true,
+    "wait_for_upload_port": true 
   },
   "url": "https://store.arduino.cc/arduino-nano-33-ble",
   "vendor": "Arduino"
