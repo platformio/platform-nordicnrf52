@@ -302,8 +302,10 @@ elif upload_protocol == "nrfutil":
         ],
         UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
-    upload_actions = [env.VerboseAction(env.AutodetectUploadPort, "Looking for upload port..."),
-                      env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+    upload_actions = [
+        env.VerboseAction(BeforeUpload, "Looking for upload port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
 
 elif upload_protocol == "sam-ba":
     env.Replace(
