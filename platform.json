@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-nordicnrf52.git"
   },
-  "version": "3.8.0",
+  "version": "4.0.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -25,6 +25,10 @@
     "mbed": {
       "package": "framework-mbed",
       "script": "builder/frameworks/mbed.py"
+    },
+    "zephyr": {
+      "package": "framework-zephyr",
+      "script": "builder/frameworks/zephyr.py"
     }
   },
   "packages": {
@@ -47,6 +51,72 @@
       "optional": true,
       "version": "~1.600.0"
     },
+    "framework-arduino-nrf52-mbedos": {
+      "type": "framework",
+      "optional": true,
+      "version": "~1.1.3"
+    },
+    "framework-zephyr": {
+      "type": "framework",
+      "optional": true,
+      "version": "~1.20100.0"
+    },
+    "framework-zephyr-hal-nordic": {
+      "optional": true,
+      "version": "~0.20100.191028"
+    },
+    "framework-zephyr-civetweb": {
+      "optional": true,
+      "version": "~0.20100.190807"
+    },
+    "framework-zephyr-fatfs": {
+      "optional": true,
+      "version": "~0.20100.190522"
+    },
+    "framework-zephyr-libmetal": {
+      "optional": true,
+      "version": "~0.20100.190530"
+    },
+    "framework-zephyr-lvgl": {
+      "optional": true,
+      "version": "~0.20100.190812"
+    },
+    "framework-zephyr-mbedtls": {
+      "optional": true,
+      "version": "~0.20100.191006"
+    },
+    "framework-zephyr-mcumgr": {
+      "optional": true,
+      "version": "~0.20100.190528"
+    },
+    "framework-zephyr-nffs": {
+      "optional": true,
+      "version": "~0.20100.190523"
+    },
+    "framework-zephyr-open-amp": {
+      "optional": true,
+      "version": "~0.20100.190612"
+    },
+    "framework-zephyr-openthread": {
+      "optional": true,
+      "version": "~0.20100.191024"
+    },
+    "framework-zephyr-segger": {
+      "optional": true,
+      "version": "~0.20100.190421"
+    },
+    "framework-zephyr-tinycbor": {
+      "optional": true,
+      "version": "~0.20100.191016"
+    },
+    "framework-zephyr-littlefs": {
+      "optional": true,
+      "version": "~0.20100.190811"
+    },
+    "framework-zephyr-mipi-sys-t": {
+      "optional": true,
+      "version": "~0.20100.191024"
+    },
     "tool-sreccat": {
       "version": "~1.164.0"
     },
@@ -64,6 +134,27 @@
       "type": "uploader",
       "optional": true,
       "version": "^1.63208.0"
+    },
+    "tool-bossac-nordicnrf52": {
+      "type": "uploader",
+      "optional": true,
+      "version": "~1.10866.0"
+    },
+    "tool-cmake": {
+      "optional": true,
+      "version": "~3.15.0"
+    },
+    "tool-dtc": {
+      "optional": true,
+      "version": "~1.4.7"
+    },
+    "tool-ninja": {
+      "optional": true,
+      "version": "^1.7.0"
+    },
+    "tool-gperf": {
+      "optional": true,
+      "version": "^3.0.0"
     }
   }
 }

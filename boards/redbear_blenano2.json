@@ -6,7 +6,10 @@
     "f_cpu": "64000000L",
     "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52832",
-    "variant": "RedBear_BLENano2"
+    "variant": "RedBear_BLENano2",
+    "zephyr": {
+       "variant": "nrf52_blenano2"
+    }
   },
   "connectivity": [
     "bluetooth"
@@ -19,8 +22,9 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
+    "arduino",
     "mbed",
-    "arduino"
+    "zephyr"
   ],
   "name": "RedBearLab BLE Nano 2",
   "upload": {
