@@ -15,7 +15,7 @@
     "onboard_tools": [
       "cmsis-dap"
     ],
-    "svd_path": "nrf52.svd"
+    "svd_path": "nrf52840.svd"
   },
   "frameworks": [
     "zephyr"
