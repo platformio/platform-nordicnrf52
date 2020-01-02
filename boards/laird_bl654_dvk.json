@@ -19,7 +19,7 @@
       "cmsis-dap",
       "jlink"
     ],
-    "svd_path": "nrf52.svd"
+    "svd_path": "nrf52840.svd"
   },
   "frameworks": [
     "zephyr"
