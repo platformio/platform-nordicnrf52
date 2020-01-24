@@ -1,10 +1,12 @@
 {
   "build": {
+    "arduino":{
+      "ldscript": "nrf52_xxaa.ld"
+    },
     "core": "nRF5",
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_RB_BLEND_2",
     "f_cpu": "64000000L",
-    "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52832",
     "variant": "RedBear_Blend2"
   },

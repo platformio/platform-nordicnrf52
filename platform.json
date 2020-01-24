@@ -39,7 +39,7 @@
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~5.51401.0"
+      "version": "~6.51401.0"
     },
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
@@ -59,7 +59,7 @@
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
-      "version": "~1.20100.0"
+      "version": "~2.20100.0"
     },
     "framework-zephyr-hal-nordic": {
       "optional": true,

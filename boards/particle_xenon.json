@@ -1,5 +1,8 @@
 {
   "build": {
+    "arduino":{
+      "ldscript": "nrf52840_s140_v6.ld"
+    },
     "core": "nRF5",
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52840_FEATHER -DNRF52840_XXAA -DNRF52840_XXAA",
@@ -11,7 +14,6 @@
       ]
     ],
     "usb_product": "Particle Xenon",
-    "ldscript": "nrf52840_s140_v6.ld",
     "mcu": "nrf52840",
     "variant": "particle_xenon",
     "bsp": {

@@ -1,9 +1,11 @@
 {
   "build": {
+    "arduino":{
+      "ldscript": "nrf52_xxaa.ld"
+    },
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52_DK",
     "f_cpu": "64000000L",
-    "ldscript": "nrf52_xxaa.ld",
     "mcu": "nrf52832"
   },
   "connectivity": [

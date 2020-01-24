@@ -1,5 +1,8 @@
 {
   "build": {
+    "arduino":{
+      "ldscript": "linker_script.ld"
+    },
     "core": "arduino",
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_ARDUINO_NANO33BLE -DARDUINO_ARCH_NRF52840",
@@ -14,7 +17,6 @@
         "0x805a"
       ]
     ],
-    "ldscript": "linker_script.ld",
     "mcu": "nrf52840",
     "variant": "ARDUINO_NANO33BLE"
   },

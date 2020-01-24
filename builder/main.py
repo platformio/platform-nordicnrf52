@@ -321,7 +321,7 @@ elif upload_protocol == "sam-ba":
     upload_actions = [
         env.VerboseAction(BeforeUpload, "Looking for upload port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
-    ] 
+    ]
 
 elif upload_protocol.startswith("jlink"):
 
@@ -397,6 +397,14 @@ AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
 AlwaysBuild(
     env.Alias("erase", None, env.VerboseAction("$ERASECMD",
                                                "Erasing...")))
+
+#
+# Information about obsolete method of specifying linker scripts
+#
+
+if any("-Wl,-T" in f for f in env.get("LINKFLAGS", [])):
+    print("Warning! '-Wl,-T' option for specifying linker scripts is deprecated. "
+          "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
 
 #
 # Default targets

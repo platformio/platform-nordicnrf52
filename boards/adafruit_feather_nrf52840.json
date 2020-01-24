@@ -1,5 +1,8 @@
 {
   "build": {
+    "arduino":{
+      "ldscript": "nrf52840_s140_v6.ld"
+    },
     "core": "nRF5",
     "cpu": "cortex-m4",
     "extra_flags": "-DARDUINO_NRF52840_FEATHER -DNRF52840_XXAA",
@@ -23,7 +26,6 @@
       ]
     ],
     "usb_product": "Feather nRF52840 Express",
-    "ldscript": "nrf52840_s140_v6.ld",
     "mcu": "nrf52840",
     "variant": "feather_nrf52840_express",
     "bsp": {
