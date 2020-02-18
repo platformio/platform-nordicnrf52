@@ -119,8 +119,7 @@ class Nordicnrf52Platform(PlatformBase):
                         "executable": ("JLinkGDBServerCL.exe"
                                        if system() == "Windows" else
                                        "JLinkGDBServer")
-                    },
-                    "onboard": link in debug.get("onboard_tools", [])
+                    }
                 }
 
             else:
@@ -139,10 +138,11 @@ class Nordicnrf52Platform(PlatformBase):
                         "package": "tool-openocd",
                         "executable": "bin/openocd",
                         "arguments": server_args
-                    },
-                    "onboard": link in debug.get("onboard_tools", []),
-                    "default": link in debug.get("default_tools", [])
+                    }
                 }
+
+            debug['tools'][link]['onboard'] = link in debug.get("onboard_tools", [])
+            debug['tools'][link]['default'] = link in debug.get("default_tools", [])
 
         board.manifest['debug'] = debug
         return board
