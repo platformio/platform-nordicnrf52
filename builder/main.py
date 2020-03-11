@@ -196,7 +196,7 @@ else:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "nrfutil" == upload_protocol:
+    elif "nrfutil" == upload_protocol and use_adafruit:
         target_firm = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
@@ -235,7 +235,7 @@ if "DFUBOOTHEX" in env:
     ]))
 
 if "bootloader" in COMMAND_LINE_TARGETS and "DFUBOOTHEX" not in env:
-    sys.stderr.write("Error: The board is missing the bootloader binary.\n")
+    sys.stderr.write("Error. The board is missing the bootloader binary.\n")
     env.Exit(1)
 
 #
