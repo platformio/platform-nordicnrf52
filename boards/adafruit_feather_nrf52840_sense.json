@@ -5,29 +5,29 @@
     },
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52840_CIRCUITPLAY -DNRF52840_XXAA -DNRF52840_CIRCUITPLAY",
+    "extra_flags": "-DARDUINO_NRF52840_FEATHER_SENSE -DNRF52840_XXAA",
     "f_cpu": "64000000L",
     "hwids": [
       [
         "0x239A",
-        "0x8045"
+        "0x8087"
       ],
       [
         "0x239A",
-        "0x0045"
+        "0x0087"
       ],
       [
         "0x239A",
-        "0x0046"
+        "0x0088"
       ],
       [
         "0x239A",
-        "0x8046"
+        "0x8088"
       ]
     ],
-    "usb_product": "Circuit Playground Bluefruit",
+    "usb_product": "Feather Bluefruit Sense",
     "mcu": "nrf52840",
-    "variant": "circuitplayground_nrf52840",
+    "variant": "feather_nrf52840_sense",
     "bsp": {
       "name": "adafruit"
     },
@@ -51,7 +51,7 @@
   "frameworks": [
     "arduino"
   ],
-  "name": "Circuit Playground Bluefruit",
+  "name": "Adafruit Feather Bluefruit Sense",
   "upload": {
     "maximum_ram_size": 248832,
     "maximum_size": 815104,
@@ -67,6 +67,6 @@
     "require_upload_port": true,
     "wait_for_upload_port": true
   },
-  "url": "https://www.adafruit.com/product/4333",
+  "url": "https://www.adafruit.com/product/4516",
   "vendor": "Adafruit"
 }

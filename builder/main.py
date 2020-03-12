@@ -196,23 +196,23 @@ else:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "DFUBOOTHEX" in env:
-        if "nrfutil" == upload_protocol:
-            target_firm = env.PackageDfu(
-                join("$BUILD_DIR", "${PROGNAME}"),
-                env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
-        elif "nrfjprog" == upload_protocol:
-            target_firm = env.ElfToHex(
-                join("$BUILD_DIR", "${PROGNAME}"), target_elf)
-        else:
-            target_firm = env.SignBin(
-                join("$BUILD_DIR", "${PROGNAME}"),
-                env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+    elif "nrfutil" == upload_protocol and use_adafruit:
+        target_firm = env.PackageDfu(
+            join("$BUILD_DIR", "${PROGNAME}"),
+            env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+    elif "nrfjprog" == upload_protocol:
+        target_firm = env.ElfToHex(
+            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
     elif "sam-ba" == upload_protocol:
         target_firm = env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
     else:
-        target_firm = env.ElfToHex(
-            join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        if "DFUBOOTHEX" in env:
+            target_firm = env.SignBin(
+                join("$BUILD_DIR", "${PROGNAME}"),
+                env.ElfToBin(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
+        else:
+            target_firm = env.ElfToHex(
+                join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -233,6 +233,10 @@ if "DFUBOOTHEX" in env:
         env.VerboseAction("nrfjprog --memwr $BOOT_SETTING_ADDR --val 0x00000001 -f nrf52", "Disable CRC check"),
         env.VerboseAction("nrfjprog --reset -f nrf52", "Reset nRF52")
     ]))
+
+if "bootloader" in COMMAND_LINE_TARGETS and "DFUBOOTHEX" not in env:
+    sys.stderr.write("Error. The board is missing the bootloader binary.\n")
+    env.Exit(1)
 
 #
 # Target: Print binary size
@@ -321,7 +325,7 @@ elif upload_protocol == "sam-ba":
     upload_actions = [
         env.VerboseAction(BeforeUpload, "Looking for upload port..."),
         env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
-    ] 
+    ]
 
 elif upload_protocol.startswith("jlink"):
 
@@ -397,6 +401,14 @@ AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
 AlwaysBuild(
     env.Alias("erase", None, env.VerboseAction("$ERASECMD",
                                                "Erasing...")))
+
+#
+# Information about obsolete method of specifying linker scripts
+#
+
+if any("-Wl,-T" in f for f in env.get("LINKFLAGS", [])):
+    print("Warning! '-Wl,-T' option for specifying linker scripts is deprecated. "
+          "Please use 'board_build.ldscript' option in your 'platformio.ini' file.")
 
 #
 # Default targets
