@@ -15,7 +15,7 @@ addons:
 env:
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-ble-beacon
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
-  - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
+  - PLATFORMIO_PROJECT_DIR=examples/zephyr-net-echo-client
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-subsys-nvs
 
 # Zephyr framework doesn't support python 2
