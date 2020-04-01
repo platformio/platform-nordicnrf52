@@ -15,6 +15,7 @@ environment:
     - PLATFORMIO_PROJECT_DIR: "examples/mbed-serial"
     - PLATFORMIO_PROJECT_DIR: "examples/zephyr-ble-beacon"
     - PLATFORMIO_PROJECT_DIR: "examples/zephyr-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/zephyr-net-echo-client"
     - PLATFORMIO_PROJECT_DIR: "examples/zephyr-subsys-nvs"
 
 install:

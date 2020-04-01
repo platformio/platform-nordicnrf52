@@ -27,6 +27,7 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/mbed-serial
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-ble-beacon
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
+  - PLATFORMIO_PROJECT_DIR=examples/zephyr-net-echo-client
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-subsys-nvs
 
 # Zephyr framework doesn't support python 2
@@ -36,6 +37,8 @@ jobs:
       env: PLATFORMIO_PROJECT_DIR=examples/zephyr-ble-beacon
     - python: "2.7"
       env: PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
+    - python: "2.7"
+      env: PLATFORMIO_PROJECT_DIR=examples/zephyr-net-echo-client
     - python: "2.7"
       env: PLATFORMIO_PROJECT_DIR=examples/zephyr-subsys-nvs
   
