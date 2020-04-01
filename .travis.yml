@@ -13,6 +13,18 @@ addons:
       - "python3-pip"
 
 env:
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-blink
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-ble-led
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-bluefruit-bleuart
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-nina-b1-generic-example PLATFORMIO_BUILD_FLAGS="-DNRF52_S132"
+  - PLATFORMIO_PROJECT_DIR=examples/arduino-serial-plotter
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-ble-thermometer
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-blink
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-dsp
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-events
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-nfc
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-rtos
+  - PLATFORMIO_PROJECT_DIR=examples/mbed-serial
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-ble-beacon
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-net-echo-client
