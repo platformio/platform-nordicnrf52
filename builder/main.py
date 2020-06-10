@@ -48,6 +48,7 @@ def BeforeUpload(target, source, env):  # pylint: disable=W0613,W0621
 
 
 env = DefaultEnvironment()
+env.SConscript("compat.py", exports="env")
 platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant", "")
@@ -223,16 +224,36 @@ if "DFUBOOTHEX" in env:
         BOOT_SETTING_ADDR=board.get("build.bootloader.settings_addr", "0x7F000")
     )
 
-    AlwaysBuild(env.Alias("dfu", env.PackageDfu(
-        join("$BUILD_DIR", "${PROGNAME}"),
-        env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))))
+    env.AddPlatformTarget(
+        "dfu",
+        env.PackageDfu(
+            join("$BUILD_DIR", "${PROGNAME}"),
+            env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf),
+        ),
+        None,
+        "Generate DFU Image",
+    )
 
-    AlwaysBuild(env.Alias("bootloader", None, [
-        env.VerboseAction("nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase", "Uploading $DFUBOOTHEX"),
-        env.VerboseAction("nrfjprog --erasepage $BOOT_SETTING_ADDR -f nrf52", "Erasing bootloader config"),
-        env.VerboseAction("nrfjprog --memwr $BOOT_SETTING_ADDR --val 0x00000001 -f nrf52", "Disable CRC check"),
-        env.VerboseAction("nrfjprog --reset -f nrf52", "Reset nRF52")
-    ]))
+    env.AddPlatformTarget(
+        "bootloader",
+        None,
+        [
+            env.VerboseAction(
+                "nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase",
+                "Uploading $DFUBOOTHEX",
+            ),
+            env.VerboseAction(
+                "nrfjprog --erasepage $BOOT_SETTING_ADDR -f nrf52",
+                "Erasing bootloader config",
+            ),
+            env.VerboseAction(
+                "nrfjprog --memwr $BOOT_SETTING_ADDR --val 0x00000001 -f nrf52",
+                "Disable CRC check",
+            ),
+            env.VerboseAction("nrfjprog --reset -f nrf52", "Reset nRF52"),
+        ],
+        "Burn Bootloader",
+    )
 
 if "bootloader" in COMMAND_LINE_TARGETS and "DFUBOOTHEX" not in env:
     sys.stderr.write("Error. The board is missing the bootloader binary.\n")
@@ -242,10 +263,13 @@ if "bootloader" in COMMAND_LINE_TARGETS and "DFUBOOTHEX" not in env:
 # Target: Print binary size
 #
 
-target_size = env.Alias(
-    "size", target_elf,
-    env.VerboseAction("$SIZEPRINTCMD", "Calculating size $SOURCE"))
-AlwaysBuild(target_size)
+target_size = env.AddPlatformTarget(
+    "size",
+    target_elf,
+    env.VerboseAction("$SIZEPRINTCMD", "Calculating size $SOURCE"),
+    "Program Size",
+    "Calculate program size",
+)
 
 #
 # Target: Upload by default .bin file
@@ -391,16 +415,15 @@ elif upload_protocol == "custom":
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-AlwaysBuild(env.Alias("upload", target_firm, upload_actions))
+env.AddPlatformTarget("upload", target_firm, upload_actions, "Upload")
 
 
 #
 # Target: Erase Flash
 #
 
-AlwaysBuild(
-    env.Alias("erase", None, env.VerboseAction("$ERASECMD",
-                                               "Erasing...")))
+env.AddPlatformTarget(
+    "erase", None, env.VerboseAction("$ERASECMD", "Erasing..."), "Erase Flash")
 
 #
 # Information about obsolete method of specifying linker scripts
