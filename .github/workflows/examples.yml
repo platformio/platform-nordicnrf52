@@ -27,6 +27,7 @@ jobs:
           - "examples/zephyr-net-echo-client"
           - "examples/zephyr-subsys-nvs"
         exclude:
+          - {python-version: 2.7, example: "examples/arduino-bluefruit-bleuart"}
           - {python-version: 2.7, example: "examples/zephyr-ble-beacon"}
           - {python-version: 2.7, example: "examples/zephyr-blink"}
           - {python-version: 2.7, example: "examples/zephyr-net-echo-client"}
@@ -44,6 +45,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -U https://github.com/platformio/platformio/archive/develop.zip
+          pip install adafruit-nrfutil
           platformio platform install file://.
       - name: Build examples
         run: |
