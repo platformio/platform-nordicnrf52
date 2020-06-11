@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-16.04, windows-latest, macos-latest]
-        python-version: [2.7, 3.7]
+        python-version: [3.7]
         example:
           - "examples/arduino-blink"
           - "examples/arduino-ble-led"
@@ -26,16 +26,6 @@ jobs:
           - "examples/zephyr-blink"
           - "examples/zephyr-net-echo-client"
           - "examples/zephyr-subsys-nvs"
-        exclude:
-          - {python-version: 2.7, example: "examples/arduino-bluefruit-bleuart"}
-          - {python-version: 2.7, example: "examples/arduino-ble-led"}
-          - {python-version: 2.7, example: "examples/arduino-bluefruit-bleuart"}
-          - {python-version: 2.7, example: "examples/arduino-nina-b1-generic-example"}
-          - {python-version: 2.7, example: "examples/arduino-serial-plotter"}
-          - {python-version: 2.7, example: "examples/zephyr-ble-beacon"}
-          - {python-version: 2.7, example: "examples/zephyr-blink"}
-          - {python-version: 2.7, example: "examples/zephyr-net-echo-client"}
-          - {python-version: 2.7, example: "examples/zephyr-subsys-nvs"}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
