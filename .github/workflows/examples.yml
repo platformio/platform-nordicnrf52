@@ -13,7 +13,7 @@ jobs:
           - "examples/arduino-blink"
           - "examples/arduino-ble-led"
           - "examples/arduino-bluefruit-bleuart"
-          - "examples/arduino-nina-b1-generic-example PLATFORMIO_BUILD_FLAGS="-DNRF52_S132""
+          - "examples/arduino-nina-b1-generic-example"
           - "examples/arduino-serial-plotter"
           - "examples/mbed-ble-thermometer"
           - "examples/mbed-blink"
