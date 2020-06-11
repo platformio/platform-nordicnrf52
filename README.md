@@ -1,6 +1,6 @@
 # Nordic nRF52: development platform for [PlatformIO](http://platformio.org)
-[![Build Status](https://travis-ci.org/platformio/platform-nordicnrf52.svg?branch=develop)](https://travis-ci.org/platformio/platform-nordicnrf52)
-[![Build status](https://ci.appveyor.com/api/projects/status/l4l8litycj6d1796/branch/develop?svg=true)](https://ci.appveyor.com/project/ivankravets/platform-nordicnrf52/branch/develop)
+
+[![Build Status](https://github.com/platformio/platform-nordicnrf52/workflows/Examples/badge.svg)](https://github.com/platformio/platform-nordicnrf52/actions)
 
 The nRF52 Series are built for speed to carry out increasingly complex tasks in the shortest possible time and return to sleep, conserving precious battery power. They have a Cortex-M4F processor and are the most capable Bluetooth Smart SoCs on the market.
 
