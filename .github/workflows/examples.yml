@@ -1,0 +1,50 @@
+name: Examples
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-16.04, windows-latest, macos-latest]
+        python-version: [2.7, 3.7]
+        example:
+          - "examples/arduino-blink"
+          - "examples/arduino-ble-led"
+          - "examples/arduino-bluefruit-bleuart"
+          - "examples/arduino-nina-b1-generic-example PLATFORMIO_BUILD_FLAGS="-DNRF52_S132""
+          - "examples/arduino-serial-plotter"
+          - "examples/mbed-ble-thermometer"
+          - "examples/mbed-blink"
+          - "examples/mbed-dsp"
+          - "examples/mbed-events"
+          - "examples/mbed-nfc"
+          - "examples/mbed-rtos"
+          - "examples/mbed-serial"
+          - "examples/zephyr-ble-beacon"
+          - "examples/zephyr-blink"
+          - "examples/zephyr-net-echo-client"
+          - "examples/zephyr-subsys-nvs"
+        exclude:
+          - {python-version: 2.7, example: "examples/zephyr-ble-beacon"}
+          - {python-version: 2.7, example: "examples/zephyr-blink"}
+          - {python-version: 2.7, example: "examples/zephyr-net-echo-client"}
+          - {python-version: 2.7, example: "examples/zephyr-subsys-nvs"}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -U https://github.com/platformio/platformio/archive/develop.zip
+          platformio platform install file://.
+      - name: Build examples
+        run: |
+          platformio run -d ${{ matrix.example }}
