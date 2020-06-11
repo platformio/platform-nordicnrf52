@@ -28,6 +28,10 @@ jobs:
           - "examples/zephyr-subsys-nvs"
         exclude:
           - {python-version: 2.7, example: "examples/arduino-bluefruit-bleuart"}
+          - {python-version: 2.7, example: "examples/arduino-ble-led"}
+          - {python-version: 2.7, example: "examples/arduino-bluefruit-bleuart"}
+          - {python-version: 2.7, example: "examples/arduino-nina-b1-generic-example"}
+          - {python-version: 2.7, example: "examples/arduino-serial-plotter"}
           - {python-version: 2.7, example: "examples/zephyr-ble-beacon"}
           - {python-version: 2.7, example: "examples/zephyr-blink"}
           - {python-version: 2.7, example: "examples/zephyr-net-echo-client"}
