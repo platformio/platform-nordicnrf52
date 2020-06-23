@@ -61,7 +61,8 @@
       "jlink",
       "nrfjprog",
       "nrfutil",
-      "stlink"
+      "stlink",
+      "cmsis-dap"
     ],
     "use_1200bps_touch": true,
     "require_upload_port": true,
