@@ -1,0 +1,33 @@
+.pio\build\nrf52840_dk\FrameworkMbed\features\nfc\source\nfc\NFCRemoteInitiator.o: \
+ C:\.platformio\packages\framework-mbed-620\features\nfc\source\nfc\NFCRemoteInitiator.cpp \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/nfc/NFCRemoteInitiator.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/nfc/NFCDefinitions.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/nfc_errors.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/nfc/NFCRemoteEndpoint.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/nfc/NFCNDEFCapable.h \
+ C:/.platformio/packages/framework-mbed-620/platform/Span.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_assert.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_toolchain.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_preprocessor.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/ndef/ndef.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/nfc_common.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/nfc_errors.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/platform/nfc_debug.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_macros.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer_reader.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer_builder.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_stream.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer_reader.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/acore/acore/ac_buffer_builder.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/tech/iso7816/iso7816_app.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/tech/iso7816/iso7816.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/transceiver/protocols.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/tech/isodep/isodep_target.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/transceiver/transceiver.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/transceiver/protocols.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/platform/nfc_transport.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/platform/nfc_scheduler.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/nfc/stack/tech/isodep/isodep.h

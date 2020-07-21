@@ -1,0 +1,22 @@
+.pio\build\nrf52840_dk\FrameworkMbed\features\nanostack\sal-stack-nanostack\source\Security\PANA\pana_avp.o: \
+ C:\.platformio\packages\framework-mbed-620\features\nanostack\sal-stack-nanostack\source\Security\PANA\pana_avp.c \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/nsconfig.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/FRAMEW~1/NANOST~1/MBED-C~1/ns_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/cfg_nanostack_full.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/cfg_generic.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_thread_border_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_thread_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_thread_full_end_device.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_thread_end_device.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_ethernet.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_lowpan_border_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_lowpan_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_lowpan_host.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_local_socket.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_rf_tunnel.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_ws_border_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/configs/base/cfg_ws_router.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/FRAMEW~1/NANOST~1/MBED-C~1/common_functions.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/FRAMEW~1/NANOST~1/MBED-C~1/ns_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/NANOST~1/SAL-ST~2/source/Security/PANA/pana_avp.h

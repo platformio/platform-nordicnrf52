@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from platform import system
+import json
+import os
+import platform
 
 from platformio.managers.platform import PlatformBase
 from platformio.util import get_systype
@@ -26,6 +28,7 @@ class Nordicnrf52Platform(PlatformBase):
     def configure_default_packages(self, variables, targets):
         upload_protocol = ""
         board = variables.get("board")
+        frameworks = variables.get("pioframework", [])
         if board:
             upload_protocol = variables.get(
                 "upload_protocol",
@@ -35,11 +38,23 @@ class Nordicnrf52Platform(PlatformBase):
                                             "nrf5") == "adafruit":
                 self.frameworks['arduino'][
                     'package'] = "framework-arduinoadafruitnrf52"
-                    
-            if "zephyr" in variables.get("pioframework", []):
+
+            if "mbed" in frameworks:
+                deprecated_boards_file = os.path.join(
+                    self.get_dir(), "misc", "mbed_deprecated_boards.json")
+                if os.path.isfile(deprecated_boards_file):
+                    with open(deprecated_boards_file) as fp:
+                        if board in json.load(fp):
+                            self.packages["framework-mbed"]["version"] = "~6.51504.0"
+                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.90201.0"
+
+            if "zephyr" in frameworks:
                 for p in self.packages:
                     if p.startswith("framework-zephyr-") or p in (
-                        "tool-cmake", "tool-dtc", "tool-ninja"):
+                        "tool-cmake",
+                        "tool-dtc",
+                        "tool-ninja",
+                    ):
                         self.packages[p]["optional"] = False
                 self.packages['toolchain-gccarmnoneeabi']['version'] = "~1.80201.0"
                 if "windows" not in get_systype():
@@ -117,7 +132,7 @@ class Nordicnrf52Platform(PlatformBase):
                             "-port", "2331"
                         ],
                         "executable": ("JLinkGDBServerCL.exe"
-                                       if system() == "Windows" else
+                                       if platform.system() == "Windows" else
                                        "JLinkGDBServer")
                     }
                 }

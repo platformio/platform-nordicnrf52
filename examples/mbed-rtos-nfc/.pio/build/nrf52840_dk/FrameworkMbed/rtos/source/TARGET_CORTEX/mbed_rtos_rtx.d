@@ -1,0 +1,32 @@
+.pio\build\nrf52840_dk\FrameworkMbed\rtos\source\TARGET_CORTEX\mbed_rtos_rtx.o: \
+ C:\.platformio\packages\framework-mbed-620\rtos\source\TARGET_CORTEX\mbed_rtos_rtx.c \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/core_cm4.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_version.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_compiler.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_gcc.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis_nvic.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/mpu_armv7.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/system_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52840_bitfields.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf51_to_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52_to_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/compiler_abstraction.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis_nvic.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/mbed_rtx.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/mbed_rtos_storage.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/mbed_rtx_storage.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/rtx5/RTX/Include/rtx_os.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/rtx5/Include/cmsis_os2.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/mbed_rtx_conf.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/mbed_toolchain.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_preprocessor.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/mbed_error.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_retarget.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_toolchain.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/mbed_critical.h \
+ C:\.platformio\packages\framework-mbed-620\rtos\source\TARGET_CORTEX\mbed_boot.h

@@ -1,0 +1,35 @@
+.pio\build\nrf52840_dk\FrameworkMbed\rtos\source\Thread.o: \
+ C:\.platformio\packages\framework-mbed-620\rtos\source\Thread.cpp \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/Thread.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/mbed_rtos_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/rtx5/Include/cmsis_os2.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/mbed_rtos1_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/rtx4/cmsis_os.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/rtx5/RTX/Include/rtx_os.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/mbed_rtos_storage.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/mbed_rtx_storage.h \
+ C:/PLATFO~1/packages/FRAMEW~2/rtos/source/TARGET~1/mbed_rtx_conf.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/mbed_rtx.h \
+ C:/.platformio/packages/framework-mbed-620/platform/Callback.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_cstddef \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_new \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_assert.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_toolchain.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_preprocessor.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_type_traits \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_functional \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_memory \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_utility \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/CXXSUP~1/mstd_iterator \
+ C:/.platformio/packages/framework-mbed-620/platform/NonCopyable.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/Semaphore.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/Kernel.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/Mutex.h \
+ C:/.platformio/packages/framework-mbed-620/platform/ScopedLock.h \
+ C:/.platformio/packages/framework-mbed-620/rtos/ThisThread.h \
+ C:\.platformio\packages\framework-mbed-620\rtos\source\rtos_idle.h \
+ C:/PLATFO~1/packages/FRAMEW~2/platform/mbed_toolchain.h \
+ C:\.platformio\packages\framework-mbed-620\rtos\source\rtos_handlers.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_error.h \
+ C:/.platformio/packages/framework-mbed-620/platform/mbed_retarget.h

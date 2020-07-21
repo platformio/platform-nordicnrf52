@@ -1,0 +1,35 @@
+.pio\build\nrf52840_dk\FrameworkMbed\features\mbedtls\src\rsa.o: \
+ C:\.platformio\packages\framework-mbed-620\features\mbedtls\src\rsa.c \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_mbed.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/mbedtls_device.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/check_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/rsa.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/bignum.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/md.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/rsa_internal.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/oid.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/asn1.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/pk.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/ecp.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/ecdsa.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/cipher.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/platform_util.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/platform.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/platform_time.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_alt.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_mbed.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/TARGET~1/crypto_device_platform.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_rnd.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types_plat.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes_error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes_defs.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/sha1.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/sha1_alt.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_hash.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_hash_defs.h

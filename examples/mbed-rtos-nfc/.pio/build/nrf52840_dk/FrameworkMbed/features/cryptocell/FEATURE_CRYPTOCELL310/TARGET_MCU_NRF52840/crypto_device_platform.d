@@ -1,0 +1,32 @@
+.pio\build\nrf52840_dk\FrameworkMbed\features\cryptocell\FEATURE_CRYPTOCELL310\TARGET_MCU_NRF52840\crypto_device_platform.o: \
+ C:\.platformio\packages\framework-mbed-620\features\cryptocell\FEATURE_CRYPTOCELL310\TARGET_MCU_NRF52840\crypto_device_platform.c \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_alt.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_mbed.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/mbedtls_device.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/TARGET~1/crypto_device_platform.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_rnd.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types_plat.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes_error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_aes_defs.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/core_cm4.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_version.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_compiler.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/cmsis_gcc.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis_nvic.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52840_bitfields.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf51_to_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/nrf52_to_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/compiler_abstraction.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~1/TARGET~2/device/cmsis_nvic.h \
+ C:/PLATFO~1/packages/FRAMEW~2/cmsis/TARGET~2/mpu_armv7.h \
+ C:/PLATFO~1/packages/FRAMEW~2/targets/TAC311~1/TARGET~1/TARGET~3/modules/nrfx/mdk/system_nrf52840.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/sns_silib.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_rnd.h

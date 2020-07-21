@@ -1,0 +1,20 @@
+.pio\build\nrf52840_dk\FrameworkMbed\features\mbedtls\targets\hash_wrappers.o: \
+ C:\.platformio\packages\framework-mbed-620\features\mbedtls\targets\hash_wrappers.c \
+ .pio/build/nrf52840_dk/mbed_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/md2.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/platform/inc/platform_mbed.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/mbedtls_device.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/check_config.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/md4.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/md5.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/sha1.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/sha1_alt.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_hash.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/ssi_pal_types_plat.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_error.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/include/crys_hash_defs.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/sha256.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/CRYPTO~1/FEATUR~1/sha256_alt.h \
+ C:/PLATFO~1/packages/FRAMEW~2/features/mbedtls/inc/mbedtls/sha512.h
