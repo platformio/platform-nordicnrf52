@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-nordicnrf52.git"
   },
-  "version": "4.3.0",
+  "version": "4.4.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -38,7 +38,7 @@
     "framework-mbed": {
       "type": "framework",
       "optional": true,
-      "version": "~6.51401.0"
+      "version": "~6.60200.0"
     },
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
