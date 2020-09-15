@@ -20,7 +20,7 @@ from os.path import isdir, join, basename
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
 
-from platformio.util import get_serialports
+from platformio.util import get_serial_ports
 
 
 def BeforeUpload(target, source, env):  # pylint: disable=W0613,W0621
@@ -33,7 +33,7 @@ def BeforeUpload(target, source, env):  # pylint: disable=W0613,W0621
     if not bool(upload_options.get("disable_flushing", False)):
         env.FlushSerialBuffer("$UPLOAD_PORT")
 
-    before_ports = get_serialports()
+    before_ports = get_serial_ports()
 
     if bool(upload_options.get("use_1200bps_touch", False)):
         env.TouchSerialPort("$UPLOAD_PORT", 1200)
