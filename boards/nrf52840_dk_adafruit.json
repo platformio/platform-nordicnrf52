@@ -52,7 +52,9 @@
     "protocols": [
       "jlink",
       "nrfjprog",
-      "stlink"
+      "stlink",
+      "cmsis-dap",
+      "blackmagic"
     ]
   },
   "url": "https://os.mbed.com/platforms/Nordic-nRF52840-DK/",

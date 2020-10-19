@@ -29,6 +29,7 @@
       "jlink",
       "nrfjprog",
       "stlink",
+      "cmsis-dap",
       "blackmagic"
     ]
   },

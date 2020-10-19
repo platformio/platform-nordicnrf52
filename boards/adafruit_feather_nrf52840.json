@@ -63,7 +63,8 @@
       "nrfjprog",
       "nrfutil",
       "stlink",
-      "cmsis-dap"
+      "cmsis-dap",
+      "blackmagic"
     ],
     "use_1200bps_touch": true,
     "require_upload_port": true,
