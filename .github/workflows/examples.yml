@@ -24,6 +24,13 @@ jobs:
           - "examples/zephyr-blink"
           - "examples/zephyr-net-echo-client"
           - "examples/zephyr-subsys-nvs"
+        exclude:
+          - {os: windows-latest, example: "examples/mbed-legacy-examples/mbed-ble-thermometer"}
+          - {os: windows-latest, example: "examples/mbed-legacy-examples/mbed-rtos"}
+          - {os: windows-latest, example: "examples/mbed-legacy-examples/mbed-nfc"}
+          - {python-version: 2.7, example: "examples/zephyr-blink"}
+          - {python-version: 2.7, example: "examples/zephyr-net-echo-client"}
+          - {python-version: 2.7, example: "examples/zephyr-subsys-nvs"}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
