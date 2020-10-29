@@ -24,7 +24,9 @@
     "protocols": [
       "jlink",
       "nrfjprog",
-      "nrfutil"
+      "nrfutil",
+      "cmsis-dap",
+      "blackmagic"
     ]
   },
   "url": "https://docs.particle.io/boron",

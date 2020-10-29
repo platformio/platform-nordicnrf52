@@ -63,7 +63,9 @@
       "jlink",
       "nrfjprog",
       "nrfutil",
-      "stlink"
+      "stlink",
+      "cmsis-dap",
+      "blackmagic"
     ]
   },
   "url": "https://www.adafruit.com/product/3406",
