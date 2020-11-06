@@ -66,8 +66,7 @@
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
-      "owner": "platformio",
-      "version": "~2.20400.0"
+      "version": "https://github.com/platformio/zephyr.git#v2.4-branch"
     },
     "framework-zephyr-cmsis": {
       "optional": true,
