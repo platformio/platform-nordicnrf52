@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-16.04, windows-latest, macos-latest]
+        os: [ubuntu-16.04, windows-2016, macos-latest]
         example:
           - "examples/zephyr-ble-beacon"
           - "examples/zephyr-blink"
