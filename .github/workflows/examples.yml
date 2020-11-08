@@ -7,9 +7,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2016]
+        os: [ubuntu-16.04, windows-latest, macos-latest]
         example:
+          - "examples/zephyr-ble-beacon"
+          - "examples/zephyr-blink"
           - "examples/zephyr-net-echo-client"
+          - "examples/zephyr-subsys-nvs"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
