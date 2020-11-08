@@ -27,4 +27,4 @@ jobs:
           platformio platform install file://.
       - name: Build examples
         run: |
-          platformio run -v -d ${{ matrix.example }}
+          platformio run -d ${{ matrix.example }}
