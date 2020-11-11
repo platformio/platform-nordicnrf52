@@ -16,6 +16,7 @@ LOG_MODULE_DECLARE(net_echo_client_sample, LOG_LEVEL_DBG);
 
 #include <net/socket.h>
 #include <net/tls_credentials.h>
+#include <random/rand32.h>
 
 #include "common.h"
 #include "ca_certificate.h"
@@ -24,7 +25,7 @@ LOG_MODULE_DECLARE(net_echo_client_sample, LOG_LEVEL_DBG);
 #define UDP_SLEEP K_MSEC(150)
 #define UDP_WAIT K_SECONDS(10)
 
-char recv_buf[RECV_BUF_SIZE];
+static APP_BMEM char recv_buf[RECV_BUF_SIZE];
 
 static int send_udp_data(struct data *data)
 {
@@ -44,7 +45,7 @@ static int send_udp_data(struct data *data)
 	return ret < 0 ? -EIO : 0;
 }
 
-static int compare_udp_data(struct data *data, const char *buf, u32_t received)
+static int compare_udp_data(struct data *data, const char *buf, uint32_t received)
 {
 	if (received != data->udp.expecting) {
 		LOG_ERR("Invalid amount of data received: UDP %s", data->proto);
