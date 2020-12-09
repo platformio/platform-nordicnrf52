@@ -155,6 +155,7 @@ class Nordicnrf52Platform(PlatformBase):
                         "arguments": server_args
                     }
                 }
+                server_args.extend(debug.get("openocd_extra_args", []))
 
             debug['tools'][link]['onboard'] = link in debug.get("onboard_tools", [])
             debug['tools'][link]['default'] = link in debug.get("default_tools", [])
