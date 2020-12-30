@@ -26,7 +26,7 @@
   "frameworks": [
     "zephyr"
   ],
-  "name": "reel_board_v2",
+  "name": "PHYTEC reel board v2",
   "upload": {
     "maximum_ram_size": 262144,
     "maximum_size": 1048576,
