@@ -1,0 +1,39 @@
+{
+  "build": {
+    "cpu": "cortex-m4",
+    "f_cpu": "64000000L",
+    "mcu": "nrf52840",
+	"zephyr": {
+        "variant": "nrf52840_mdk_dongle"
+	}
+  },
+  "connectivity": [
+    "bluetooth"
+  ],
+  "debug": {
+    "default_tools": [
+      "jlink"
+    ],
+    "jlink_device": "nRF52840_xxAA",
+    "svd_path": "nrf52840.svd"
+  },
+  "frameworks": [
+    "zephyr"
+  ],
+  "name": "Makerdiary nRF52840-MDK USB Dongle",
+  "upload": {
+    "maximum_ram_size": 262144,
+    "maximum_size": 1048576,
+    "protocol": "jlink",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "cmsis-dap",
+      "mbed"
+    ]
+  },
+  "url": "https://wiki.makerdiary.com/nrf52840-mdk-usb-dongle/",
+  "vendor": "Makerdiary"
+}
