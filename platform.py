@@ -168,7 +168,8 @@ class Nordicnrf52Platform(PlatformBase):
         debug_options = copy.deepcopy(initial_debug_options)
         adapter_speed = initial_debug_options.get("speed")
         if adapter_speed:
-            server_executable = debug_options["server"].get("executable", "").lower()
+            server_options = debug_options.get("server") or {}
+            server_executable = server_options.get("executable", "").lower()
             if "openocd" in server_executable:
                 debug_options["server"]["arguments"].extend(
                     ["-c", "adapter speed %s" % adapter_speed]
