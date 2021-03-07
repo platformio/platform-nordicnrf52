@@ -231,7 +231,7 @@ if "DFUBOOTHEX" in env:
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf),
         ),
-        None,
+        target_firm,
         "Generate DFU Image",
     )
 
