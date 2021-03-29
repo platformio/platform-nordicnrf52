@@ -63,8 +63,10 @@ class Nordicnrf52Platform(PlatformBase):
 
             if board == "nano33ble":
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                self.frameworks["arduino"]["package"] = "framework-arduino-nrf52-mbedos"
-                self.frameworks["arduino"]["script"] = "builder/frameworks/arduino/nrf52-mbedos.py"
+                self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
+                self.frameworks["arduino"][
+                    "script"
+                ] = "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
 
         if set(["bootloader", "erase"]) & set(targets):
             self.packages["tool-nrfjprog"]["optional"] = False
@@ -166,9 +168,10 @@ class Nordicnrf52Platform(PlatformBase):
 
     def configure_debug_options(self, initial_debug_options, ide_data):
         debug_options = copy.deepcopy(initial_debug_options)
-        server_executable = debug_options["server"]["executable"].lower()
         adapter_speed = initial_debug_options.get("speed")
         if adapter_speed:
+            server_options = debug_options.get("server") or {}
+            server_executable = server_options.get("executable", "").lower()
             if "openocd" in server_executable:
                 debug_options["server"]["arguments"].extend(
                     ["-c", "adapter speed %s" % adapter_speed]

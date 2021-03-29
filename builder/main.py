@@ -214,6 +214,7 @@ else:
         else:
             target_firm = env.ElfToHex(
                 join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+        env.Depends(target_firm, "checkprogsize")
 
 AlwaysBuild(env.Alias("nobuild", target_firm))
 target_buildprog = env.Alias("buildprog", target_firm, target_firm)
@@ -230,7 +231,7 @@ if "DFUBOOTHEX" in env:
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf),
         ),
-        None,
+        target_firm,
         "Generate DFU Image",
     )
 
