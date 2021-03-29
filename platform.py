@@ -63,7 +63,7 @@ class Nordicnrf52Platform(PlatformBase):
 
             if board == "nano33ble":
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                self.frameworks["arduino"]["package"] = "framework-arduino-nrf52-mbedos"
+                self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
                 self.frameworks["arduino"][
                     "script"
                 ] = "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
