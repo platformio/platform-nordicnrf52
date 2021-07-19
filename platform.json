@@ -56,7 +56,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.2100.0"
+      "version": "~1.2400.0"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
@@ -69,6 +69,12 @@
       "optional": true,
       "owner": "platformio",
       "version": "~2.3.0"
+    },
+    "framework-cmsis": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~2.50700.0"
     },
     "framework-zephyr": {
       "type": "framework",
