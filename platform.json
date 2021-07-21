@@ -192,6 +192,11 @@
       "owner": "platformio",
       "version": "0.0.0-alpha+sha.96340fb6c0"
     },
+    "tool-adafruit-nrfutil": {
+      "owner": "platformio",
+      "optional": true,
+      "version": "~1.503.0"
+    },
     "tool-sreccat": {
       "owner": "platformio",
       "version": "~1.164.0"

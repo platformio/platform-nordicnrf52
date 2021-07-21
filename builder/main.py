@@ -55,19 +55,6 @@ variant = board.get("build.variant", "")
 
 use_adafruit = board.get(
     "build.bsp.name", "nrf5") == "adafruit" and "arduino" in env.get("PIOFRAMEWORK", [])
-if use_adafruit:
-    FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoadafruitnrf52")
-
-    os_platform = sys.platform
-    if os_platform == "win32":
-        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", os_platform, "adafruit-nrfutil.exe")
-    elif os_platform == "darwin":
-        nrfutil_path = join(FRAMEWORK_DIR, "tools", "adafruit-nrfutil", "macos", "adafruit-nrfutil")
-    else:
-        nrfutil_path = "adafruit-nrfutil"
-else:
-    # set it to empty since we won't need it
-    nrfutil_path = ""
 
 env.Replace(
     AR="arm-none-eabi-ar",
@@ -143,7 +130,9 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    '"%s"' % nrfutil_path,
+                    "$PYTHONEXE",
+                    '"%s"' % join(platform.get_package_dir(
+                        "tool-adafruit-nrfutil") or "", "adafruit-nrfutil.py"),
                     "dfu",
                     "genpkg",
                     "--dev-type",
@@ -157,16 +146,28 @@ if use_adafruit:
                 suffix=".zip"
             ),
             SignBin=Builder(
-                action=env.VerboseAction(" ".join([
-                    "$PYTHONEXE",
-                    join(FRAMEWORK_DIR or "",
-                        "tools", "pynrfbintool", "pynrfbintool.py"),
-                    "--signature",
-                    "$TARGET",
-                    "$SOURCES"
-                ]), "Signing $SOURCES"),
-                suffix="_signature.bin"
-            )
+                action=env.VerboseAction(
+                    " ".join(
+                        [
+                            "$PYTHONEXE",
+                            join(
+                                platform.get_package_dir(
+                                    "framework-arduinoadafruitnrf52"
+                                )
+                                or "",
+                                "tools",
+                                "pynrfbintool",
+                                "pynrfbintool.py",
+                            ),
+                            "--signature",
+                            "$TARGET",
+                            "$SOURCES",
+                        ]
+                    ),
+                    "Signing $SOURCES",
+                ),
+                suffix="_signature.bin",
+            ),
         )
     )
 
@@ -319,7 +320,8 @@ elif upload_protocol == "nrfjprog":
 
 elif upload_protocol == "nrfutil":
     env.Replace(
-        UPLOADER=nrfutil_path,
+        UPLOADER=join(platform.get_package_dir(
+            "tool-adafruit-nrfutil") or "", "adafruit-nrfutil.py"),
         UPLOADERFLAGS=[
             "dfu",
             "serial",
@@ -329,7 +331,7 @@ elif upload_protocol == "nrfutil":
             "$UPLOAD_SPEED",
             "--singlebank",
         ],
-        UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
+        UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
     upload_actions = [
         env.VerboseAction(BeforeUpload, "Looking for upload port..."),
@@ -359,7 +361,7 @@ elif upload_protocol.startswith("jlink"):
         if not isdir(build_dir):
             makedirs(build_dir)
         script_path = join(build_dir, "upload.jlink")
-        commands = [ "h" ]
+        commands = ["h"]
         if "DFUBOOTHEX" in env:
             commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""),
                 env.BoardConfig().get("upload.offset_address", "0x26000")))
