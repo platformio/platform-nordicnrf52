@@ -39,6 +39,8 @@ class Nordicnrf52Platform(PlatformBase):
                                             "nrf5") == "adafruit":
                 self.frameworks["arduino"][
                     "package"] = "framework-arduinoadafruitnrf52"
+                self.packages["framework-cmsis"]["optional"] = False
+                self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
             if "mbed" in frameworks:
                 deprecated_boards_file = os.path.join(
@@ -51,11 +53,7 @@ class Nordicnrf52Platform(PlatformBase):
 
             if "zephyr" in frameworks:
                 for p in self.packages:
-                    if p.startswith("framework-zephyr-") or p in (
-                        "tool-cmake",
-                        "tool-dtc",
-                        "tool-ninja",
-                    ):
+                    if p in ("tool-cmake", "tool-dtc", "tool-ninja"):
                         self.packages[p]["optional"] = False
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
                 if "windows" not in get_systype():
