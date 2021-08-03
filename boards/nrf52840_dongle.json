@@ -1,0 +1,34 @@
+{
+    "build": {
+      "core": "nRF5",
+      "cpu": "cortex-m4",
+      "f_cpu": "64000000L",
+      "mcu": "nrf52840",
+      "variant": "nRF52840DONGLE",
+      "zephyr": {
+         "variant": "nrf52840dongle_nrf52840"
+      }
+    },
+    "connectivity": [
+      "bluetooth"
+    ],
+    "debug": {
+      "jlink_device": "nRF52840_xxAA",
+      "svd_path": "nrf52840.svd"
+    },
+    "frameworks": [
+      "zephyr"
+    ],
+    "name": "Nordic nRF52840 Dongle",
+    "upload": {
+      "maximum_ram_size": 262144,
+      "maximum_size": 1048576,
+      "protocol": "nrfutil",
+      "protocols": [
+        "nrfutil"
+      ]
+    },
+    "url": "https://www.nordicsemi.com/Products/Development-hardware/nRF52840-Dongle",
+    "vendor": "Nordic"
+  }
+  
