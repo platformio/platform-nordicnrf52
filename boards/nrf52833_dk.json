@@ -1,0 +1,51 @@
+{
+  "build": {
+    "arduino": {
+      "ldscript": "nrf52_xxaa.ld"
+    },
+    "core": "nRF5",
+    "cpu": "cortex-m4",
+    "extra_flags": "-DARDUINO_NRF52_DK",
+    "f_cpu": "64000000L",
+    "mcu": "nrf52833",
+    "variant": "nRF52DK",
+    "zephyr": {
+      "variant": "nrf52833dk_nrf52833"
+    }
+  },
+  "connectivity": [
+    "bluetooth"
+  ],
+  "debug": {
+    "default_tools": [
+      "jlink"
+    ],
+    "jlink_device": "nRF52833_xxAA",
+    "onboard_tools": [
+      "cmsis-dap",
+      "jlink"
+    ],
+    "svd_path": "nrf52833.svd"
+  },
+  "frameworks": [
+    "arduino",
+    "mbed",
+    "zephyr"
+  ],
+  "name": "Nordic nRF52833-DK",
+  "upload": {
+    "maximum_ram_size": 131072,
+    "maximum_size": 524288,
+    "protocol": "jlink",
+    "protocols": [
+      "jlink",
+      "nrfjprog",
+      "stlink",
+      "blackmagic",
+      "cmsis-dap",
+      "mbed"
+    ]
+  },
+  "url": "https://os.mbed.com/platforms/Nordic-nRF52833-DK/",
+  "vendor": "Nordic"
+}

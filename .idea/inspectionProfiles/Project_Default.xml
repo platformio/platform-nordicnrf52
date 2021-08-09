@@ -1,0 +1,48 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="69" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyBroadExceptionInspection" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="20">
+            <item index="0" class="java.lang.String" itemvalue="pandas" />
+            <item index="1" class="java.lang.String" itemvalue="gensim" />
+            <item index="2" class="java.lang.String" itemvalue="tensorflow" />
+            <item index="3" class="java.lang.String" itemvalue="tensorflow_datasets" />
+            <item index="4" class="java.lang.String" itemvalue="psycopg2-binary" />
+            <item index="5" class="java.lang.String" itemvalue="python-dotenv" />
+            <item index="6" class="java.lang.String" itemvalue="loguru" />
+            <item index="7" class="java.lang.String" itemvalue="flask" />
+            <item index="8" class="java.lang.String" itemvalue="flask_restful" />
+            <item index="9" class="java.lang.String" itemvalue="keras" />
+            <item index="10" class="java.lang.String" itemvalue="numpy" />
+            <item index="11" class="java.lang.String" itemvalue="pymorphy2" />
+            <item index="12" class="java.lang.String" itemvalue="mitie" />
+            <item index="13" class="java.lang.String" itemvalue="waitress" />
+            <item index="14" class="java.lang.String" itemvalue="flask_cors" />
+            <item index="15" class="java.lang.String" itemvalue="marshmallow" />
+            <item index="16" class="java.lang.String" itemvalue="pymorphy2-dicts-uk" />
+            <item index="17" class="java.lang.String" itemvalue="langid" />
+            <item index="18" class="java.lang.String" itemvalue="msgpack" />
+            <item index="19" class="java.lang.String" itemvalue="flaks_cors" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E221" />
+          <option value="E722" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
