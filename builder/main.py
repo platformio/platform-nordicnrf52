@@ -109,7 +109,7 @@ env.Append(
         ),
         MergeHex=Builder(
             action=env.VerboseAction(" ".join([
-                join(platform.get_package_dir("tool-sreccat") or "",
+                '"%s"' % join(platform.get_package_dir("tool-sreccat") or "",
                      "srec_cat"),
                 "$SOFTDEVICEHEX",
                 "-intel",
@@ -130,7 +130,7 @@ if use_adafruit:
         BUILDERS=dict(
             PackageDfu=Builder(
                 action=env.VerboseAction(" ".join([
-                    "$PYTHONEXE",
+                    '"$PYTHONEXE"',
                     '"%s"' % join(platform.get_package_dir(
                         "tool-adafruit-nrfutil") or "", "adafruit-nrfutil.py"),
                     "dfu",
@@ -149,8 +149,8 @@ if use_adafruit:
                 action=env.VerboseAction(
                     " ".join(
                         [
-                            "$PYTHONEXE",
-                            join(
+                            '"$PYTHONEXE"',
+                            '"%s"' % join(
                                 platform.get_package_dir(
                                     "framework-arduinoadafruitnrf52"
                                 )
