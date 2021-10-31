@@ -25,7 +25,7 @@
         "0x810E"
       ]
     ],
-    "usb_product": "Feather nRF52840 Express",
+    "usb_product": "Adafruit LED Glasses",
     "mcu": "nrf52840",
     "variant": "ledglasses_nrf52840",
     "bsp": {
