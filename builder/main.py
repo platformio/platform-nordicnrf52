@@ -56,6 +56,8 @@ variant = board.get("build.variant", "")
 use_adafruit = board.get(
     "build.bsp.name", "nrf5") == "adafruit" and "arduino" in env.get("PIOFRAMEWORK", [])
 
+target_dongle = board.get("build.variant") == "nRF52840DONGLE"
+
 env.Replace(
     AR="arm-none-eabi-ar",
     AS="arm-none-eabi-as",
@@ -171,6 +173,28 @@ if use_adafruit:
         )
     )
 
+if target_dongle:
+    env.Append(
+        BUILDERS=dict(
+            PackageDfu=Builder(
+                action=env.VerboseAction(" ".join([
+                    "nrfutil",
+                    "pkg",
+                    "generate",
+                    "--hw-version",
+                    "52",
+                    "--sd-req",
+                    "0x00",
+                    "--application-version",
+                    "0",
+                    "--application",
+                    "$SOURCES",
+                    "$TARGET"
+                ]), "Building $TARGET"),
+                suffix=".zip"
+            )
+        )
+    )
 
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py")
@@ -198,7 +222,7 @@ else:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "nrfutil" == upload_protocol and use_adafruit:
+    elif "nrfutil" == upload_protocol and (use_adafruit or target_dongle):
         target_firm = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
@@ -318,7 +342,7 @@ elif upload_protocol == "nrfjprog":
     )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
-elif upload_protocol == "nrfutil":
+elif upload_protocol == "nrfutil" and use_adafruit:
     env.Replace(
         UPLOADER=join(platform.get_package_dir(
             "tool-adafruit-nrfutil") or "", "adafruit-nrfutil.py"),
@@ -332,6 +356,22 @@ elif upload_protocol == "nrfutil":
             "--singlebank",
         ],
         UPLOADCMD='"$PYTHONEXE" "$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
+    )
+    upload_actions = [
+        env.VerboseAction(BeforeUpload, "Looking for upload port..."),
+        env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")
+    ]
+
+elif upload_protocol == "nrfutil" and target_dongle:
+    env.Replace(
+        UPLOADER="nrfutil",
+        UPLOADERFLAGS=[
+            "dfu",
+            "serial",
+            "-p",
+            "$UPLOAD_PORT"
+        ],
+        UPLOADCMD='"$UPLOADER" $UPLOADERFLAGS -pkg $SOURCE'
     )
     upload_actions = [
         env.VerboseAction(BeforeUpload, "Looking for upload port..."),
