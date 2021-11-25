@@ -53,9 +53,6 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant", "")
 
-use_adafruit = board.get(
-    "build.bsp.name", "nrf5") == "adafruit" and "arduino" in env.get("PIOFRAMEWORK", [])
-
 env.Replace(
     AR="arm-none-eabi-ar",
     AS="arm-none-eabi-as",
@@ -125,7 +122,9 @@ env.Append(
     )
 )
 
-if use_adafruit:
+upload_protocol = env.subst("$UPLOAD_PROTOCOL")
+
+if "nrfutil" == upload_protocol:
     env.Append(
         BUILDERS=dict(
             PackageDfu=Builder(
@@ -186,7 +185,6 @@ if "zephyr" in env.get("PIOFRAMEWORK", []):
         exports={"env": env}
     )
 
-upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
@@ -198,7 +196,7 @@ else:
         target_firm = env.MergeHex(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "userfirmware"), target_elf))
-    elif "nrfutil" == upload_protocol and use_adafruit:
+    elif "nrfutil" == upload_protocol:
         target_firm = env.PackageDfu(
             join("$BUILD_DIR", "${PROGNAME}"),
             env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf))
