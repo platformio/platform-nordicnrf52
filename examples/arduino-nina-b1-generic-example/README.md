@@ -12,7 +12,7 @@ u-blox NINA-B1 Arduino example + SHT31 temperature and humidity + Bluetooth BLE
 
 ## How to build PlatformIO based project
 
-1. [Install PlatformIO Core](http://docs.platformio.org/page/core.html)
+1. [Install PlatformIO Core](https://docs.platformio.org/page/core.html)
 2. Download [development platform with examples](https://github.com/platformio/platform-nordicnrf52/archive/develop.zip)
 3. Extract ZIP archive
 4. Run these commands:
@@ -43,7 +43,7 @@ This example tries to implement some key functions and key PIN atributes in orde
 
 Timer functionas are implemented intead of `delay()` and the PINs have been re-mapped on the `#define` section
 
-## Bluetooth iOS and Android app 
+## Bluetooth iOS and Android app
 
 You can download the sample Bluetooth low energy app - BLE App straight from u-blox wesite: [https://www.u-blox.com/en/product/bluetooth-ios-and-android-app](https://www.u-blox.com/en/product/bluetooth-ios-and-android-app)
 
