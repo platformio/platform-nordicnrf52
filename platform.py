@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
 import json
 import os
-import platform
+import sys
 
-from platformio.managers.platform import PlatformBase
-from platformio.util import get_systype
+from platformio.public import PlatformBase
 
+
+IS_WINDOWS = sys.platform.startswith("win")
 
 class Nordicnrf52Platform(PlatformBase):
 
@@ -56,7 +56,7 @@ class Nordicnrf52Platform(PlatformBase):
                     if p in ("tool-cmake", "tool-dtc", "tool-ninja"):
                         self.packages[p]["optional"] = False
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                if "windows" not in get_systype():
+                if not IS_WINDOWS:
                     self.packages["tool-gperf"]["optional"] = False
 
             if board in ("nano33ble", "nicla_sense_me"):
@@ -87,11 +87,10 @@ class Nordicnrf52Platform(PlatformBase):
         if not any(jlink_conds) and jlink_pkgname in self.packages:
             del self.packages[jlink_pkgname]
 
-        return PlatformBase.configure_default_packages(self, variables,
-                                                       targets)
+        return super().configure_default_packages(variables, targets)
 
     def get_boards(self, id_=None):
-        result = PlatformBase.get_boards(self, id_)
+        result = super().get_boards(id_)
         if not result:
             return result
         if id_:
@@ -133,7 +132,7 @@ class Nordicnrf52Platform(PlatformBase):
                             "-port", "2331"
                         ],
                         "executable": ("JLinkGDBServerCL.exe"
-                                       if platform.system() == "Windows" else
+                                       if IS_WINDOWS else
                                        "JLinkGDBServer")
                     }
                 }
@@ -164,19 +163,14 @@ class Nordicnrf52Platform(PlatformBase):
         board.manifest['debug'] = debug
         return board
 
-    def configure_debug_options(self, initial_debug_options, ide_data):
-        debug_options = copy.deepcopy(initial_debug_options)
-        adapter_speed = initial_debug_options.get("speed")
-        if adapter_speed:
-            server_options = debug_options.get("server") or {}
-            server_executable = server_options.get("executable", "").lower()
+    def configure_debug_session(self, debug_config):
+        if debug_config.speed:
+            server_executable = (debug_config.server or {}).get("executable", "").lower()
             if "openocd" in server_executable:
-                debug_options["server"]["arguments"].extend(
-                    ["-c", "adapter speed %s" % adapter_speed]
+                debug_config.server["arguments"].extend(
+                    ["-c", "adapter speed %s" % debug_config.speed]
                 )
             elif "jlink" in server_executable:
-                debug_options["server"]["arguments"].extend(
-                    ["-speed", adapter_speed or "4000"]
+                debug_config.server["arguments"].extend(
+                    ["-speed", debug_config.speed]
                 )
-
-        return debug_options
