@@ -129,7 +129,8 @@ class Nordicnrf52Platform(PlatformBase):
                             "-if", "SWD",
                             "-select", "USB",
                             "-device", debug.get("jlink_device"),
-                            "-port", "2331"
+                            "-port", "2331",
+                            "-rtos", "GDBServer/RTOSPlugin_Zephyr"
                         ],
                         "executable": ("JLinkGDBServerCL.exe"
                                        if IS_WINDOWS else
