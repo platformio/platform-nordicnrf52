@@ -4,7 +4,7 @@
     "f_cpu": "64000000L",
     "mcu": "nrf52840",
 	"zephyr": {
-        "variant": "nrf52840_mdk_dongle"
+        "variant": "nrf52840_mdk_usb_dongle"
 	}
   },
   "connectivity": [
