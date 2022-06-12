@@ -14,11 +14,12 @@
 
 import json
 import os
-import platform
+import sys
 
-from platformio.managers.platform import PlatformBase
-from platformio.util import get_systype
+from platformio.public import PlatformBase
 
+
+IS_WINDOWS = sys.platform.startswith("win")
 
 class Nordicnrf52Platform(PlatformBase):
 
@@ -36,8 +37,10 @@ class Nordicnrf52Platform(PlatformBase):
 
             if self.board_config(board).get("build.bsp.name",
                                             "nrf5") == "adafruit":
-                self.frameworks['arduino'][
-                    'package'] = "framework-arduinoadafruitnrf52"
+                self.frameworks["arduino"][
+                    "package"] = "framework-arduinoadafruitnrf52"
+                self.packages["framework-cmsis"]["optional"] = False
+                self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
             if "mbed" in frameworks:
                 deprecated_boards_file = os.path.join(
@@ -50,20 +53,18 @@ class Nordicnrf52Platform(PlatformBase):
 
             if "zephyr" in frameworks:
                 for p in self.packages:
-                    if p.startswith("framework-zephyr-") or p in (
-                        "tool-cmake",
-                        "tool-dtc",
-                        "tool-ninja",
-                    ):
+                    if p in ("tool-cmake", "tool-dtc", "tool-ninja"):
                         self.packages[p]["optional"] = False
-                self.packages['toolchain-gccarmnoneeabi']['version'] = "~1.80201.0"
-                if "windows" not in get_systype():
-                    self.packages['tool-gperf']['optional'] = False
+                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
+                if not IS_WINDOWS:
+                    self.packages["tool-gperf"]["optional"] = False
 
-            if board == "nano33ble":
-                self.packages['toolchain-gccarmnoneeabi']['version'] = "~1.80201.0"
-                self.frameworks['arduino']['package'] = "framework-arduino-nrf52-mbedos"
-                self.frameworks['arduino']['script'] = "builder/frameworks/arduino/nrf52-mbedos.py"
+            if board in ("nano33ble", "nicla_sense_me"):
+                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
+                self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
+                self.frameworks["arduino"][
+                    "script"
+                ] = "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"
 
         if set(["bootloader", "erase"]) & set(targets):
             self.packages["tool-nrfjprog"]["optional"] = False
@@ -86,11 +87,10 @@ class Nordicnrf52Platform(PlatformBase):
         if not any(jlink_conds) and jlink_pkgname in self.packages:
             del self.packages[jlink_pkgname]
 
-        return PlatformBase.configure_default_packages(self, variables,
-                                                       targets)
+        return super().configure_default_packages(variables, targets)
 
     def get_boards(self, id_=None):
-        result = PlatformBase.get_boards(self, id_)
+        result = super().get_boards(id_)
         if not result:
             return result
         if id_:
@@ -105,7 +105,7 @@ class Nordicnrf52Platform(PlatformBase):
         upload_protocols = board.manifest.get("upload", {}).get(
             "protocols", [])
         if "tools" not in debug:
-            debug['tools'] = {}
+            debug["tools"] = {}
 
         # J-Link / ST-Link / BlackMagic Probe
         for link in ("blackmagic", "jlink", "stlink", "cmsis-dap"):
@@ -113,7 +113,7 @@ class Nordicnrf52Platform(PlatformBase):
                 continue
 
             if link == "blackmagic":
-                debug['tools']['blackmagic'] = {
+                debug["tools"]["blackmagic"] = {
                     "hwids": [["0x1d50", "0x6018"]],
                     "require_debug_port": True
                 }
@@ -121,7 +121,7 @@ class Nordicnrf52Platform(PlatformBase):
             elif link == "jlink":
                 assert debug.get("jlink_device"), (
                     "Missed J-Link Device ID for %s" % board.id)
-                debug['tools'][link] = {
+                debug["tools"][link] = {
                     "server": {
                         "package": "tool-jlink",
                         "arguments": [
@@ -132,7 +132,7 @@ class Nordicnrf52Platform(PlatformBase):
                             "-port", "2331"
                         ],
                         "executable": ("JLinkGDBServerCL.exe"
-                                       if platform.system() == "Windows" else
+                                       if IS_WINDOWS else
                                        "JLinkGDBServer")
                     }
                 }
@@ -148,7 +148,7 @@ class Nordicnrf52Platform(PlatformBase):
                         "transport select hla_swd; set WORKAREASIZE 0x4000"
                     ])
                 server_args.extend(["-f", "target/nrf52.cfg"])
-                debug['tools'][link] = {
+                debug["tools"][link] = {
                     "server": {
                         "package": "tool-openocd",
                         "executable": "bin/openocd",
@@ -157,8 +157,20 @@ class Nordicnrf52Platform(PlatformBase):
                 }
                 server_args.extend(debug.get("openocd_extra_args", []))
 
-            debug['tools'][link]['onboard'] = link in debug.get("onboard_tools", [])
-            debug['tools'][link]['default'] = link in debug.get("default_tools", [])
+            debug["tools"][link]["onboard"] = link in debug.get("onboard_tools", [])
+            debug["tools"][link]["default"] = link in debug.get("default_tools", [])
 
         board.manifest['debug'] = debug
         return board
+
+    def configure_debug_session(self, debug_config):
+        if debug_config.speed:
+            server_executable = (debug_config.server or {}).get("executable", "").lower()
+            if "openocd" in server_executable:
+                debug_config.server["arguments"].extend(
+                    ["-c", "adapter speed %s" % debug_config.speed]
+                )
+            elif "jlink" in server_executable:
+                debug_config.server["arguments"].extend(
+                    ["-speed", debug_config.speed]
+                )

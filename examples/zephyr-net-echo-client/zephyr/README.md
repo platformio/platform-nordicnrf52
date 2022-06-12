@@ -59,12 +59,12 @@ Build echo-client sample application like this:
    :goals: build
    :compact:
 
-Example building for the nRF52840_pca10056 with OpenThread support:
+Example building for the nrf52840dk_nrf52840 with OpenThread support:
 
 .. zephyr-app-commands::
    :zephyr-app: samples/net/sockets/echo_client
    :host-os: unix
-   :board: nrf52840_pca10056
+   :board: nrf52840dk_nrf52840
    :conf: "prj.conf overlay-ot.conf"
    :goals: run
    :compact:
@@ -181,3 +181,4 @@ on how to test TLS with Linux host samples.
 See the :ref:`sockets-echo-server-sample` documentation for an alternate
 way of running, with the echo-client on the Linux host and the echo-server
 in QEMU.
+```

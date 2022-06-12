@@ -1,24 +1,24 @@
 {
   "name": "nordicnrf52",
   "title": "Nordic nRF52",
-  "description": "The nRF52 Series are built for speed to carry out increasingly complex tasks in the shortest possible time and return to sleep, conserving precious battery power. They have a Cortex-M4F processor and are the most capable Bluetooth Smart SoCs on the market.",
+  "description": "The nRF52 Series are built for speed to carry out increasingly complex tasks in the shortest possible time and return to sleep, conserving precious battery power. They have a Cortex-M4F processor which makes them quite capable Bluetooth Smart SoCs.",
   "homepage": "https://www.nordicsemi.com/Products/nRF52-Series-SoC",
   "license": "Apache-2.0",
   "keywords": [
-      "dev-platform",
-      "ARM",
-      "Cortex-M",
-      "Nordic Semiconductor",
-      "nRF52"
+    "dev-platform",
+    "ARM",
+    "Cortex-M",
+    "Nordic Semiconductor",
+    "nRF52"
   ],
   "engines": {
-    "platformio": "^5"
+    "platformio": "^6"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/platformio/platform-nordicnrf52.git"
   },
-  "version": "6.0.0",
+  "version": "9.4.0",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinonordicnrf5",
@@ -37,19 +37,26 @@
     "toolchain-gccarmnoneeabi": {
       "type": "toolchain",
       "owner": "platformio",
-      "version": ">=1.60301.0,<1.80000.0"
+      "version": ">=1.60301.0,<1.80000.0",
+      "optionalVersions": [
+        "~1.80201.0",
+        "~1.90201.0"
+      ]
     },
     "framework-mbed": {
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~6.60600.0"
+      "version": "~6.60900.0",
+      "optionalVersions": [
+        "~6.51506.0"
+      ]
     },
     "framework-arduinoadafruitnrf52": {
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.2100.0"
+      "version": "~1.10300.0"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
@@ -57,117 +64,28 @@
       "owner": "platformio",
       "version": "~1.700.0"
     },
-    "framework-arduino-nrf52-mbedos": {
+    "framework-arduino-mbed": {
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.3.0"
+      "version": "~3.1.1"
+    },
+    "framework-cmsis": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "~2.50700.0"
     },
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~2.20400.0"
+      "version": "~2.20701.0"
     },
-    "framework-zephyr-cmsis": {
-      "optional": true,
+    "tool-adafruit-nrfutil": {
       "owner": "platformio",
-      "version": "0.0.0-alpha+sha.542b2296e6"
-    },
-    "framework-zephyr-canopennode": {
       "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.468d350028"
-    },
-    "framework-zephyr-civetweb": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.99129c5efc"
-    },
-    "framework-zephyr-fatfs": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.13697783bf"
-    },
-    "framework-zephyr-hal-nordic": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.d8a6ea9695"
-    },
-    "framework-zephyr-hal-st": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.5b3ec3e182"
-    },
-    "framework-zephyr-libmetal": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.0b23894a04"
-    },
-    "framework-zephyr-lvgl": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.928b61c7c8"
-    },
-    "framework-zephyr-mbedtls": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.aef137b1af"
-    },
-    "framework-zephyr-mcuboot": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.a5d79cf8cc"
-    },
-    "framework-zephyr-mcumgr": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.5051f9d900"
-    },
-    "framework-zephyr-open-amp": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.724f7e2a45"
-    },
-    "framework-zephyr-loramac-node": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.3f545d76a2"
-    },
-    "framework-zephyr-openthread": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.07f430dac6"
-    },
-    "framework-zephyr-segger": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.874d9e9696"
-    },
-    "framework-zephyr-tinycbor": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.40daca97b4"
-    },
-    "framework-zephyr-tinycrypt": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.3e9a49d267"
-    },
-    "framework-zephyr-littlefs": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.9e4498d1c7"
-    },
-    "framework-zephyr-mipi-sys-t": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.957d46bc3c"
-    },
-    "framework-zephyr-trusted-firmware-m": {
-      "optional": true,
-      "owner": "platformio",
-      "version": "0.0.0-alpha+sha.143df67555"
+      "version": "~1.503.0"
     },
     "tool-sreccat": {
       "owner": "platformio",
@@ -177,7 +95,7 @@
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~2.1000.0"
+      "version": "~2.1100.0"
     },
     "tool-nrfjprog": {
       "type": "uploader",
@@ -200,7 +118,7 @@
     "tool-cmake": {
       "optional": true,
       "owner": "platformio",
-      "version": "~3.16.0"
+      "version": "~3.21.0"
     },
     "tool-dtc": {
       "optional": true,

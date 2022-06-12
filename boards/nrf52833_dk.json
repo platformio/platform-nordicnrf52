@@ -1,16 +1,10 @@
 {
   "build": {
-    "arduino":{
-      "ldscript": "nrf52_xxaa.ld"
-    },
-    "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52_DK",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832",
-    "variant": "nRF52DK",
+    "mcu": "nrf52833",
     "zephyr": {
-       "variant": "nrf52dk_nrf52832"
+      "variant": "nrf52833dk_nrf52833"
     }
   },
   "connectivity": [
@@ -20,21 +14,19 @@
     "default_tools": [
       "jlink"
     ],
-    "jlink_device": "nRF52832_xxAA",
+    "jlink_device": "nRF52833_xxAA",
     "onboard_tools": [
       "cmsis-dap",
       "jlink"
     ],
-    "svd_path": "nrf52.svd"
+    "svd_path": "nrf52833.svd"
   },
   "frameworks": [
-    "arduino",
-    "mbed",
     "zephyr"
   ],
-  "name": "Nordic nRF52-DK",
+  "name": "Nordic nRF52833-DK",
   "upload": {
-    "maximum_ram_size": 65536,
+    "maximum_ram_size": 131072,
     "maximum_size": 524288,
     "protocol": "jlink",
     "protocols": [
@@ -46,6 +38,6 @@
       "mbed"
     ]
   },
-  "url": "https://developer.mbed.org/platforms/Nordic-nRF52-DK/",
+  "url": "https://www.nordicsemi.com/Products/Development-hardware/nrf52833-dk",
   "vendor": "Nordic"
 }
