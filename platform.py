@@ -59,9 +59,13 @@ class Nordicnrf52Platform(PlatformBase):
                 if not IS_WINDOWS:
                     self.packages["tool-gperf"]["optional"] = False
 
-            if board in ("nano33ble", "nicla_sense_me"):
+            if board in ("nano33ble", "nicla_sense_me", "xiaoblesense", "xiaoble"):
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
+                self.packages["tool-adafruit-nrfutil"]["optional"] = False
+                if board in ("xiaoblesense", "xiaoble"):
+                    self.frameworks["arduino"]["package"] = "framework-arduino-mbed-seeed"
+                else:
+                    self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
                 self.frameworks["arduino"][
                     "script"
                 ] = "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"

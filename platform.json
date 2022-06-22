@@ -70,6 +70,11 @@
       "owner": "platformio",
       "version": "~3.1.1"
     },
+    "framework-arduino-mbed-seeed": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/maxgerhardt/framework-mbed-seeed.git"
+    },
     "framework-cmsis": {
       "type": "framework",
       "optional": true,
