@@ -1,0 +1,57 @@
+{
+  "build": {
+    "arduino": {
+        "ldscript": "flash_with_bootloader.ld"
+    },
+    "core": "arduino",
+    "cpu": "cortex-m0plus",
+    "extra_flags": "-DARDUINO_SAMD_NANO_33_IOT -DCRYSTALLESS -D__SAMD21G18A__",
+    "f_cpu": "48000000L",
+    "hwids": [
+      [
+        "0x2341",
+        "0x8057"
+      ],
+      [
+        "0x2341",
+        "0x0057"
+      ]
+    ],
+    "mcu": "samd21g18a",
+    "usb_product": "Arduino NANO 33 IoT",
+    "variant": "nano_33_iot",
+    "zephyr": {
+       "variant": "arduino_nano_33_iot"
+    }
+  },
+  "debug": {
+    "jlink_device": "ATSAMD21G18",
+    "openocd_chipname": "at91samd21g18",
+    "openocd_target": "at91samdXX",
+    "svd_path": "ATSAMD21G18A.svd"
+  },
+  "frameworks": [
+    "arduino",
+    "zephyr"
+  ],
+  "name": "NANO 33 IoT",
+  "upload": {
+    "disable_flushing": true,
+    "maximum_ram_size": 32768,
+    "maximum_size": 262144,
+    "native_usb": true,
+    "offset_address": "0x2000",
+    "protocol": "sam-ba",
+    "protocols": [
+      "sam-ba",
+      "blackmagic",
+      "jlink",
+      "atmel-ice"
+    ],
+    "require_upload_port": true,
+    "use_1200bps_touch": true,
+    "wait_for_upload_port": true
+  },
+  "url": "https://store.arduino.cc/nano-33-iot",
+  "vendor": "Arduino"
+}
