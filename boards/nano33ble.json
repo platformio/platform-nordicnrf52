@@ -18,7 +18,10 @@
       ]
     ],
     "mcu": "nrf52840",
-    "variant": "ARDUINO_NANO33BLE"
+    "variant": "ARDUINO_NANO33BLE",
+    "zephyr": {
+       "variant": "arduino_nano_33_ble"
+    }
   },
   "connectivity": [
     "bluetooth"
@@ -29,7 +32,8 @@
     "svd_path": "nrf52840.svd"
   },
   "frameworks": [
-    "arduino"
+    "arduino",
+    "zephyr"
   ],
   "name": "Arduino Nano 33 BLE",
   "upload": {
