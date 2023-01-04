@@ -67,6 +67,8 @@ class Nordicnrf52Platform(PlatformBase):
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
                 if board in ("xiaoblesense", "xiaoble"):
                     self.frameworks["arduino"]["package"] = "framework-arduino-mbed-seeed"
+                    # needed to build the ZIP file
+                    self.packages["tool-adafruit-nrfutil"]["optional"] = False
                 else:
                     self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
                 self.frameworks["arduino"][
