@@ -58,6 +58,12 @@
       "owner": "platformio",
       "version": "~1.10300.0"
     },
+    "framework-arduinoadafruitnrf52-seeed": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "https://github.com/maxgerhardt/framework-arduinoadafruitnrf52-seeed.git"
+    },
     "framework-arduinonordicnrf5": {
       "type": "framework",
       "optional": true,

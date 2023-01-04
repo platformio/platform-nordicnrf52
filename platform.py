@@ -37,8 +37,12 @@ class Nordicnrf52Platform(PlatformBase):
 
             if self.board_config(board).get("build.bsp.name",
                                             "nrf5") == "adafruit":
-                self.frameworks["arduino"][
-                    "package"] = "framework-arduinoadafruitnrf52"
+                if board in ("xiaoblesense_adafruit", "xiaoble_adafruit"):
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoadafruitnrf52-seeed"
+                else:
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoadafruitnrf52"
                 self.packages["framework-cmsis"]["optional"] = False
                 self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
@@ -61,7 +65,6 @@ class Nordicnrf52Platform(PlatformBase):
 
             if board in ("nano33ble", "nicla_sense_me", "xiaoblesense", "xiaoble"):
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                self.packages["tool-adafruit-nrfutil"]["optional"] = False
                 if board in ("xiaoblesense", "xiaoble"):
                     self.frameworks["arduino"]["package"] = "framework-arduino-mbed-seeed"
                 else:
