@@ -8,7 +8,11 @@
     "extra_flags": "-DARDUINO_GENERIC",
     "f_cpu": "64000000L",
     "mcu": "nrf52832",
-    "variant": "Generic"
+    "variant": "Generic",
+    "zephyr": {
+      "variant": "ubx_evkninab1_nrf52832"
+    }
+
   },
   "connectivity": [
     "bluetooth",
@@ -23,7 +27,8 @@
   },
   "frameworks": [
     "arduino",
-    "mbed"
+    "mbed",
+    "zephyr"
   ],
   "name": "u-blox EVK-NINA-B1",
   "upload": {
