@@ -95,7 +95,7 @@
       "type": "uploader",
       "optional": true,
       "owner": "platformio",
-      "version": "~2.1100.0"
+      "version": "~3.1200.0"
     },
     "tool-nrfjprog": {
       "type": "uploader",

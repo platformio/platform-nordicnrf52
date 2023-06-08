@@ -139,7 +139,7 @@ class Nordicnrf52Platform(PlatformBase):
 
             else:
                 server_args = [
-                    "-s", "$PACKAGE_DIR/scripts",
+                    "-s", "$PACKAGE_DIR/openocd/scripts",
                     "-f", "interface/%s.cfg" % link
                 ]
                 if link == "stlink":
