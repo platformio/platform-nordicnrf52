@@ -53,7 +53,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.10300.0"
+      "version": "~1.10500.0"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
