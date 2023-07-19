@@ -8,7 +8,7 @@ How to build PlatformIO based project
 
 ```shell
 # Change directory to example
-$ cd platform-nordicnrf52/examples/mbed-legacy-examples/mbed-rtos-ble-thermometer
+$ cd platform-nordicnrf52/examples/mbed-legacy-examples/mbed-rtos-ble-battery
 
 # Build project
 $ pio run
