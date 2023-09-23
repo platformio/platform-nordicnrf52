@@ -37,8 +37,12 @@ class Nordicnrf52Platform(PlatformBase):
 
             if self.board_config(board).get("build.bsp.name",
                                             "nrf5") == "adafruit":
-                self.frameworks["arduino"][
-                    "package"] = "framework-arduinoadafruitnrf52"
+                if board in ("xiaoblesense_adafruit", "xiaoble_adafruit"):
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoadafruitnrf52-seeed"
+                else:
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoadafruitnrf52"
                 self.packages["framework-cmsis"]["optional"] = False
                 self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
@@ -53,9 +57,14 @@ class Nordicnrf52Platform(PlatformBase):
                 if not IS_WINDOWS:
                     self.packages["tool-gperf"]["optional"] = False
 
-            if board in ("nano33ble", "nicla_sense_me"):
+            if board in ("nano33ble", "nicla_sense_me", "xiaoblesense", "xiaoble"):
                 self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
-                self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
+                if board in ("xiaoblesense", "xiaoble"):
+                    self.frameworks["arduino"]["package"] = "framework-arduino-mbed-seeed"
+                    # needed to build the ZIP file
+                    self.packages["tool-adafruit-nrfutil"]["optional"] = False
+                else:
+                    self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
                 self.frameworks["arduino"][
                     "script"
                 ] = "builder/frameworks/arduino/mbed-core/arduino-core-mbed.py"

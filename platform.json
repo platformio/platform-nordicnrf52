@@ -55,6 +55,12 @@
       "owner": "platformio",
       "version": "~1.10500.0"
     },
+    "framework-arduinoadafruitnrf52-seeed": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "https://github.com/maxgerhardt/framework-arduinoadafruitnrf52-seeed.git"
+    },
     "framework-arduinonordicnrf5": {
       "type": "framework",
       "optional": true,
@@ -66,6 +72,11 @@
       "optional": true,
       "owner": "platformio",
       "version": "~4.0.2"
+    },
+    "framework-arduino-mbed-seeed": {
+      "type": "framework",
+      "optional": true,
+      "version": "https://github.com/maxgerhardt/framework-mbed-seeed.git"
     },
     "framework-cmsis": {
       "type": "framework",
