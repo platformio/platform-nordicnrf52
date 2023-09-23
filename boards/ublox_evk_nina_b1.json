@@ -22,8 +22,7 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "arduino",
-    "mbed"
+    "arduino"
   ],
   "name": "u-blox EVK-NINA-B1",
   "upload": {

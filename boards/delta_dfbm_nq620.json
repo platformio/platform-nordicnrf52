@@ -21,8 +21,7 @@
     "svd_path": "nrf52.svd"
   },
   "frameworks": [
-    "arduino",
-    "mbed"
+    "arduino"
   ],
   "name": "Delta DFBM-NQ620",
   "upload": {

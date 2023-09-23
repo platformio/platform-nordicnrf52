@@ -1,0 +1,10 @@
+mbed-os/connectivity/cellular/*
+mbed-os/connectivity/FEATURE_BLE/*
+mbed-os/connectivity/libraries/*
+mbed-os/connectivity/lorawan/*
+mbed-os/connectivity/lwipstack/*
+mbed-os/connectivity/mbedtls/*
+mbed-os/connectivity/nanostack/*
+mbed-os/connectivity/netsocket/*
+mbed-os/features/*
+mbed-os/storage/*
