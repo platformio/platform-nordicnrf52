@@ -55,6 +55,12 @@
       "owner": "platformio",
       "version": "~1.10500.0"
     },
+    "framework-arduinoraknrf52": {
+      "type": "framework",
+      "optional": true,
+      "owner": "platformio",
+      "version": "https://github.com/maxgerhardt/RAK-nRF52-Arduino/archive/refs/heads/1.3.3.zip"
+    },
     "framework-arduinonordicnrf5": {
       "type": "framework",
       "optional": true,

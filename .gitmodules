@@ -1,3 +1,4 @@
 [submodule "builder/frameworks/arduino"]
 	path = builder/frameworks/arduino
-	url = https://github.com/platformio/builder-framework-arduino-nrf5.git
+	url = https://github.com/maxgerhardt/builder-framework-arduino-nrf5.git
+	branch = patch-3

@@ -37,8 +37,12 @@ class Nordicnrf52Platform(PlatformBase):
 
             if self.board_config(board).get("build.bsp.name",
                                             "nrf5") == "adafruit":
-                self.frameworks["arduino"][
-                    "package"] = "framework-arduinoadafruitnrf52"
+                if board in ("wiscore_rak4631"):
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoraknrf52"
+                else:
+                    self.frameworks["arduino"][
+                        "package"] = "framework-arduinoadafruitnrf52"
                 self.packages["framework-cmsis"]["optional"] = False
                 self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
