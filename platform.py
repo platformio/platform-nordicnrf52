@@ -54,7 +54,7 @@ class Nordicnrf52Platform(PlatformBase):
                     self.packages["tool-gperf"]["optional"] = False
 
             if board in ("nano33ble", "nicla_sense_me"):
-                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
+                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.70201.0"
                 self.frameworks["arduino"]["package"] = "framework-arduino-mbed"
                 self.frameworks["arduino"][
                     "script"
