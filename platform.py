@@ -39,6 +39,7 @@ class Nordicnrf52Platform(PlatformBase):
                                             "nrf5") == "adafruit":
                 self.frameworks["arduino"][
                     "package"] = "framework-arduinoadafruitnrf52"
+                self.packages["toolchain-gccarmnoneeabi"]["version"] = "~1.80201.0"
                 self.packages["framework-cmsis"]["optional"] = False
                 self.packages["tool-adafruit-nrfutil"]["optional"] = False
 
