@@ -16,6 +16,7 @@ import sys
 from platform import system
 from os import makedirs
 from os.path import isdir, join, basename
+from shutil import which
 
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
                           Builder, Default, DefaultEnvironment)
@@ -52,11 +53,20 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 variant = board.get("build.variant", "")
 
+if which("ccache"):
+    env.Replace(
+        CC="ccache arm-none-eabi-gcc",
+        CXX="ccache arm-none-eabi-g++",
+    )
+else:
+    env.Replace(
+        CC="arm-none-eabi-gcc",
+        CXX="arm-none-eabi-g++",
+    )
+
 env.Replace(
     AR="arm-none-eabi-ar",
     AS="arm-none-eabi-as",
-    CC="arm-none-eabi-gcc",
-    CXX="arm-none-eabi-g++",
     GDB="arm-none-eabi-gdb",
     OBJCOPY="arm-none-eabi-objcopy",
     RANLIB="arm-none-eabi-ranlib",
