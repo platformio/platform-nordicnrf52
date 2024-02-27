@@ -1,25 +1,23 @@
 {
   "build": {
-    "arduino":{
+    "arduino": {
       "ldscript": "nrf52833_xxaa.ld"
     },
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_BBC_MICROBIT_V2 -DNRF52833_XXAA -DUSE_LFSYNT",
-    "f_cpu": "64000000L",
-    "mcu": "nrf52833",
-    "variant": "BBCmicrobitV2",
-    "zephyr": {
-      "variant": "bbc_microbit_v2"
-    }
-  },
-  "connectivity": [
-    "bluetooth"
-  ],
-  "debug": {
-    "onboard_tools": [
-      "cmsis-dap"
+    "extra_flags": "-DNRF52833_XXAA -DARDUINO_CALLIOPE_MINI_V3 -DUSE_LFSYNT",
+    "f_cpu": "64000000",
+    "hwids": [
+      [
+        "0x0D28",
+        "0x0204"
+      ]
     ],
+    "mcu": "nrf52833",
+    "usb_product": "CalliopeMiniV3",
+    "variant": "CalliopeminiV3"
+  },
+  "debug": {
     "svd_path": "nrf52.svd",
     "openocd_extra_args": [
       "-c",
@@ -28,23 +26,20 @@
     "jlink_device": "nRF52833_xxAA"
   },
   "frameworks": [
-    "arduino",
-    "zephyr"
+    "arduino"
   ],
-  "name": "BBC micro:bit V2",
+  "name": "Calliope Mini v3",
   "upload": {
     "maximum_ram_size": 131072,
     "maximum_size": 524288,
     "protocol": "cmsis-dap",
     "protocols": [
-      "jlink",
-      "nrfjprog",
-      "stlink",
       "blackmagic",
       "cmsis-dap",
-      "mbed"
+      "jlink",
+      "stlink"
     ]
   },
-  "url": "https://microbit.org/new-microbit/",
-  "vendor": "BBC"
+  "url": "https://calliope.cc",
+  "vendor": "Calliope"
 }
