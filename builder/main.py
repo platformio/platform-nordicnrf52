@@ -401,10 +401,16 @@ elif upload_protocol in debug_tools:
         openocd_args.extend(
             ["-c", "adapter speed %s" % env.GetProjectOption("debug_speed")]
         )
-    openocd_args.extend([
-        "-c", "program {$SOURCE} %s verify reset; shutdown;" %
-        board.get("upload.offset_address", "")
-    ])
+    if "arduino" in env.get("PIOFRAMEWORK", []):
+        openocd_args.extend([
+            "-c", "program $BUILD_DIR/${PROGNAME}.bin %s verify reset; shutdown;" %
+            board.get("upload.offset_address", "0x26000")
+        ])
+    else:
+        openocd_args.extend([
+            "-c", "program {$SOURCE} %s verify reset; shutdown;" %
+                  board.get("upload.offset_address", "")
+        ])
     openocd_args = [
         f.replace("$PACKAGE_DIR",
                   platform.get_package_dir("tool-openocd") or "")
