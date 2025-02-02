@@ -2,7 +2,10 @@
   "build": {
     "cpu": "cortex-m4",
     "f_cpu": "64000000L",
-    "mcu": "nrf52832"
+    "mcu": "nrf52840",
+	"zephyr": {
+        "variant": "nrf52840_mdk"
+	}
   },
   "connectivity": [
     "bluetooth"
@@ -11,19 +14,19 @@
     "default_tools": [
       "cmsis-dap"
     ],
-    "jlink_device": "nRF52832_xxAA",
+    "jlink_device": "nRF52840_xxAA",
     "onboard_tools": [
       "cmsis-dap"
     ],
-    "svd_path": "nrf52.svd"
+    "svd_path": "nrf52840.svd"
   },
   "frameworks": [
     "zephyr"
   ],
-  "name": "Makerdiary nRF52832-MDK",
+  "name": "Makerdiary nRF52840-MDK",
   "upload": {
-    "maximum_ram_size": 65536,
-    "maximum_size": 524288,
+    "maximum_ram_size": 262144,
+    "maximum_size": 1048576,
     "protocol": "cmsis-dap",
     "protocols": [
       "jlink",
@@ -34,6 +37,6 @@
       "mbed"
     ]
   },
-  "url": "https://wiki.makerdiary.com/nrf52832-mdk/",
+  "url": "https://wiki.makerdiary.com/nrf52840-mdk",
   "vendor": "Makerdiary"
 }
