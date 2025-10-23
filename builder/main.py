@@ -363,11 +363,11 @@ elif upload_protocol.startswith("jlink"):
         script_path = join(build_dir, "upload.jlink")
         commands = ["h"]
         if "DFUBOOTHEX" in env:
-            commands.append("loadbin %s,%s" % (str(source).replace("_signature", ""),
+            commands.append('loadbin "%s",%s' % (str(source).replace("_signature", ""),
                 env.BoardConfig().get("upload.offset_address", "0x26000")))
-            commands.append("loadbin %s,%s" % (source, env.get("BOOT_SETTING_ADDR")))
+            commands.append('loadbin "%s",%s' % (source, env.get("BOOT_SETTING_ADDR")))
         else:
-            commands.append("loadbin %s,%s" % (source, env.BoardConfig().get(
+            commands.append('loadbin "%s",%s' % (source, env.BoardConfig().get(
                 "upload.offset_address", "0x0")))
 
         commands.append("r")
