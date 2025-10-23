@@ -18,7 +18,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-nordicnrf52.git"
   },
-  "version": "10.9.0",
+  "version": "10.10.0",
   "frameworks": {
     "arduino": {
       "package": "framework-arduinonordicnrf5",
@@ -54,7 +54,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.10601.0"
+      "version": "~1.10700.0"
     },
     "framework-arduinonordicnrf5": {
       "type": "framework",
@@ -66,7 +66,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~4.3.1"
+      "version": "~4.4.1"
     },
     "framework-cmsis": {
       "type": "framework",
