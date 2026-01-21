@@ -241,7 +241,7 @@ if "DFUBOOTHEX" in env:
         None,
         [
             env.VerboseAction(
-                "nrfjprog --program $DFUBOOTHEX -f nrf52 --chiperase",
+                "nrfjprog --program \"$DFUBOOTHEX\" -f nrf52 --chiperase",
                 "Uploading $DFUBOOTHEX",
             ),
             env.VerboseAction(
@@ -314,7 +314,7 @@ elif upload_protocol == "nrfjprog":
             "--sectorerase" if "DFUBOOTHEX" in env else "--chiperase",
             "--reset"
         ],
-        UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program $SOURCE"
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS --program \"$SOURCE\""
     )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
