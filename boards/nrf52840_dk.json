@@ -5,10 +5,10 @@
     },
     "core": "nRF5",
     "cpu": "cortex-m4",
-    "extra_flags": "-DARDUINO_NRF52_DK",
+    "extra_flags": "-DARDUINO_NRF52840_DK -DNRF52840_XXAA",
     "f_cpu": "64000000L",
     "mcu": "nrf52840",
-    "variant": "nRF52DK",
+    "variant": "nRF52840DK",
     "zephyr": {
        "variant": "nrf52840dk_nrf52840"
     }
