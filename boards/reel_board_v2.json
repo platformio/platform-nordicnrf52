@@ -10,7 +10,7 @@
       ]
     ],
     "zephyr": {
-      "variant": "reel_board_v2"
+      "variant": "reel_board@2"
     }
   },
   "connectivity": [

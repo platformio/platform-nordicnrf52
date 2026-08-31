@@ -4,7 +4,7 @@
     "f_cpu": "64000000L",
     "mcu": "nrf52840",
     "zephyr": {
-      "variant": "ubx_bmd345eval_nrf52840"
+      "variant": "ubx_bmd345eval"
     }
   },
   "connectivity": [
