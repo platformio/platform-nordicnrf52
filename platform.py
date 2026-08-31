@@ -139,7 +139,7 @@ class Nordicnrf52Platform(PlatformBase):
                 if link == "stlink":
                     server_args.extend([
                         "-c",
-                        "transport select hla_swd; set WORKAREASIZE 0x4000"
+                        "transport select swd; set WORKAREASIZE 0x4000"
                     ])
                 server_args.extend(["-f", "target/nrf52.cfg"])
                 debug["tools"][link] = {
