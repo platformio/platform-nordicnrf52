@@ -78,7 +78,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~3.40401.0"
+      "version": "~3.40402.0"
     },
     "tool-adafruit-nrfutil": {
       "owner": "platformio",
