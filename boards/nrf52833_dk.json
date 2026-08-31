@@ -4,7 +4,7 @@
     "f_cpu": "64000000L",
     "mcu": "nrf52833",
     "zephyr": {
-      "variant": "nrf52833dk_nrf52833"
+      "variant": "nrf52833dk/nrf52833"
     }
   },
   "connectivity": [

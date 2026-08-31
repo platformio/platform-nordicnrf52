@@ -10,7 +10,7 @@
     "mcu": "nrf52840",
     "variant": "nRF52DK",
     "zephyr": {
-       "variant": "nrf52840dk_nrf52840"
+       "variant": "nrf52840dk/nrf52840"
     }
   },
   "connectivity": [

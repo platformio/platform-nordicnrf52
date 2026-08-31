@@ -40,7 +40,7 @@
       "version": ">=1.60301.0,<1.80000.0",
       "optionalVersions": [
         "~1.70201.0",
-        "~1.80201.0",
+        "~1.120301.0",
         "~1.90201.0"
       ]
     },
@@ -78,7 +78,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~2.20701.0"
+      "version": "~3.40402.0"
     },
     "tool-adafruit-nrfutil": {
       "owner": "platformio",

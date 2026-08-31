@@ -28,6 +28,9 @@
     "usb_product": "Adafruit LED Glasses",
     "mcu": "nrf52840",
     "variant": "ledglasses_nrf52840",
+    "zephyr": {
+       "variant": "adafruit_feather_nrf52840"
+    },
     "bsp": {
       "name": "adafruit"
     },
