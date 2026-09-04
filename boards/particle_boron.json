@@ -2,7 +2,13 @@
   "build": {
     "cpu": "cortex-m4",
     "f_cpu": "64000000L",
-    "mcu": "nrf52840"
+    "mcu": "nrf52840",
+    "softdevice": {
+      "sd_flags": "-DS140",
+      "sd_name": "s140",
+      "sd_version": "6.1.1",
+      "sd_fwid": "0x00B6"
+    }
   },
   "connectivity": [
     "bluetooth"
